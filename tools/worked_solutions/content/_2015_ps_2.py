@@ -509,7 +509,7 @@ def _remote_plan():
 def _views_bd():
     boxes = [(9, 56), (68, 115), (127, 174), (186, 233), (245, 292)]
     parts, lab = [], []
-    for ox, title, ok in ((20, 'B: big buttons taller', True), (350, 'D', False)):
+    for ox, title, ok in ((20, 'B: big buttons taller ✓', True), (350, 'D: impossible ✗', False)):
         base = 150
         parts.append(rect(ox, base, 300, 54, k='ink', fill='paper', sw=2))
         for a, b in ((9, 68), (92, 150)):
@@ -519,13 +519,13 @@ def _views_bd():
                 parts.append(f'<rect x="{ox + a}" y="{base - 14}" width="{b - a}" height="14" class="k-red f-none" stroke-width="2.2" stroke-dasharray="4 3"/>')
                 continue
             parts.append(rect(ox + a, base - 14, b - a, 14, k='ink', fill='b', sw=1.6))
-        lab.append(text(ox + 150, base + 82, title, k='green' if ok else 'red', size=19))
-    lab += [text(20 + 34, 72, 'r5 in front ✓', k='green', size=16),
-            text(350 + 34, 72, 'r5 missing!', k='red', size=18, font='scrawl'),
-            arrow(350 + 40, 80, 350 + 34, 128, k='red', bend=0.2),
-            text(350 + 150, 232, 'D: nothing in front of the big button', k='red', size=16),
-            text(20 + 150, 232, 'the r5 buttons show in front', k='green', size=16)]
-    return svg(670, 250, rough(*parts) + ''.join(lab),
+        lab.append(text(ox + 150, base + 84, title, k='green' if ok else 'red', size=20))
+    parts += [arrow(20 + 60, 76, 20 + 34, 130, k='green', bend=0.2), arrow(350 + 60, 76, 350 + 34, 130, k='red', bend=0.2)]
+    lab += [text(20 + 64, 70, 'r5 block in front of the big button', k='green', size=16, anchor='start'),
+            text(350 + 64, 70, 'r5 block missing!', k='red', size=20, font='scrawl', anchor='start'),
+            text(20 + 150, 258, 'orange = big buttons (behind)', k='orange', size=15),
+            text(350 + 150, 258, 'but the black button is nearest you', k='red', size=15)]
+    return svg(670, 270, rough(*parts) + ''.join(lab),
                'Views B and D side by side: in B the row-5 block sits in front of the tall big button; in D that block is missing')
 
 Q.append(dict(

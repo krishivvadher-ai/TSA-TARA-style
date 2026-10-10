@@ -86,8 +86,8 @@ def _offcuts():
     specs = [('A', 4.5, 3.7, 20, 40, '1.1 m strip: too narrow', 'red'),
              ('B', 5.0, 4.0, 240, 40, '1.4 m strip: too narrow', 'red'),
              ('C', 4.2, 4.4, 470, 40, '1.8 m strip: lobby fits ✓', 'green'),
-             ('D', 5.8, 2.6, 20, 300, '1.6 m left: too narrow', 'red'),
-             ('E', 4.8, 4.0, 300, 300, '1.4 m strip: too narrow', 'red')]
+             ('D', 5.8, 2.6, 20, 284, '1.6 m left: too narrow', 'red'),
+             ('E', 4.8, 4.0, 300, 284, '1.4 m strip: too narrow', 'red')]
     for name, w, h, x, y, msg, col in specs:
         parts.append(rect(x, y, w * s, h * s, k='ink', fill='paper', sw=2))
         if name == 'D':
@@ -294,7 +294,7 @@ Q.append(dict(
         f"""<p>Find the stubs in each picture:</p>
 <ul><li><b>A</b>: the arms lie flat on the table. One stub lies flat too (pointing away from the other arm); the other is the tower going <b>up</b>.</li>
 <li><b>D</b>: the arms are the tall column and the arm coming forward. One stub hangs down (in the same flat plane, pointing away from the column); the other sticks out <b>sideways</b> to the left.</li>
-<li><b>C</b>: the arms are the column and the bottom row. One stub hangs down (flat, pointing away from the column); the other goes <b>backwards</b> from the top of the column.</li>
+<li><b>C</b>: the arms are the column and the bottom row. One stub hangs down (flat, pointing away from the column); the other goes <b>backwards</b> from near the top of the column.</li>
 <li><b>B</b>: arms = column and bottom row. One stub comes forwards along the floor, the other goes backwards from the column: <b>opposite</b> ways, both out of the flat L.</li>
 <li><b>E</b>: arms flat on the table. One stub goes up, the other hangs down: again <b>opposite</b> ways, both out of the L.</li></ul>
 {calc(f'B and E have both stubs sticking out in opposite directions {ar()} <b>B = E</b>')}""",
