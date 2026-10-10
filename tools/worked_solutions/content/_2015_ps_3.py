@@ -491,7 +491,7 @@ def _fields():
     for n, (x, y) in T.items():
         parts.append(circle(x, y, 9, k='ink', fill='y', sw=2))
         lab.append(text(x, y + 5, n, k='ink', size=13, font='print', weight='700'))
-    lab += [text(310, 130, 'field X', k='muted', size=16), text(100, 334, 'field Y', k='green', size=16, anchor='start'),
+    lab += [text(310, 156, 'field X', k='muted', size=16), text(100, 334, 'field Y', k='green', size=16, anchor='start'),
             text(310, 262, '1 4 3 2', k='ink', size=20, font='print'),
             text(160, 196, '4 3 1 2', k='ink', size=19, font='print'),
             text(170, 300, '4 1 3 2', k='ink', size=19, font='print'),
