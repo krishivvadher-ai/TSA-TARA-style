@@ -31,7 +31,9 @@ def _rota():
     fx, px = x0 + 1 * cw + cw / 2, x0 + 3 * cw + cw / 2
     parts.append(_dbl(fx + 26, 60, px - 26, 60, k='red', bend=-0.14))
     lab += [text((fx + px) / 2, 30, 'swap Fay (Tue) and Pat (Thu)', k='red', size=18, font='scrawl'),
-            text(40, 236, 'After the swap:   Tue: Eve, Pat, Tim     Thu: Mel, Fay, Tim', k='pen', size=17, anchor='start'),
+            text(40, 236, 'After the swap:', k='ink', size=17, anchor='start'),
+            text(180, 236, 'Tue = Eve, Pat, Tim', k='pen', size=17, anchor='start'),
+            text(390, 236, 'Thu = Mel, Fay, Tim', k='pen', size=17, anchor='start'),
             text(40, 264, 'Fay works Thu + Sat, Pat works Tue + Sat: never two evenings in a row ✓', k='green', size=16, anchor='start'),
             text(40, 290, 'Fay–Tim and Pat–Tim now meet only once; Fay–Pat only on Sat ✓', k='green', size=16, anchor='start')]
     return svg(660, 306, rough(*parts) + ''.join(lab),
@@ -101,7 +103,7 @@ def _scatter():
             text(X(50), Yp(0) + 42, 'starting mark →', k='ink', size=16),
             text(26, Yp(50), 'end mark →', k='ink', size=16, rotate=-90)]
     return svg(520, 354, rough(*parts) + ''.join(lab),
-               'The scatter graph with axes 0 to 100 and each student named; the dot at starting mark 48 and end mark 80 should be Gary at 48, 50')
+               'The scatter graph with axes 0 to 100 and each student named; the dot at starting mark 48 and end mark 80 should be Gary at 48, 50', maxw=620)
 
 
 Q.append(dict(
@@ -320,7 +322,7 @@ wins a minor prize because 1 × 4 × 3 = 12.</p>
            (3, 'b', 'The most possible = every winning ticket number is sold. Minor prizes (12) are a distraction.')],
     steps=[
         f"""<p>Which three digits multiply to 8? Split 8 into three factors (each from 1 to 9):</p>
-{calc('8 = 1 × 1 × 8', '8 = 1 × 2 × 4', '8 = 2 × 2 × 2', 'that’s all: no zeros allowed, and no other digit divides into 8')}""",
+{calc('8 = 1 × 1 × 8', '8 = 1 × 2 × 4', '8 = 2 × 2 × 2', 'that’s all: no 0s, and the only digits that go into 8 are 1, 2, 4 and 8')}""",
         f"""<p>Now write out every order of each set:</p>{_tickets()}
 {note('Three different digits can be ordered in 3 × 2 × 1 = 6 ways. With two the same there are only 3 ways (where does the odd one go?). All three the same: just 1.', 'tip')}""",
         f"""{calc(f'3 + 6 + 1 = {boxed("10")}')}""",
@@ -466,17 +468,17 @@ def _books():
             ('Harriet', 10, '4 × 1 + 3 × 2', 30, [('£14', 'Come Back'), ('£16', 'The Biraffe')], 'o'),
             ('Mehran', 3, '2 × 1.5 h', 9, [('£9', 'The Celebrated Six')], 'g')]
     parts, lab = [], []
-    lab += [text(100, 26, 'hours a week', k='muted', size=15, anchor='start'), text(258, 26, '£3 per hour', k='muted', size=15),
-            text(300, 26, 'books', k='muted', size=15, anchor='start')]
+    lab += [text(100, 26, 'hours a week', k='muted', size=15, anchor='start'), text(274, 26, '£3 an hour', k='muted', size=15),
+            text(314, 26, 'books', k='muted', size=15, anchor='start')]
     for i, (nm, h, how, share, books, f) in enumerate(kids):
         y = 46 + i * 84
         lab.append(text(14, y + 26, nm, k='ink', size=19, anchor='start'))
         parts.append(rect(100, y + 6, h * 14, 30, k='ink', fill=f, sw=1.6))
         lab.append(text(100 + h * 14 / 2, y + 27, f'{h} h', k='ink', size=16))
         lab.append(text(100, y + 58, how, k='muted', size=14, anchor='start'))
-        lab.append(text(258, y + 28, f'£{share}', k='red', size=22, font='scrawl'))
+        lab.append(text(274, y + 28, f'£{share}', k='red', size=22, font='scrawl'))
         for j, (p, t) in enumerate(books):
-            x = 300 + j * 150
+            x = 314 + j * 150
             parts.append(rect(x, y, 142, 52, k='ink', fill='paper', sw=1.8, rx=4))
             parts.append(line(x + 10, y, x + 10, y + 52, k='ink', w=1.4))
             lab.append(text(x + 76, y + 22, p, k='ink', size=18))

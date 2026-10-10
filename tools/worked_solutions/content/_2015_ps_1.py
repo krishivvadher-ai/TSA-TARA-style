@@ -88,9 +88,9 @@ Q.append(dict(
 he gets the following information:</p>
 {table([['Rare', '---', '10 minutes per 500 g'],
         ['Medium rare', '20 minutes per 500 g plus 20 mins', hl('15 minutes per 500 g plus 15 minutes', 'y', 4)],
-        ['Well done', '30 minutes per 500 g plus 30 minutes', '---'],
-        [hl('Allow 300 g per person.', 'g', 2), '', '']],
+        ['Well done', '30 minutes per 500 g plus 30 minutes', '---']],
        head=['BEEF', 'Medium oven', 'Hot oven'])}
+<p>{hl('Allow 300 g per person.', 'g', 2)}</p>
 <p>After removing from the oven, the meat should be allowed to {hl('stand for 10 minutes', 'p', 3)}.</p>
 {table([['', '40 minutes', hl('30 minutes', 'g')]], head=['ROAST POTATOES', 'Medium oven', 'Hot oven'])}
 <p>William buys a joint of the correct weight and decides to cook it {hl('medium rare in a hot oven', 'y', 4)}.</p>
@@ -187,34 +187,32 @@ criteria have been met, the prize will be awarded to the student with the {hl('f
 
 # ---------------------------------------------------------------- 4 (Q8)
 def _seasons():
-    x0, w = 130, 38
+    x0, w = 120, 40
     months = 'JFMAMJJASOND'
     parts, lab = [], []
-    for row, (y, title, winter) in enumerate(((70, 'North polar', (11, 0, 1)), (210, 'South polar', (5, 6, 7)))):
-        lab.append(text(x0 - 12, y + 26, title, k='ink', size=17, anchor='end'))
+    for row, (y, title, winter) in enumerate(((80, 'North', (11, 0, 1)), (220, 'South', (5, 6, 7)))):
+        lab.append(text(x0 - 12, y + 25, title, k='ink', size=19, anchor='end'))
         for i, m in enumerate(months):
             parts.append(rect(x0 + i * w, y, w, 36, k='ink', fill='b' if i in winter else 'paper', sw=1.4))
             lab.append(text(x0 + i * w + w / 2, y + 25, m, k='ink', size=16, font='print'))
+
     def hill(i, y, k, label, up=True):
         cx = x0 + i * w + w / 2
-        if up:
-            p = path(f'M{cx - 30} {y} Q{cx} {y - 52} {cx + 30} {y}', k=k, sw=3)
-            t = text(cx, y - 32, label, k=k, size=15)
-        else:
-            p = path(f'M{cx - 30} {y} Q{cx} {y + 52} {cx + 30} {y}', k=k, sw=3)
-            t = text(cx, y + 42, label, k=k, size=15)
+        d = -1 if up else 1
+        p = path(f'M{cx - 32} {y} Q{cx} {y + d * 48} {cx + 32} {y}', k=k, sw=3)
+        t = text(cx, y - 32 if up else y + 50, label, k=k, size=18, font='scrawl')
         return p, t
-    for i, y, k, label, up in ((5, 70, 'green', 'plant peak', True), (9, 70, 'orange', 'animal peak', True),
-                               (11, 246, 'green', 'plant peak', False), (3, 246, 'orange', 'animal peak', False)):
+    for i, y, k, label, up in ((5, 80, 'green', 'plant peak', True), (9, 80, 'orange', 'animal peak', True),
+                               (11, 256, 'green', 'plant peak', False), (3, 256, 'orange', 'animal peak', False)):
         p, t = hill(i, y, k, label, up)
         parts.append(p)
         lab.append(t)
-    parts += [arrow(x0 + 5.5 * w + 10, 112, x0 + 11.5 * w - 6, 206, k='green', bend=0.08),
-              arrow(x0 + 9.5 * w - 10, 112, x0 + 3.5 * w + 6, 206, k='orange', bend=-0.08)]
-    lab += [text(x0 + 8.9 * w, 150, '+6 months', k='green', size=18, font='scrawl', anchor='start'),
-            text(x0 + 4.2 * w, 150, '+6 months (wraps round)', k='orange', size=18, font='scrawl', anchor='end'),
-            text(x0 + 12 * w + 8, 92, 'blue = winter', k='pen', size=15, anchor='start')]
-    return svg(640, 320, rough(*parts) + ''.join(lab),
+    parts += [arrow(x0 + 5.5 * w + 10, 122, x0 + 11.5 * w - 6, 214, k='green', bend=0.08),
+              arrow(x0 + 9.5 * w - 10, 122, x0 + 3.5 * w + 6, 214, k='orange', bend=-0.08)]
+    lab += [text(x0 + 8.9 * w, 162, '+6 months', k='green', size=19, font='scrawl', anchor='start'),
+            text(x0 + 4.2 * w, 162, '+6 months (wraps round)', k='orange', size=19, font='scrawl', anchor='end'),
+            text(12, 24, 'blue = winter', k='pen', size=16, anchor='start')]
+    return svg(620, 320, rough(*parts) + ''.join(lab),
                'Month strips: north polar plant peak in June and animal peak in October; in the south both move 6 months, to December and April')
 
 Q.append(dict(
@@ -259,18 +257,18 @@ the amount of sunlight.</p>
 # ---------------------------------------------------------------- 5 (Q12)
 def _drinks():
     rows = [('Prefer A', 122, 'b'), ('Prefer B', 103, 'g'), ('No preference', 101, 'o'), ("Don't know", 74, 'v')]
-    X = lambda v: 160 + v * 3.3
+    X = lambda v: 150 + v * 3.0
     parts, lab = [], []
     for i, (name, v, f) in enumerate(rows):
         y = 40 + i * 50
         parts.append(rect(X(0), y, X(v) - X(0), 32, k='ink', fill=f, sw=1.6))
-        lab.append(text(150, y + 22, name, k='ink', size=17, anchor='end'))
-        lab.append(text(X(v) + 8, y + 22, v, k='ink', size=18, anchor='start'))
+        lab.append(text(140, y + 22, name, k='ink', size=17, anchor='end'))
+        lab.append(text(X(v) - 8, y + 23, v, k='ink', size=18, anchor='end'))
     parts.append(line(X(80), 28, X(80), 250, k='red', w=2.2, dash=True))
-    parts.append(brace(X(101), X(103), 90, '', k='green'))
-    lab += [text(X(80), 268, '20% of 400 = 80', k='red', size=16, font='scrawl'),
-            text(X(103) + 50, 78, '103 &gt; 101, just!', k='green', size=19, font='scrawl', anchor='start'),
-            text(X(0), 22, 'add the 4 age groups (out of 400)', k='muted', size=15, anchor='start')]
+    parts.append(path(f'M{X(103) + 8} 106 q12 0 12 12 L{X(103) + 20} 144 q0 12 -12 12', k='green', sw=2.2))
+    lab += [text(X(80), 270, '20% of 400 = 80', k='red', size=17, font='scrawl'),
+            text(X(103) + 28, 138, '103 &gt; 101, just!', k='green', size=20, font='scrawl', anchor='start'),
+            text(X(0), 24, 'add the 4 age groups (out of 400)', k='muted', size=15, anchor='start')]
     return svg(620, 280, rough(*parts) + ''.join(lab),
                'Totals out of 400: prefer A 122, prefer B 103, no preference 101, do not know 74, below the 20 percent line at 80')
 
@@ -316,29 +314,33 @@ with the following results ({hl('all figures are percentages', 'y', 1)}):</p>
 
 # ---------------------------------------------------------------- 6 (Q13)
 def _tariff():
-    X = lambda u: 70 + (u - 50) * 4.6
-    Yc = lambda c: 262 - (c - 30) * 10.5
+    X = lambda u: 80 + (u - 50) * 4.7
+    Yc = lambda c: 300 - (c - 30) * 11.5
     parts, lab = [line(X(50), Yc(30), X(162), Yc(30), k='ink', head=True),
-                  line(X(50), Yc(30), X(50), Yc(51), k='ink', head=True)], []
+                  line(X(50), Yc(30), X(50), Yc(51.5), k='ink', head=True)], []
     for u in range(50, 161, 25):
-        lab.append(text(X(u), Yc(30) + 22, u, k='muted', size=14))
+        lab.append(text(X(u), Yc(30) + 22, u, k='muted', size=15))
     for c in range(30, 51, 5):
-        lab.append(text(X(50) - 8, Yc(c) + 5, f'£{c}', k='muted', size=14, anchor='end'))
+        lab.append(text(X(50) - 8, Yc(c) + 5, f'£{c}', k='muted', size=15, anchor='end'))
     parts.append(line(X(50), Yc(35), X(160), Yc(46), k='pen', w=2.4))
     parts.append(line(X(50), Yc(30), X(150), Yc(50), k='orange', w=2.4))
-    old = [('Jan', 125, 42.5), ('Feb', 150, 45), ('Mar', 130, 43), ('Apr', 110, 41), ('May', 95, 39.5),
-           ('Jun', 75, 37.5), ('Jul', 60, 36), ('Aug', 70, 37)]
-    new = [('Sep', 80, 36), ('Oct', 100, 40), ('Nov', 110, 42), ('Dec', 130, 46)]
-    for m, u, c in old:
-        parts.append(circle(X(u), Yc(c), 5, k='pen', fill='b', sw=2))
-        lab.append(text(X(u) + 4, Yc(c) + 22, m, k='pen', size=14))
-    for m, u, c in new:
-        parts.append(circle(X(u), Yc(c), 5, k='orange', fill='o', sw=2))
-        lab.append(text(X(u) - 8, Yc(c) - 9, m, k='orange', size=15, anchor='end'))
-    lab += [text(X(160), Yc(46) + 30, 'old: £30 + 10p a unit', k='pen', size=16, anchor='end'),
-            text(X(146), Yc(50) - 8, 'new: £20 + 20p a unit', k='orange', size=16, anchor='end'),
+    old = [(125, 42.5), (150, 45), (130, 43), (110, 41), (95, 39.5), (75, 37.5), (60, 36), (70, 37)]
+    new = [(80, 36), (100, 40), (110, 42), (130, 46)]
+    for u, c in old:
+        parts.append(circle(X(u), Yc(c), 5.5, k='pen', fill='b', sw=2))
+    for u, c in new:
+        parts.append(circle(X(u), Yc(c), 5.5, k='orange', fill='o', sw=2))
+    parts += [circle(X(80), Yc(36), 13, k='red', sw=2.4),
+              line(X(80), Yc(36) - 14, X(80), Yc(38) + 6, k='red', w=2, dash=True),
+              circle(X(100), Yc(40), 13, k='violet', sw=2)]
+    lab += [text(X(80) + 18, Yc(36) + 30, 'Sep: £36, but old tariff says £38', k='red', size=17, anchor='start'),
+            text(X(100) + 14, Yc(40) - 16, 'Oct fits both', k='violet', size=16, anchor='start'),
+            circle(X(50) + 26, 52, 6, k='pen', fill='b', sw=2),
+            text(X(50) + 40, 58, 'Jan–Aug: old, £30 + 10p a unit', k='pen', size=17, anchor='start'),
+            circle(X(50) + 26, 82, 6, k='orange', fill='o', sw=2),
+            text(X(50) + 40, 88, 'Sep–Dec: new, £20 + 20p a unit', k='orange', size=17, anchor='start'),
             text(X(105), Yc(30) + 44, 'units used', k='ink', size=15)]
-    return svg(620, 330, rough(*parts) + ''.join(lab),
+    return svg(620, 356, rough(*parts) + ''.join(lab),
                'Charge against units: January to August lie on the old line (30 pounds plus 10p a unit), September to December on the new line (20 pounds plus 20p a unit)')
 
 Q.append(dict(
@@ -364,11 +366,11 @@ less electricity.</p>
 {calc(f'25 more units cost £2.50 more {ar()} <b>10p a unit</b>',
       f'standing charge = £42.50 − 125 × 10p = £42.50 − £12.50 = <b>£30</b>')}""",
         f"""<p>Test each month with £30 + 10p a unit:</p>
-{calc('Mar 30 + 13 = 43 ' + tick() + '  Apr 30 + 11 = 41 ' + tick() + '  May 30 + 9.50 = 39.50 ' + tick(),
-      'Jun 30 + 7.50 = 37.50 ' + tick() + '  Jul 30 + 6 = 36 ' + tick() + '  Aug 30 + 7 = 37 ' + tick(),
+{calc('Mar 30 + 13 = 43 ' + tick() + ' · Apr 30 + 11 = 41 ' + tick() + ' · May 30 + 9.50 = 39.50 ' + tick(),
+      'Jun 30 + 7.50 = 37.50 ' + tick() + ' · Jul 30 + 6 = 36 ' + tick() + ' · Aug 30 + 7 = 37 ' + tick(),
       f'Sep 30 + 8 = 38, but the bill is £36 {cross()} {ar()} changed in <b>September</b>')}""",
         f"""<p>Check with the new tariff from October and November: 10 more units cost £2 more, so 20p a unit and a standing charge of £40 − £20 = £20.</p>
-{calc('Sep 20 + 16 = 36 ' + tick() + '  Dec 20 + 26 = 46 ' + tick())}
+{calc('Sep 20 + 16 = 36 ' + tick() + ' · Dec 20 + 26 = 46 ' + tick())}
 {_tariff()}
 {calc(f'answer = {boxed("September")}')}
 {note('October (100 units, £40) fits <b>both</b> tariffs, because the two lines cross at 100 units. That is why you must test month by month.', 'trap')}""",
@@ -386,7 +388,7 @@ less electricity.</p>
 def _two_tables():
     X = lambda v: 60 + v * 62
     parts, lab = [], []
-    for y, title, lo, hi, col in ((70, "by parents' job", 1.6, 7.3, 'orange'), (170, 'by type of school', 3.8, 7.2, 'pen')):
+    for y, title, lo, hi, col in ((84, "by parents' job", 1.6, 7.3, 'orange'), (194, 'by type of school', 3.8, 7.2, 'pen')):
         parts.append(line(X(0), y, X(8), y, k='ink', w=1.6))
         for v in range(0, 9):
             parts.append(line(X(v), y - 5, X(v), y + 5, k='ink', w=1.3))
@@ -394,12 +396,12 @@ def _two_tables():
         parts.append(line(X(lo), y, X(hi), y, k=col, w=7))
         parts.append(circle(X(lo), y, 6, k=col, fill='paper', sw=2.4))
         parts.append(circle(X(hi), y, 6, k=col, fill='paper', sw=2.4))
-        lab.append(text(X(0), y - 16, title, k=col, size=17, anchor='start'))
-        lab.append(text(X(lo), y - 14, lo, k=col, size=15))
-        lab.append(text(X(hi), y - 14, hi, k=col, size=15))
-    lab += [text(X(4), 236, 'two separate tables: nothing links a child’s school to a parent’s job', k='red', size=16),
-            text(X(4), 258, 'so you can only say that both factors line up with results', k='ink', size=16)]
-    return svg(620, 270, rough(*parts) + ''.join(lab),
+        lab.append(text(X(0), y - 40, title, k=col, size=18, anchor='start'))
+        lab.append(text(X(lo), y - 14, lo, k=col, size=16))
+        lab.append(text(X(hi), y - 14, hi, k=col, size=16))
+    lab += [text(X(4), 256, 'two separate tables: nothing links a child’s school to a parent’s job', k='red', size=16),
+            text(X(4), 280, 'so you can only say that both factors line up with results', k='ink', size=16)]
+    return svg(620, 292, rough(*parts) + ''.join(lab),
                'Two number lines of average GCSEs: by parents job from 1.6 to 7.3, by school type from 3.8 to 7.2, with no link between them')
 
 Q.append(dict(
@@ -443,7 +445,7 @@ You cannot tell whose parents are managers <b>and</b> at independent schools.</p
 # ---------------------------------------------------------------- 8 (Q18)
 def _rooms():
     caps = [26, 20, 24, 28, 24, 20, 24, 16, 20, 18, 26]
-    s, base, x = 5.2, 200, 30
+    s, base, x = 5.0, 200, 24
     parts, lab = [], []
     gap = 3.3
     for c in caps:
@@ -451,11 +453,11 @@ def _rooms():
         parts.append(rect(x, base - h, 40, h, k='ink', fill='paper', sw=1.6))
         parts.append(rect(x, base - h + gap * s, 40, h - gap * s, k='ink', fill='b', sw=1.2))
         lab.append(text(x + 20, base + 20, c, k='ink', size=15))
-        x += 50
+        x += 48
     parts.append(line(20, base, x, base, k='ink', w=2))
-    lab += [text(300, 30, 'every room: same empty strip on top', k='red', size=18, font='scrawl'),
+    lab += [text(300, 30, 'every room: the same empty strip on top', k='red', size=23, font='scrawl'),
             text(300, 248, 'desks: 246 in total. Students: 420 − 210 = 210', k='ink', size=16),
-            text(300, 272, 'empty: 246 − 210 = 36, shared by 11 rooms', k='pen', size=16)]
+            text(300, 272, 'empty: 246 − 210 = 36, shared by 11 rooms (blue = students)', k='pen', size=16)]
     return svg(600, 284, rough(*parts) + ''.join(lab),
                'Eleven room bars of different heights, each with the same empty strip at the top; 246 desks, 210 students, 36 empty')
 

@@ -117,12 +117,12 @@ Q.append(dict(
     n=10, orig=20, answer='E', topic='Pie charts & ratios',
     question=f"""<p>The sales for the four departments of a store are shown in the two pie charts below.</p>
 {fig(Y, 'ps_q10_pies', 'Two pie charts. Total sales: food a third, clothes a third, stationery and furniture share the rest. Number of customers: food half, clothes a quarter, stationery most of the rest, furniture a thin slice.', 460)}
-<p class="stem">Which one of the following lists the departments in order, {hl('from highest', 'y', 2)} {hl('average amount spent per customer', 'b', 1)} to lowest?</p>""",
+<p class="stem">Which one of the following lists the departments in order, {hl('from highest', 'y', 1)} {hl('average amount spent per customer', 'b', 2)} to lowest?</p>""",
     options={'A': 'clothes, furniture, stationery, food', 'B': 'food, clothes, stationery, furniture',
              'C': 'food, stationery, clothes, furniture', 'D': 'food, stationery, furniture, clothes',
              'E': 'furniture, clothes, stationery, food'},
-    notes=[(1, 'b', 'Average spend = total sales ÷ number of customers. Compare each department’s two slices.'),
-           (2, 'y', 'Biggest spenders first.')],
+    notes=[(1, 'y', 'Biggest spenders first.'),
+           (2, 'b', 'Average spend = total sales ÷ number of customers. Compare each department’s two slices.')],
     steps=[
         f"""<p>Both pies are shares of the same store, so for each department:</p>
 {calc(f'spend per customer ∝ {frac("sales slice", "customers slice")}')}
@@ -231,7 +231,7 @@ each, and {hl('large boxes (15 kg of dough)', 'g', 2)} cost me £20.00 each.</p>
 <p>{hl('The baking process causes each loaf to lose 20% of the weight of the unbaked dough', 'p', 3)}.</p>
 <p>I expect to sell {hl('40 small loaves and 50 large loaves', 'g', 4)} each day. I buy enough dough to be able to
 make these, and any unused dough at the end of the day has to be thrown away.</p>
-<p>Assuming that I {hl('do not buy any more dough than necessary', 'y', 5)}, what {hl('proportion of the dough that I buy', 'b', 6)} each day do I have to throw away?</p>""",
+<p class="stem">Assuming that I {hl('do not buy any more dough than necessary', 'y', 5)}, what {hl('proportion of the dough that I buy', 'b', 6)} each day do I have to throw away?</p>""",
     options={'A': '5.2%', 'B': '6.3%', 'C': '7.5%', 'D': '17.8%', 'E': '34.8%'},
     notes=[(1, 'g', 'These are <b>baked</b> weights. The dough must weigh more.'),
            (2, 'g', 'Dough only comes in 5 kg and 15 kg lumps. The prices don’t matter here.'),
@@ -296,7 +296,7 @@ countries.</p>
 <p>The table below shows the percentage of people with access to clean drinking water in each
 country in 2004.</p>
 <div class="tbl-wrap"><table class="ptable"><thead><tr><th></th><th colspan="2"><i>percentage with access to clean drinking water (%)</i></th></tr>
-<tr><th></th><th>{hl('urban', 'y', 2)}</th><th>{hl('rural', 'y', 2)}</th></tr></thead><tbody>
+<tr><th></th><th>{hl('urban', 'y')}</th><th>{hl('rural', 'y')}</th></tr></thead><tbody>
 <tr><td>Angola</td><td>40</td><td>34</td></tr><tr><td>Botswana</td><td>100</td><td>90</td></tr>
 <tr><td>Malawi</td><td>95</td><td>44</td></tr><tr><td>Mozambique</td><td>81</td><td>41</td></tr>
 <tr><td>Namibia</td><td>100</td><td>67</td></tr><tr><td>Tanzania</td><td>90</td><td>57</td></tr>

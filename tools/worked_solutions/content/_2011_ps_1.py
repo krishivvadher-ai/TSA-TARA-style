@@ -444,7 +444,7 @@ def _digits():
         lab.append(text(x + 27, 104, d, k='ink', size=28, font='print'))
     lab += [text(160, 102, '-', k='ink', size=28, font='print'), text(306, 102, '-', k='ink', size=28, font='print')]
     lab += [text(88, 40, 'day: 1? or 31', k='pen', size=17), text(88, 58, '(0, 2 are taken)', k='muted', size=14),
-            text(234, 40, 'month: 0?', k='orange', size=17), text(234, 58, '(1? and 0 1 clash)', k='muted', size=14),
+            text(234, 40, 'month: 0?', k='orange', size=17), text(234, 58, '(not 01, 02, 10, 11, 12)', k='muted', size=14),
             text(442, 40, 'year: 2 + smallest digits left', k='green', size=17), text(442, 58, '0, 1, 2 used, so 3, 4, 5', k='muted', size=14)]
     parts.append(circle(30 + 27, 93, 19, k='red', sw=2))
     parts.append(circle(176 + 27, 93, 19, k='red', sw=2))

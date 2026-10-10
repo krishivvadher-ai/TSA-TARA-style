@@ -11,6 +11,7 @@ time limit and mark scheme.
 | `TSA_Papers/` | `TSA_<year>_Critical_Thinking.pdf` and `TSA_<year>_Problem_Solving.pdf` |
 | `TSA_Answers/` | `TSA_<year>_Critical_Thinking_Mark_Scheme.pdf` and `TSA_<year>_Problem_Solving_Mark_Scheme.pdf` |
 | `TSA_Worked_Solutions/` | `TSA_<year>_Problem_Solving_Worked_Solutions.html` and `TSA_<year>_Critical_Thinking_Worked_Solutions.html` |
+| `TSA_Website/` | One website with everything above: open `TSA_Website/index.html` |
 
 Each year therefore has four documents: two papers and their two mark schemes.
 
@@ -40,6 +41,19 @@ built in).
 - **Practice mode** hides the working until you press *Show working* on a question.
 
 They are built from `tools/worked_solutions/` (see `SCHEMA.md` there).
+
+## Website
+
+Open `TSA_Website/index.html` in a web browser (it works offline).
+
+- The home page shows every year as an exercise book. Pick one to see its four pages: Critical
+  Thinking answers, Critical Thinking worked solutions, Problem Solving answers and Problem Solving
+  worked solutions.
+- The bar at the top of every page links home, steps to the previous or next year, jumps to the same
+  page in any other year, and switches between the four pages of the year you are in.
+- On an answers page, tap a question to jump straight to its worked solution.
+
+Rebuild it with `python tools/worked_solutions/build_site.py`.
 
 ## Time limits
 

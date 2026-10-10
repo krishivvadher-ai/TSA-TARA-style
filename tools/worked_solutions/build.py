@@ -218,6 +218,7 @@ DEFS = """<svg width="0" height="0" style="position:absolute" aria-hidden="true"
 JS = r"""
 (function(){
   var KEY='tsa-ws-practice', root=document.documentElement, btn=document.getElementById('practice');
+  if(!btn)return;
   function set(on){root.classList.toggle('practice',on);btn.setAttribute('aria-pressed',on?'true':'false');
     btn.textContent=on?'Practice mode: on (working hidden)':'Practice mode: off';try{localStorage.setItem(KEY,on?'1':'0')}catch(e){}}
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
