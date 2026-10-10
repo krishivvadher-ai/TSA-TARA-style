@@ -6,7 +6,7 @@ Q = []
 # ---------------------------------------------------------------- 17 (Q36)
 def _profits():
     rows = [('pens', 12, 150), ('crayons', 6, 180), ('rulers', 25, 40), ('felt tips', 6, 150), ('pencils', 4, 200)]
-    X = lambda p: 130 + p * 0.25
+    X = lambda p: 130 + p * 0.18
     parts, lab = [line(X(0), 22, X(0), 214, k='ink', w=2)], []
     for i, (name, each, n) in enumerate(rows):
         y = 30 + i * 37
@@ -129,17 +129,21 @@ def _map():
         col = 'red' if name == 'Longwood' else ('orange' if key else 'ink')
         parts.append(circle(X(e), Yn(n), 5 if key else 4, k=col, fill='ink' if not key else 'paper', sw=2))
         tag = f'{letter} = {name}' if letter else name
-        dy = -10 if name not in ('Riverside', 'High Moor', 'Little Tarn') else 18
-        anchor = 'middle'
+        dy = -10 if name not in ('Riverside', 'Little Tarn') else 18
+        anchor, dx = 'middle', 0
         if name == 'Lower Green':
             anchor, dx = 'end', 6
-        else:
-            dx = 0
+        elif name == 'Topfield':
+            anchor, dx = 'end', -6
+        elif name == 'Longwood':
+            anchor, dx = 'start', 6
+        elif name == 'High Moor':
+            anchor, dx, dy = 'start', 9, 5
         lab.append(text(X(e) + dx, Yn(n) + dy, tag, k=col, size=13 if not key else 15, anchor=anchor,
                         weight='700' if key else None))
-    parts.append(brace(X(77.7), X(78.7), Yn(63.4) + 10, '1 square', k='red', size=13))
-    lab.append(text(X(80.5), Yn(66) - 8, 'gridline numbers filled in', k='muted', size=14))
-    return svg(660, 300, rough(*parts) + ''.join(lab),
+    lab.append(brace(X(77.7), X(78.7), Yn(63.4) + 10, '1 square', k='red', size=12))
+    lab.append(text(X(79.5), Yn(60) + 42, 'gridline numbers filled in (eastings along the bottom, northings up the side)', k='muted', size=14))
+    return svg(660, 316, rough(*parts) + ''.join(lab),
                'The map with eastings 75 to 84 and northings 60 to 66: V is Topfield at 777634 and W is Longwood at 787634, one square to its right')
 
 Q.append(dict(
@@ -265,15 +269,15 @@ Q.append(dict(
 of {hl('7.5 hours', 'g', 1)}, whilst he is at work. He buys a ticket in the morning when he arrives at the car
 park. Due to the close proximity of the car park to his place of work, he is able to {hl('return to his car to buy a new ticket as many times as needed', 'y', 2)}.</p>
 {table([['1 hour', '£0.80'], ['2 hours', '£1.20'], [hl('3 hours', 'g'), hl('£1.70', 'g')], ['4 hours', '£2.40'], ['5 hours', '£3.50'],
-        ['6 hours', '£4.20'], ['7 hours', '£5.20'], [hl('8 hours', 'p', 3), hl('£6.20', 'p')], ['over 8 hours', '£8.20']],
-       head=[f'<i>{hl("up to", "y", 4)}</i>', '<i>car parking charges</i>'])}
+        ['6 hours', '£4.20'], ['7 hours', '£5.20'], [hl('8 hours', 'p', 4), hl('£6.20', 'p')], ['over 8 hours', '£8.20']],
+       head=[f'<i>{hl("up to", "y", 3)}</i>', '<i>car parking charges</i>'])}
 <p class="stem">What is the {hl('most Brian can save', 'b', 5)} by returning to the car to buy new tickets compared to buying
 one 8-hour ticket?</p>""",
     options={'A': '£1.10', 'B': '£1.40', 'C': '£1.60', 'D': '£2.10', 'E': '£3.60'},
     notes=[(1, 'g', 'Tickets come in whole hours, so he needs tickets adding up to at least 8 hours (7 isn’t enough).'),
            (2, 'y', 'He can chain several short tickets.'),
-           (3, 'p', 'Compare with this £6.20 ticket, not the “over 8 hours” price.'),
-           (4, 'y', '“Up to”: a 3-hour ticket covers anything up to 3 hours.'),
+           (3, 'y', '“Up to”: a 3-hour ticket covers anything up to 3 hours.'),
+           (4, 'p', 'Compare with this £6.20 ticket, not the “over 8 hours” price.'),
            (5, 'b', 'Most saving = cheapest mix of tickets.')],
     steps=[
         f"""<p>Which ticket is the best value per hour?</p>
@@ -342,7 +346,7 @@ def _nets22():
     parts, lab = [], []
     w = 30
     spots = {1: (20, 40), 2: (240, 40), 3: (460, 40), 4: (130, 170), 5: (350, 170)}
-    verdict = {1: ('two lean on the same square', 'red'), 2: ('two lean outwards', 'red'), 3: ('two lean on each other', 'red'),
+    verdict = {1: ('two lean on S3', 'red'), 2: ('two lean outwards', 'red'), 3: ('S2, S3 lean on each other', 'red'),
                4: ('a chain ✓', 'green'), 5: ('two lean outwards', 'red')}
     for n, (ox, oy) in spots.items():
         parts += _net(ox, oy, w, NETS22[n])
@@ -357,13 +361,13 @@ def _net4():
     parts = _net(ox, oy, w, NETS22[4], sw=2)
     s1, s2, s3 = (ox + w, oy), (ox + 2 * w, oy), (ox + 2 * w, oy + w)
     parts += [arrow(s1[0] + w / 2, s1[1] + w - 8, s3[0] + 10, s3[1] + w / 2 + 6, k='red', bend=0.4),
-              arrow(s3[0] + w / 2 + 12, s3[1] + 12, s2[0] + w / 2 + 12, s2[1] + w - 12, k='red', bend=-0.6)]
-    lab = [text(s1[0] + w / 2, oy + w / 2 + 6, 'S1', k='pen', size=15, weight='700'),
-           text(s2[0] + w / 2, oy + w / 2 + 6, 'S2', k='pen', size=15, weight='700'),
-           text(s3[0] + w / 2, oy + w + w / 2 + 6, 'S3', k='pen', size=15, weight='700'),
+              arrow(s3[0] + w / 2 + 18, s3[1] + 12, s2[0] + w / 2 + 18, s2[1] + w - 12, k='red', bend=-0.6)]
+    lab = [text(s1[0] + w / 2, oy + w * 0.3 + 5, 'S1', k='pen', size=14, weight='700'),
+           text(s2[0] + w / 2 - 8, oy + w * 0.8 + 5, 'S2', k='pen', size=14, weight='700'),
+           text(s3[0] + w / 2, oy + w + w * 0.8 + 5, 'S3', k='pen', size=14, weight='700'),
            text(s2[0] + w / 2, oy - 10, 'outside edge', k='red', size=14),
-           text(s1[0] - 4, oy + w + 40, 'S1’s bottom zips', k='red', size=14, anchor='start'),
-           text(s1[0] - 4, oy + w + 58, 'onto S3’s left side', k='red', size=14, anchor='start')]
+           text(ox, oy + w + 72, 'S1’s bottom zips', k='red', size=14, anchor='start'),
+           text(ox, oy + w + 90, 'onto S3’s left side', k='red', size=14, anchor='start')]
     tx = 380
     lab += [text(tx, 50, 'net 4:', k='pen', size=18, font='scrawl', anchor='start'),
             text(tx, 76, 'S1 leans on S3', k='ink', size=16, anchor='start'),
@@ -371,7 +375,7 @@ def _net4():
             text(tx, 124, 'S2 leans on the outside', k='ink', size=16, anchor='start'),
             text(tx, 158, 'so S1 = top, S3 = left,', k='green', size=16, anchor='start'),
             text(tx, 180, 'S2 = right ✓', k='green', size=16, anchor='start')]
-    return svg(660, 200, rough(*parts) + ''.join(lab),
+    return svg(660, 206, rough(*parts) + ''.join(lab),
                'Net 4 enlarged: S1’s triangle leans on S3 across the corner zip, S3’s leans on S2, S2’s leans on the outside edge')
 
 Q.append(dict(
@@ -384,7 +388,7 @@ Q.append(dict(
     notes=[(1, 'b', 'Only one net works. The three faces you see each have <b>one</b> black triangle; check where it sits.')],
     steps=[
         f"""<p>On the cube, each visible face has a single black triangle, and each triangle sits against one edge:</p>{_cube22()}""",
-        f"""<p>In every net the single-triangle squares are the same three (shaded): S1 and S2 in the top row, S3 under S2. They meet at one corner when folded, because S1’s bottom edge zips onto S3’s left edge. Now see what each lone triangle leans on:</p>
+        f"""<p>In every net the single-triangle squares are the same three (shaded): S1 and S2 are the 2nd and 3rd squares of the top row, S3 is the square under S2. They meet at one corner when folded, because S1’s bottom edge zips onto S3’s left edge. Now see what each lone triangle leans on:</p>
 {_nets22()}
 {calc('net 1: S1 → S3, S2 → S3 (both on S3) ✗', 'net 2: S1 → S3, S2 → outside, S3 → outside ✗', 'net 3: S2 → S3 and S3 → S2 (on each other) ✗',
       'net 4: S1 → S3 → S2 → outside, a chain ✓', 'net 5: same single squares as net 2 ✗')}""",
@@ -407,14 +411,14 @@ def _journey():
     legs = [(375, 390, 'y', '15 km', '15 min'), (390, 690, 'b', 'motorway (incl. 2 stops)', '5 h'), (690, 720, 'g', '20 km', '30 min')]
     for a, b, f, name, t in legs:
         parts.append(rect(X(a), 60, X(b) - X(a), 40, k='ink', fill=f, sw=1.6))
-        lab.append(text((X(a) + X(b)) / 2, 86, t, k='ink', size=16, weight='700'))
-        lab.append(text((X(a) + X(b)) / 2, 50, name, k='ink', size=14))
-    for m, lbl in ((375, '6:15'), (390, '6:30'), (690, '11:30'), (720, '12:00')):
-        parts.append(line(X(m), 100, X(m), 116, k='red', w=2))
-        lab.append(text(X(m), 136, lbl, k='red', size=16, weight='700' if m in (375, 720) else None))
-    parts.append(arrow(X(718), 160, X(380), 160, k='pen', bend=0.08))
-    lab.append(text(X(550), 190, 'work backwards from 12:00: 30 min, 5 h, 15 min', k='pen', size=16))
-    return svg(660, 204, rough(*parts) + ''.join(lab),
+        lab.append(text((X(a) + X(b)) / 2, 52, t, k='ink', size=16, weight='700'))
+        lab.append(text((X(a) + X(b)) / 2, 30, name, k='ink', size=14))
+    for (m, lbl), ly in zip(((375, '6:15'), (390, '6:30'), (690, '11:30'), (720, '12:00')), (132, 152, 132, 152)):
+        parts.append(line(X(m), 100, X(m), 116 + (ly - 132), k='red', w=2))
+        lab.append(text(X(m), ly + 4, lbl, k='red', size=16, weight='700' if m in (375, 720) else None))
+    parts.append(arrow(X(718), 178, X(380), 178, k='pen', bend=0.08))
+    lab.append(text(X(550), 206, 'work backwards from 12:00: 30 min, 5 h, 15 min', k='pen', size=16))
+    return svg(660, 218, rough(*parts) + ''.join(lab),
                'Timeline from 6:15: 15 minutes to 6:30, 5 hours of motorway to 11:30, 30 minutes to arrive at 12:00')
 
 Q.append(dict(
@@ -512,10 +516,10 @@ def _bump(ox, oy, perm, title, sub, bad=(), right_lab=None, h=150, w=110):
 
 def _bumps():
     p1, l1 = _bump(50, 50, [1, 3, 2, 6, 5, 4], 'C as printed', 'L1–R1, L2–R3, L4–R6 …')
-    p2, l2 = _bump(270, 50, [6, 4, 5, 1, 2, 3], 'right axis flipped', 'L1–R6, L2–R4, L3–R5 …', bad=(1, 3, 4, 6))
-    p3, l3 = _bump(490, 50, [4, 5, 6, 2, 3, 1], 'its mirror image', 'not the same ✗', bad=(1, 3, 4, 6))
+    p2, l2 = _bump(270, 50, [6, 4, 5, 1, 2, 3], 'right axis flipped', 'L1–R6, L2–R4, L3–R5 …', bad=(1,))
+    p3, l3 = _bump(490, 50, [4, 5, 6, 2, 3, 1], 'its mirror image', 'every line moved ✗', bad=(6,))
     lab = [text(225, 130, '→', k='ink', size=28), text(445, 130, '→', k='ink', size=28),
-           text(330, 262, 'L1–R6 needs a partner L6–R1, but L6 goes to R3 ✗', k='red', size=17, font='scrawl')]
+           text(330, 262, 'the mirror turns L1–R6 into L6–R1, but the flipped chart has L6–R3 ✗', k='red', size=17, font='scrawl')]
     return svg(660, 276, rough(*p1, *p2, *p3) + ''.join(l1 + l2 + l3 + lab),
                'Chart C, then C with the right axis flipped, then its mirror image: they differ, so C is not symmetrical')
 
@@ -543,7 +547,7 @@ bump charts {hl('would <b>not</b> be symmetrical about a vertical line midway be
       'E: 1→6, 2→2, 3→1, 4→3, 5→5, 6→4  flip → 1→1, 2→5, 3→6, 4→4, 5→2, 6→3 ✓')}""",
         f"""<p>In C, 1→6 needs 6→1, but 6→3. Picture it:</p>{_bumps()}
 {calc(f'not symmetrical: {boxed("C")}')}
-{note('Shortcut: flipping one axis and then mirroring is the same as turning the original chart upside down. C turned upside down puts its top flat line at the bottom, but C has no flat line at the bottom (its other flat line is 5th). A, B, D and E all look the same upside down.', 'tip')}""",
+{note('Shortcut: flipping one axis and then mirroring is the same as turning the original chart upside down (half a turn). C turned upside down puts its top flat line at the bottom, but C has no flat line at the bottom (its other flat line is 5th). A, B, D and E all look the same upside down.', 'tip')}""",
     ],
     answer_text='Chart C: after flipping an axis its lines don’t pair up (1→6 but 6→3).',
     why={'A': 'A flips to 1↔5, 2↔4 with 3 and 6 flat: symmetrical. (Turned upside down, A looks the same.)',

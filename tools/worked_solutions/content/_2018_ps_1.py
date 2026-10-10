@@ -136,7 +136,7 @@ def _pro_net():
     zero, sc = 196, 5
     parts = [line(80, zero, 620, zero, k='ink', w=2)]
     lab = [text(72, zero + 5, '0', k='muted', size=15, anchor='end'),
-           text(330, 24, 'professionals out − in (a bar above the line = a loss)', k='ink', size=17)]
+           text(330, 20, 'professionals out − in (a bar above the line = a loss)', k='ink', size=17)]
     for i, (yr, a, b) in enumerate(data):
         x = 110 + i * 102
         v = b - a
@@ -151,7 +151,7 @@ def _pro_net():
             lab.append(text(x + 32, zero - 10, yr, k='ink', size=16))
             lab.append(text(x + 32, zero + abs(v) * sc + 22, f'{b} − {a} = {v}', k='ink', size=15))
             lab.append(text(x + 32, zero + abs(v) * sc + 42, '(a gain)', k='muted', size=14))
-    lab.append(text(110 + 2 * 102 + 32, 52, 'biggest loss', k='green', size=19, font='scrawl'))
+    lab.append(text(110 + 2 * 102 + 32, 44, 'biggest loss', k='green', size=19, font='scrawl'))
     return svg(640, 296, rough(*parts) + ''.join(lab),
                'Bar chart of professionals leaving minus arriving: 2013 minus 8, 2014 minus 5, 2015 plus 24, 2016 plus 22, 2017 plus 21')
 
