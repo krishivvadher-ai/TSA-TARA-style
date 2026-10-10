@@ -460,7 +460,7 @@ dict(n=23, orig=45, answer='D', type='Main conclusion',
           'B': 'Never claimed. The author argues against charitable giving.',
           'C': 'The intermediate conclusion (“therefore… perpetuate”) that supports the main one.',
           'E': 'A reason: “conceals the true impact”.'},
-     gap='Two “therefore”-type steps: the second (“Since… cannot be morally justified”) builds on the first, so it is the main one.'),
+     gap='Two conclusions: “charities perpetuate the problems” feeds into “giving cannot be morally justified”, so the second is the main one.'),
 
 dict(n=24, orig=46, answer='D', type='Parallel reasoning',
      passage=[('prem', 'You can only grasp the true meaning of Pushkin’s poetry if you can read it in its original Russian form.'),

@@ -465,18 +465,18 @@ dict(n=24, orig=46, answer='B', type='Parallel reasoning',
      right='Same shape: an eclipse <b>needs</b> a New Moon; there is no New Moon today; so no eclipse today.',
      why={'A': 'Starts from the result (fish alive) to show the condition is met. Valid, but the reverse direction.',
           'C': 'Starts from no scab and concludes no platelets: runs it backwards (and “clotted” becomes “have”).',
-          'D': 'Turns a risk into a certainty for all pipes. Nothing is needed and missing.',
+          'D': 'Turns a risk into a certainty for all pipes. There is no missing condition.',
           'E': 'A timing prediction (late autumn, so late leaf fall). Not a missing condition ruling something out.'},
      working_title='Working: necessary condition missing',
-     working=f"""<p class="skel">Original: <b>A</b> (rain) needs <b>B</b> (clouds) {ar('pen')} no B (clear skies forecast) {ar('pen')} so no A (no chance of rain).</p>
+     working=f"""<p class="skel">Original: <b>X</b> (rain) needs <b>Y</b> (clouds) {ar('pen')} no Y (clear skies forecast) {ar('pen')} so no X (no chance of rain).</p>
 <div class="map">
-<div><b>B</b><span>A (eclipse) needs B (New Moon) → no B today (New Moon next week) → so no A today. {tick()} Same shape.</span></div>
-<div><b>A</b><span>A (survive) needs B (25°C) → A happened (fish alive) → so B. Starts from the result. {cross()}</span></div>
-<div><b>C</b><span>A (scab) needs B (clotting) → no A (no scabs) → so no B (no platelets). Backwards, and invalid. {cross()}</span></div>
-<div><b>D</b><span>B (below 0°C) → risk of A (burst) → so A for certain, for all. Risk becomes certainty. {cross()}</span></div>
-<div><b>E</b><span>A (leaf fall) happens in B (autumn) → B late → A late. About timing, not a missing condition. {cross()}</span></div>
+<div><b>B</b><span>X (eclipse) needs Y (New Moon) → no Y today (New Moon next week) → so no X today. {tick()} Same shape.</span></div>
+<div><b>A</b><span>X (survive) needs Y (25°C) → X happened (fish alive) → so Y. Starts from the result. {cross()}</span></div>
+<div><b>C</b><span>X (scab) needs Y (clotting) → no X (no scabs) → so no Y (no platelets). Backwards, and invalid. {cross()}</span></div>
+<div><b>D</b><span>Y (below 0°C) → risk of X (burst) → so X for certain, for all. Risk becomes certainty. {cross()}</span></div>
+<div><b>E</b><span>X (leaf fall) happens in Y (autumn) → Y late → X late. About timing, not a missing condition. {cross()}</span></div>
 </div>
-{note('Valid pattern: A needs B; no B; so no A. Starting from the result (A) is a different shape, even when it is valid.', 'tip')}"""),
+{note('Valid pattern: X needs Y; no Y; so no X. Starting from the result (X happened) is a different shape, even when it is valid.', 'tip')}"""),
 
 dict(n=25, orig=47, answer='B', type='Principle',
      passage=[('conc', 'It is time for prostitution to be legalised.'),
