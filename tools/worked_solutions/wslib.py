@@ -92,7 +92,7 @@ def fig(year, name, alt, width=None):
 # Sketches are inline SVG. Shapes inside rough() get a hand-drawn wobble.
 # Colours come from classes so they follow the page theme:
 #   stroke: k-pen k-red k-green k-ink k-muted k-orange k-violet
-#   fill:   f-y f-p f-g f-b f-o f-v f-paper f-ink f-none
+#   fill:   f-y f-p f-g f-b f-o f-v f-paper f-ink f-none, and f-black for things that are black in real life
 
 def svg(w, h, body, label, maxw=None):
     mw = maxw or w

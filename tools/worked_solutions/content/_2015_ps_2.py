@@ -473,7 +473,7 @@ def _remote_plan():
             parts.append(rect(x, y, w, h, k='ink', fill='b', sw=1.2))
     for yr in (ROWS_Y[0], ROWS_Y[4]):
         x, y, w, h = R((1075, 1105), yr)
-        parts.append(rect(x, y, w, h, k='ink', fill='ink', sw=1.2))
+        parts.append(rect(x, y, w, h, k='ink', fill='black', sw=1.2))
     for xr, yr in BIG:
         x, y, w, h = R(xr, yr)
         parts.append(rect(x, y, w, h, k='ink', fill='o', sw=1.4))
