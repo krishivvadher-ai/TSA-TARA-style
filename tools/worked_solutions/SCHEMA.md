@@ -51,7 +51,7 @@ dict(
   Use `svg(w, h, body, label)` with shapes from `wslib` (`rect`, `line`, `arrow`, `circle`, `poly`,
   `path`, `text`, `brace`, `eye`, `stick_person`). Put shapes inside `rough(...)` for the
   hand-drawn wobble; keep `text(...)` outside `rough`. Use colour classes (`k='pen'|'red'|'green'|'orange'|'ink'|'muted'|'violet'`,
-  `fill='y'|'p'|'g'|'b'|'o'|'v'|'paper'|'none'`), never literal colours. Keep sketches about
+  `fill='y'|'p'|'g'|'b'|'o'|'v'|'paper'|'none'`, or `'black'` for something that is black in real life), never literal colours. Keep sketches about
   400–660 units wide with text size 14–24 so they stay readable on a phone. Every sketch needs a
   meaningful `label` (it is the accessible description).
 - **Why not the others.** One line per wrong option saying exactly what mistake leads there
