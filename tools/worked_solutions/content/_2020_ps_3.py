@@ -77,26 +77,28 @@ def _fruit_marm():
     years = list(range(2006, 2013))
     fruit = [10, 15, 15, 20, 25, 30, 35]
     marm = [5, 10, 15, 20, 25, 30, 35]
-    X = lambda i: 80 + i * 78
-    Yv = lambda v: 236 - v * 5
+    X = lambda i: 116 + i * 76
+    Yv = lambda v: 250 - v * 5
     parts, lab = [], []
-    parts.append(line(60, Yv(0), 580, Yv(0), k='ink', w=2))
-    parts.append(line(60, Yv(0), 60, Yv(40), k='ink', w=2))
+    parts.append(line(80, Yv(0), 600, Yv(0), k='ink', w=2))
+    parts.append(line(80, Yv(0), 80, Yv(40), k='ink', w=2))
     for v in (0, 10, 20, 30, 40):
-        lab.append(text(52, Yv(v) + 5, f'{v}%', k='muted', size=14, anchor='end'))
-        parts.append(line(60, Yv(v), 580, Yv(v), k='muted', w=0.7, dash=True))
+        lab.append(text(72, Yv(v) + 5, f'{v}%', k='muted', size=14, anchor='end'))
+        if v:
+            parts.append(line(80, Yv(v), 600, Yv(v), k='muted', w=0.7, dash=True))
     for i, y in enumerate(years):
         lab.append(text(X(i), Yv(0) + 22, y, k='ink', size=14))
     parts.append(poly([(X(i), Yv(v)) for i, v in enumerate(fruit)], k='green', sw=3, closed=False))
     parts.append(poly([(X(i), Yv(v)) for i, v in enumerate(marm)], k='orange', sw=3, closed=False))
     for i in (0, 1):
-        parts.append(path(f'M{X(i) - 16} {Yv(fruit[i]) - 12} Q{X(i) + 34} {Yv((fruit[i] + marm[i]) / 2)} {X(i) - 16} {Yv(marm[i]) + 14}', k='red', sw=2))
-        lab.append(text(X(i) + 4, Yv(marm[i]) + 34, f'{fruit[i]} vs {marm[i]}', k='red', size=17, font='scrawl'))
-    lab += [text(300, 40, 'fresh fruit (row 5)', k='green', size=17, anchor='start'),
-            text(300, 62, 'marmalade (row 2)', k='orange', size=17, anchor='start'),
-            text(370, 150, 'same from 2008 on…', k='ink', size=16),
-            text(100, 40, 'not equal in 2006 and 2007!', k='red', size=17, font='scrawl', anchor='start')]
-    return svg(620, 270, rough(*parts) + ''.join(lab),
+        mid = Yv((fruit[i] + marm[i]) / 2)
+        parts.append(f'<ellipse cx="{X(i)}" cy="{mid}" rx="15" ry="22" class="k-red f-none" stroke-width="2.2"/>')
+        lab.append(text(X(i), Yv(fruit[i]) - 22, f'{fruit[i]} vs {marm[i]}', k='red', size=17, font='scrawl'))
+    lab += [text(130, 92, 'green: fresh fruit (row 5)', k='green', size=17, anchor='start'),
+            text(130, 116, 'orange: marmalade (row 2)', k='orange', size=17, anchor='start'),
+            text(440, 176, 'the same from 2008 on', k='ink', size=16),
+            text(90, 22, 'not equal in 2006 and 2007!', k='red', size=19, font='scrawl', anchor='start')]
+    return svg(620, 284, rough(*parts) + ''.join(lab),
                'Line graph: fresh fruit 10, 15, 15, 20, 25, 30, 35 and marmalade 5, 10, 15, 20, 25, 30, 35; they differ in 2006 and 2007')
 
 
@@ -159,14 +161,14 @@ def _pie(cx, cy, r, shares, fills, labels):
 
 
 def _smoothie():
-    p1, l1 = _pie(150, 150, 96, [70, 20, 10], ['y', 'o', 'g'], ['banana 70', 'orange 20', 'apple 10'])
-    p2, l2 = _pie(480, 150, 96, [77, 18, 5], ['y', 'o', 'g'], ['banana 77', 'orange 18', 'apple 5'])
-    lab = [text(150, 30, 'old recipe (%)', k='ink', size=18, font='scrawl'),
-           text(480, 30, 'new recipe (%)', k='ink', size=18, font='scrawl'),
-           text(315, 130, '+10% of 70', k='green', size=16), text(315, 150, '−10% of 20', k='red', size=16),
-           text(315, 282, 'apple: 10 → 5, it halves!', k='pen', size=19, font='scrawl')]
-    arrows = [arrow(268, 166, 362, 166, k='pen', bend=-0.2)]
-    return svg(640, 296, rough(*p1, *p2, *arrows) + ''.join(l1 + l2 + lab),
+    p1, l1 = _pie(150, 172, 96, [70, 20, 10], ['y', 'o', 'g'], ['banana 70', 'orange 20', 'apple 10'])
+    p2, l2 = _pie(480, 172, 96, [77, 18, 5], ['y', 'o', 'g'], ['banana 77', 'orange 18', 'apple 5'])
+    lab = [text(60, 24, 'old recipe (%)', k='ink', size=18, font='scrawl'),
+           text(590, 24, 'new recipe (%)', k='ink', size=18, font='scrawl'),
+           text(315, 150, '+10% of 70', k='green', size=16), text(315, 170, '−10% of 20', k='red', size=16),
+           text(315, 304, 'apple: 10 → 5, it halves!', k='pen', size=19, font='scrawl')]
+    arrows = [arrow(268, 188, 362, 188, k='pen', bend=-0.2)]
+    return svg(640, 316, rough(*p1, *p2, *arrows) + ''.join(l1 + l2 + lab),
                'Two pie charts: old recipe banana 70, orange 20, apple 10; new recipe banana 77, orange 18, apple 5')
 
 
@@ -311,7 +313,7 @@ def _tv_price():
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     sold = [2.5, 4, 2, 3.5, 4.5, 3.5]
     inc = [1.5, 2.4, 1.2, 2.8, 3.6, 2.8]
-    base, s = 250, 220
+    base, s = 306, 220
     parts, lab = [], []
     parts.append(line(40, base, 600, base, k='ink', w=2))
     for i, (m, n, v) in enumerate(zip(months, sold, inc)):
@@ -324,7 +326,7 @@ def _tv_price():
     parts.append(arrow(64 + 2 * 90 + 52, base - 0.6 * s - 50, 64 + 3 * 90 + 6, base - 0.8 * s - 52, k='red', bend=-0.3))
     lab.append(text(64 + 2.5 * 90 + 26, base - 0.8 * s - 76, 'price up!', k='red', size=22, font='scrawl'))
     lab.append(text(40, 24, 'income ÷ number sold = price per TV (grid units)', k='muted', size=15, anchor='start'))
-    return svg(620, 280, rough(*parts) + ''.join(lab),
+    return svg(620, 336, rough(*parts) + ''.join(lab),
                'Price per TV each month: 0.6 in January, February and March; 0.8 in April, May and June')
 
 
@@ -478,7 +480,7 @@ Q.append(dict(
 # ---------------------------------------------------------------- 25 (Q50)
 def _gold():
     data = [('Amber', 8, 21), ('Emerald', 5, 21), ('Garnet', 6, 22), ('Jade', 6, 16), ('Sapphire', 11, 28)]
-    base, s = 250, 4.4
+    base, s = 272, 4.4
     parts, lab = [], []
     for v in range(0, 51, 10):
         parts.append(line(70, base - v * s, 600, base - v * s, k='muted', w=0.8, dash=v > 0))
@@ -490,8 +492,8 @@ def _gold():
         lab.append(text(x + 20, base + 22, name, k='ink', size=16))
         lab.append(text(x + 20, base - p * s - 26, f'{g}/{t}', k='muted', size=15))
         lab.append(text(x + 20, base - p * s - 8, f'{p:.0f}%', k='ink', size=16))
-    lab.append(text(70, 22, 'gold ÷ all medals, with gridlines every 10%', k='muted', size=15, anchor='start'))
-    return svg(620, 282, rough(*parts) + ''.join(lab),
+    lab.append(text(70, 20, 'gold ÷ all medals, with gridlines every 10%', k='muted', size=15, anchor='start'))
+    return svg(620, 304, rough(*parts) + ''.join(lab),
                'Bar chart of gold proportions: Amber 38, Emerald 24, Garnet 27, Jade 38, Sapphire 39 percent')
 
 

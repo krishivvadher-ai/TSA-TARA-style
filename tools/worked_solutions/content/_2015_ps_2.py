@@ -228,11 +228,11 @@ def _rain():
         parts.append(line(X(0), Yr(v), X(m), Yr(v), k='red', w=1.8, dash=True))
         parts.append(circle(X(m), Yr(v), 6, k='red', fill='paper', sw=2.4))
     parts.append(line(X(9) + 70, Yr(170), X(9) + 70, Yr(400), k='green', tail=True, head=True, w=2.2))
-    lab += [text(X(5) - 6, Yr(170) + 24, 'start of June ≈ 170', k='red', size=16, anchor='end'),
+    lab += [text(X(5) + 12, Yr(170) + 30, 'start of June ≈ 170', k='red', size=16, anchor='start'),
             text(X(9) - 6, Yr(400) - 12, 'end of Sept ≈ 400', k='red', size=16, anchor='end'),
             text(X(9) + 80, Yr(285) + 6, '230 mm', k='green', size=20, font='scrawl', anchor='start'),
             text(X(7), Yr(0) + 44, 'Jun to Sep = 4 months', k='orange', size=17),
-            text(X(0) + 6, Yr(600) + 14, 'mm so far', k='muted', size=14, anchor='start')]
+            text(X(0) + 16, Yr(600) + 20, 'mm so far', k='muted', size=14, anchor='start')]
     return svg(660, 360, rough(*parts) + ''.join(lab),
                'Cumulative rainfall graph: about 170 mm at the start of June and 400 mm at the end of September, a rise of 230 mm over 4 months')
 
@@ -326,12 +326,12 @@ suitable temperature before he climbs in.</p>
 
 # ---------------------------------------------------------------- 14 (Q30)
 def _league():
-    teams = [('East Rovers', 31, 12, 'can still win', 'green'),
-             ('West Athletic', 24, 18, 'up to 42', 'green'),
-             ('North Rangers', 22, 9, '31 with 9 wins', 'green'),
-             ('South United', 22, 9, '31 with 7 wins', 'red'),
-             ('Top Town', 17, 21, 'up to 38', 'green'),
-             ('Bottom Albion', 15, 15, 'only 30', 'red')]
+    teams = [('East Rovers', 31, 12, '43 ✓', 'green'),
+             ('West Athletic', 24, 18, '42 ✓', 'green'),
+             ('North Rangers', 22, 9, '31, but 9 wins ✓', 'green'),
+             ('South United', 22, 9, '31, only 7 wins ✗', 'red'),
+             ('Top Town', 17, 21, '38 ✓', 'green'),
+             ('Bottom Albion', 15, 15, '30 ✗', 'red')]
     X = lambda p: 140 + p * 7.6
     parts, lab = [], []
     for i, (name, now, extra, note_, col) in enumerate(teams):
@@ -339,7 +339,7 @@ def _league():
         parts.append(rect(X(0), y, X(now) - X(0), 26, k='ink', fill='b', sw=1.5))
         parts.append(f'<rect x="{X(now)}" y="{y}" width="{X(now + extra) - X(now):.1f}" height="26" class="k-ink f-y" stroke-width="1.5" stroke-dasharray="5 4"/>')
         lab.append(text(X(0) - 8, y + 19, name, k='ink', size=16, anchor='end'))
-        lab.append(text(X(now + extra) + 8, y + 19, f'{now + extra}: {note_}', k=col, size=16, anchor='start'))
+        lab.append(text(X(now + extra) + 8, y + 19, note_, k=col, size=17, anchor='start'))
     parts.append(line(X(31), 26, X(31), 290, k='red', w=2.4, dash=True))
     lab += [text(X(31), 310, 'East has 31 points and 8 wins already, even if it loses the rest', k='red', size=16),
             text(X(0), 22, 'blue = points now, yellow = most it can add (3 per game left)', k='muted', size=14, anchor='start')]
@@ -394,7 +394,7 @@ or tie on 31 with <b>more than 8 wins</b>.</p>{_league()}""",
 
 # ---------------------------------------------------------------- 15 (Q31)
 def _hobby():
-    X = lambda h: 128 + (h - 9) * 58
+    X = lambda h: 120 + (h - 9) * 54
     rows = [('Painting', 20, 10, 12, 30, '$15/h'), ('Painting', 20, 10.5, 13, 40, '$16/h'), ('Painting', 50, 10, 12, 24, 'leave 9:10'),
             ('Dancing', 30, 9.5, 13, 45, 'leave 9:00'), ('Dancing', 10, 13, 17, 45, 'back 17:10'),
             ('Pottery', 60, 10, 11.5, 35, 'leave 9:00'), ('Pottery', 60, 11, 13, 40, '$20/h'),

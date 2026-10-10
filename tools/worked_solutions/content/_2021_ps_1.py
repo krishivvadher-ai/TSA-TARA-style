@@ -88,7 +88,7 @@ def _alphabet():
 Q.append(dict(
     n=2, orig=6, answer='D', topic='Codes & ciphers',
     question=f"""<p>I have received the following message that is encrypted with a Caesar cipher:</p>
-<p><b>JYMDW{hl('E', 'g', 4)}FTQEBAF</b></p>
+<p><b>JYMDWEFTQEBAF</b></p>
 <p>This Caesar cipher replaces each letter of the plaintext (the message to be encrypted) with a
 letter that is {hl('a certain fixed number of positions along', 'y', 1)} the 26-letter English alphabet. Knowing
 this fixed number of positions (the shift parameter) is the key to decrypt the message. For

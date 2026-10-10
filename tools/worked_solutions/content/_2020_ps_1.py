@@ -345,7 +345,7 @@ Q.append(dict(
         f"""<p>What he needs: 120 kg split 2 : 1.</p>{calc('3 parts = 120 kg, so 1 part = 40 kg', 'sand = 2 × 40 = 80 kg, cement = 40 kg')}""",
         f"""<p>Top up the difference:</p>{_mix()}
 {calc('sand: 80 − 8 = 72 kg', 'cement: 40 − 24 = 16 kg', f'72 : 16 {ar()} ÷ 8 {ar()} {boxed("9 : 2")}')}
-{note('Check: 32 + 72 + 16 = 120 kg ✓', 'check')}""",
+{note('32 + 72 + 16 = 120 kg ✓', 'check')}""",
     ],
     answer_text='9 : 2 (add 72 kg of sand and 16 kg of cement).',
     why={'A': 'Turns the target round to sand : cement = 1 : 2 (40 sand, 80 cement). Then he adds 32 sand and 56 cement = 4 : 7.',
@@ -380,7 +380,7 @@ def _laptops():
         x = x0 + 5 * cw
         parts.append(rect(x + 2, y + 2, cw - 4, ch - 4, k='green' if allok else 'muted', fill='g' if allok else 'paper', sw=1.6))
         lab.append(text(x + cw / 2, y + 26, price, k='ink' if allok else 'muted', size=17))
-    lab.append(text(x0 + 5 * cw + cw / 2, y0 + 5 * ch + 26, '£700 is cheaper', k='green', size=19, font='scrawl'))
+    lab.append(text(x0 + 6 * cw, y0 + 5 * ch + 26, '£700 is cheaper', k='green', size=19, font='scrawl', anchor='end'))
     return svg(620, 290, rough(*parts) + ''.join(lab),
                'Checklist of the five laptops against each requirement; only Ledd at 850 pounds and Elovon at 700 pounds pass everything')
 

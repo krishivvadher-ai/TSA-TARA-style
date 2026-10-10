@@ -530,11 +530,11 @@ def _code():
             lab.append(text(x + w / 2, y + 2, letter, k='pen', size=16))
             lab.append(text(x + w / 2, y + 31, ' '.join(code), k='ink', size=19, font='print'))
             x += w + 8
-    lab += [text(470, 74, 'A = o+ (given)', k='ink', size=16, anchor='start'),
-            text(470, 136, 'so M = –+–, N = –++', k='ink', size=16, anchor='start'),
-            text(470, 198, 'so E = ++', k='ink', size=16, anchor='start'),
-            text(470, 260, 'R, U both 2 symbols', k='ink', size=16, anchor='start'),
-            text(470, 322, '= ++ o+ oo', k='red', size=20, anchor='start', font='scrawl')]
+    lab += [text(500, 74, 'A = o+ (given)', k='ink', size=16, anchor='start'),
+            text(500, 136, 'so M = –+–, N = –++', k='ink', size=16, anchor='start'),
+            text(500, 198, 'so E = ++', k='ink', size=16, anchor='start'),
+            text(500, 260, 'R, U: 2 each', k='ink', size=16, anchor='start'),
+            text(500, 322, '= ++ o+ oo', k='red', size=20, anchor='start', font='scrawl')]
     return svg(640, 360, rough(*parts) + ''.join(lab),
                'Each code word split into coloured chunks: A = o+, N = –++, D = –o, M = –+–, E = ++, R = oo, U = +o, Y = ooo; EAR = ++ o+ oo')
 
@@ -564,7 +564,7 @@ Q.append(dict(
 Each letter needs at least 2 symbols, so it must split 2 + 2:</p>
 {calc(f'R = {_cd("oo")}, U = {_cd("+o")}')}
 {_code()}""",
-        f"""{calc(f'EAR = {_cd("++")} + {_cd("o+")} + {_cd("oo")} = {boxed(_cd("++o+oo"))}')}""",
+        f"""{calc(f'E | A | R = {_cd("++")} | {_cd("o+")} | {_cd("oo")} {ar()} {boxed(_cd("++o+oo"))}')}""",
     ],
     answer_text='A: ++ o+ oo (E = ++, A = o+, R = oo).',
     why={'B': 'B starts with N ( –++ ) instead of E ( ++ ): it spells NAR.',
