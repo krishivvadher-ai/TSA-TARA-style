@@ -152,7 +152,7 @@ def _pro_net():
             lab.append(text(x + 32, zero + abs(v) * sc + 22, f'{b} − {a} = {v}', k='ink', size=15))
             lab.append(text(x + 32, zero + abs(v) * sc + 42, '(a gain)', k='muted', size=14))
     lab.append(text(110 + 2 * 102 + 32, 52, 'biggest loss', k='green', size=19, font='scrawl'))
-    return svg(640, 270, rough(*parts) + ''.join(lab),
+    return svg(640, 296, rough(*parts) + ''.join(lab),
                'Bar chart of professionals leaving minus arriving: 2013 minus 8, 2014 minus 5, 2015 plus 24, 2016 plus 22, 2017 plus 21')
 
 
@@ -384,9 +384,8 @@ def _book():
     parts.append(line(cx, top, cx, top + 30, k='red', w=5))
     lab += [text(cx, top - 10, 'stitching', k='red', size=16),
             text(cx - 4, 214, '16', k='red', size=17, anchor='end', weight='700'), text(cx + 4, 214, '17', k='red', size=17, anchor='start', weight='700'),
-            text(cx + 116, 120, 'innermost sheet', k='red', size=15, anchor='start'),
-            text(cx + 116, 138, '= pages 16 and 17', k='red', size=15, anchor='start'),
-            text(cx, 258, '1 block: 8 sheets', k='ink', size=16), text(cx, 278, '= 16 leaves = 32 pages', k='ink', size=16)]
+            text(cx, 258, '1 block: 8 sheets', k='ink', size=16), text(cx, 278, '= 16 leaves = 32 pages', k='ink', size=16),
+            text(cx, 300, 'innermost sheet = pages 16 | 17', k='red', size=16)]
     # number line of the three blocks
     X = lambda p: 320 + p * 3.3
     for b, f in ((0, 'b'), (1, 'o'), (2, 'b')):
@@ -398,7 +397,7 @@ def _book():
         lab.append(text(X(b * 32 + 32) - 6, 142, f'{b * 32 + 32}', k='ink', size=13, anchor='end'))
     lab += [text(X(48), 96, 'centres every 32 pages', k='ink', size=16),
             text(X(48), 216, 'only these pairs show the stitching', k='red', size=16, font='scrawl')]
-    return svg(640, 290, rough(*parts) + ''.join(lab),
+    return svg(640, 312, rough(*parts) + ''.join(lab),
                'One block of eight folded sheets with the stitching between pages 16 and 17; blocks run 1 to 32, 33 to 64, 65 to 96 with centres 16|17, 48|49, 80|81')
 
 Q.append(dict(
@@ -444,9 +443,9 @@ def _buckets():
         bucket(20 + i * 110, '22', '− 3', '= 19', 'pen', f'girl {i + 1}')
         parts.append(arrow(60 + i * 110, 80, 515, 78, k='red', bend=-0.32 + i * 0.07))
     bucket(480, '?', '+ 12', '= 19', 'red', 'youngest')
-    lab += [text(20, 26, 'each of the 4 gives her 3 shells: 4 × 3 = 12', k='red', size=17, anchor='start'),
-            text(320, 262, 'everyone ends equal on 19, so ? = 19 − 12 = 7', k='green', size=19, font='scrawl')]
-    return svg(640, 276, rough(*parts) + ''.join(lab),
+    lab += [text(320, 256, 'each of the 4 gives her 3 shells: 4 × 3 = 12', k='red', size=17),
+            text(320, 284, 'everyone ends equal on 19, so ? = 19 − 12 = 7', k='green', size=19, font='scrawl')]
+    return svg(640, 298, rough(*parts) + ''.join(lab),
                'Four buckets of 22 shells each give 3 to the youngest and end on 19; the youngest gets 12 and also ends on 19, so she had 7')
 
 Q.append(dict(

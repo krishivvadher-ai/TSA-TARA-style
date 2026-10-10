@@ -387,7 +387,7 @@ together the value of the letters in the words they form.</p>
            (2, 'b', 'ANNA = 2 A + 2 N. You only need A + N.')],
     steps=[
         f"""<p>Compare words that are almost the same, and pair up the letters:</p>{_tiles()}""",
-        f"""{calc('MOON − MOAN: O − A = 8 − 7 = 1', 'NOON: 2N + 2O = 10, so N + O = 5', 'A + N = (O − 1) + N = 5 − 1 = 4',
+        f"""{calc('MOON − MOAN: O − A = 8 − 7 = 1', 'NOON: N + O + O + N = 10, so N + O = 5', 'A + N = (O − 1) + N = 5 − 1 = 4',
               f'ANNA = 2 × (A + N) = 2 × 4 = {boxed("8")}')}
 {note('Try real values to check: O = 3, N = 2, A = 2, M = 0. MOAN = 7, MOON = 8, NOON = 10 ✓, ANNA = 8. Other values that fit (say O = 1, N = 4, A = 0, M = 2) also give 8.', 'check')}""",
     ],

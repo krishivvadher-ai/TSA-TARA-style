@@ -257,17 +257,17 @@ def _old_groups():
 
 Q.append(dict(
     n=22, orig=44, answer='D', topic='Reading charts',
-    question=f"""<p>The population pyramid below shows the {hl('age and gender distribution', 'y', 2)} of the residents in
+    question=f"""<p>The population pyramid below shows the {hl('age and gender distribution', 'y', 1)} of the residents in
 England and Wales in 2010.</p>
 {fig(Y, 'ps_q22_pyramid', 'Population pyramid for England and Wales 2010: number of males on the left and females on the right for each 5-year age group from under 1 to 85 plus', 470)}
-<p class="stem">Which one of the following statements is {hl('not true', 'b', 1)}?</p>""",
+<p class="stem">Which one of the following statements is {hl('not true', 'b', 2)}?</p>""",
     options={'A': 'Over the age of 34, the number of women is higher than that of men for every age group.',
              'B': 'Below the age of 35, the number of men is higher than that of women in every age group.',
              'C': 'There are more than twice as many women as men in the 85+ age group.',
              'D': 'Not taking children below the age of 1 into consideration, the least numerous age group is that of people aged 80 to 84.',
              'E': 'The most numerous age group consists of people aged between 40 and 44.'},
-    notes=[(1, 'b', 'Four statements are true. Check each one against the numbers and find the false one.'),
-           (2, 'y', 'Each bar is labelled with its exact number: men on the left, women on the right. An age group = men + women.')],
+    notes=[(1, 'y', 'Each bar is labelled with its exact number: men on the left, women on the right. An age group = men + women.'),
+           (2, 'b', 'Four statements are true. Check each one against the numbers and find the false one.')],
     steps=[
         f"""<p>D talks about the <b>least numerous</b> group, so look at the shortest bars, at the top. Add men and women:</p>
 {calc('80–84: 545,800 + 786,900 = 1,332,700', '85+: 417,900 + 856,400 = 1,274,300')}
@@ -341,12 +341,12 @@ Q.append(dict(
 {fig(Y, 'ps_q23_orbits', 'Three circular orbits round Melpomene; Othello, Hamlet and Romeo are in a straight line out from the planet, on the same side', 300)}
 <p>Othello takes {hl('20 days', 'g', 2)} to complete one orbit of Melpomene, whereas Hamlet takes {hl('45 days', 'g')} and
 Romeo takes {hl('120 days', 'g')}.</p>
-<p class="stem">{hl('How often', 'b', 4)} are Melpomene and all three of its moons in line with each other {hl('in the order shown in the diagram', 'p', 3)}?</p>""",
+<p class="stem">{hl('How often', 'b', 3)} are Melpomene and all three of its moons in line with each other {hl('in the order shown in the diagram', 'p', 4)}?</p>""",
     options={'A': 'every 36 days', 'B': 'every 72 days', 'C': 'every 132 days', 'D': 'every 180 days', 'E': 'every 216 days'},
     notes=[(1, 'y', 'All go round the same way, each at its own steady speed.'),
            (2, 'g', 'Time for one lap: Othello 20 days, Hamlet 45, Romeo 120.'),
-           (3, 'p', 'All on the <b>same side</b> of the planet, one behind the other, like the picture. They don’t have to be back at their starting points.'),
-           (4, 'b', 'The time from one line-up to the next.')],
+           (3, 'b', 'The time from one line-up to the next.'),
+           (4, 'p', 'All on the <b>same side</b> of the planet, one behind the other, like the picture. They don’t have to be back at their starting points.')],
     steps=[
         f"""<p>Laps done = days ÷ lap time. The moons line up (same side, like the picture) when they have all gone the
 <b>same fraction of a lap</b> past the start. Test the options:</p>
@@ -403,16 +403,16 @@ one of the store’s self-drive delivery vans. They have four models, with diffe
 which can be hired for either 4 hours or 1 day.</p>
 {table([['3 m³', '4 hours (40 miles included)', '£33', '20p'], ['3 m³', '1 day (120 miles included)', '£41', '20p'],
         ['8 m³', '4 hours (40 miles included)', '£42', '25p'], ['8 m³', '1 day (120 miles included)', '£54', '25p'],
-        [hl('12 m³', 'g'), hl('4 hours (40 miles included)', 'p', 4), hl('£47', 'g'), hl('30p', 'g')],
+        [hl('12 m³', 'g'), hl('4 hours (40 miles included)', 'p', 1), hl('£47', 'g'), hl('30p', 'g')],
         [hl('12 m³', 'g'), '1 day (120 miles included)', hl('£63', 'g'), hl('30p', 'g')],
         ['20 m³', '4 hours (40 miles included)', '£52', '35p'], ['20 m³', '1 day (120 miles included)', '£70', '35p']],
        head=['Capacity of Van', 'Duration of Hire', 'Basic Price', 'Price per Extra Mile'])}
-<p class="stem">What is the {hl('minimum distance', 'b', 1)} for which it is cheaper to hire a {hl('12 m³ van', 'g', 2)} for a whole day, {hl('even if it could be returned within 4 hours', 'y', 3)}?</p>""",
+<p class="stem">What is the {hl('minimum distance', 'b', 2)} for which it is cheaper to hire a {hl('12 m³ van', 'g', 3)} for a whole day, {hl('even if it could be returned within 4 hours', 'y', 4)}?</p>""",
     options={'A': '64 miles', 'B': '72 miles', 'C': '89 miles', 'D': '92 miles', 'E': '94 miles'},
-    notes=[(1, 'b', 'The first whole number of miles where the day hire is <b>cheaper</b>.'),
-           (2, 'g', 'Only the two 12 m³ rows matter: £47 for 4 hours, £63 for a day, 30p per extra mile.'),
-           (3, 'y', 'Same trip, two ways to pay: compare the 4-hour price with the day price.'),
-           (4, 'p', 'The first 40 miles are included: only miles <b>after 40</b> cost 30p.')],
+    notes=[(1, 'p', 'The first 40 miles are included: only miles <b>after 40</b> cost 30p.'),
+           (2, 'b', 'The first whole number of miles where the day hire is <b>cheaper</b>.'),
+           (3, 'g', 'Only the two 12 m³ rows matter: £47 for 4 hours, £63 for a day, 30p per extra mile.'),
+           (4, 'y', 'Same trip, two ways to pay: compare the 4-hour price with the day price.')],
     steps=[
         f"""<p>The day costs £16 more up front:</p>
 {calc('£63 − £47 = £16 = 1600p')}""",

@@ -43,7 +43,7 @@ def _fruit():
             ([('o' * 6, 'orange bag'), ('ooo' + 'ggg', 'half & half'), ('ooo' + 'ggg', 'half & half')], '109 + 105 + 105 = 319p', 'sure, but dearer', 'ink'),
             ([('og' + '????', 'lucky dip'), ('og' + '????', 'lucky dip'), ('og' + '????', 'lucky dip')], '95 + 95 + 95 = 285p', 'NOT sure', 'red')]
     for i, (bags, cost, verdict, k) in enumerate(rows):
-        y = 190 + 100 * i
+        y = 206 + 100 * i
         for j, (fills, name) in enumerate(bags):
             fl = ['paper' if ch == '?' else ch for ch in fills]
             o, t = bag(20 + 110 * j, y, fl, name)
@@ -51,7 +51,7 @@ def _fruit():
             lab += t
         lab.append(text(366, y + 26, cost, k=k, size=18, anchor='start'))
         lab.append(text(366, y + 52, verdict, k=k, size=20, anchor='start', font='scrawl'))
-    return svg(640, 484, rough(*parts) + ''.join(lab),
+    return svg(640, 500, rough(*parts) + ''.join(lab),
                'A week grid: Jessica and Bruce need 10 oranges, Victoria 5 apples; then three ways to buy bags: two orange bags and an apple bag for 317p (sure), an orange bag and two half-and-half bags for 319p, three lucky dips for 285p (not sure)')
 
 
@@ -80,7 +80,7 @@ next week?</p>""",
       f'1 orange bag + 2 half and half {ar()} 12 oranges, 6 apples {tick()} 109 + 105 + 105 = 319p',
       f'3 half and half {ar()} only 9 oranges {cross()}, a 4th bag pushes it over £4')}
 {calc(f'minimum = 317p = {boxed("£3.17")}')}
-{note('Any 3 bags that include a lucky dip can’t be sure of 10 oranges: the best other two bags give at most 12, but you’d need the dip to supply the apples, and it only promises 1.', 'check')}""",
+{note('Count only what each bag <b>promises</b>: orange bag 6 oranges, half and half 3 + 3, lucky dip 1 + 1. Just two sets of 3 bags promise 10 oranges and 5 apples (317p and 319p). Any 4 bags cost at least 4 × 95p = £3.80.', 'check')}""",
     ],
     answer_text='£3.17: two orange bags and one apple bag.',
     why={'A': '£2.85 is three lucky dips. 18 fruit, but you can only be sure of 3 oranges and 3 apples.',
@@ -118,7 +118,7 @@ def _paving():
     lab.append(text(lx, 166, 'total 35 blocks', k='red', size=20, anchor='start', font='scrawl'))
     lab.append(text(lx, 190, 'check: 14 + 13 × 2 + 8 × 4 = 72 = 9 × 8', k='muted', size=14, anchor='start'))
     # our pie
-    cx, cy, r = 500, 262, 54
+    cx, cy, r = 510, 284, 54
     a = 0
     for n, f in ((14, 'y'), (13, 'b'), (8, 'g')):
         parts.append(_sector(cx, cy, r, a, a + 360 * n / 35, f))
@@ -127,7 +127,7 @@ def _paving():
             text(cx - 30, cy + r + 18, '37%', k='ink', size=15),
             text(cx - r - 10, cy - 20, '23%', k='ink', size=15, anchor='end'),
             text(cx, cy - r - 10, '14 : 13 : 8', k='pen', size=17)]
-    return svg(640, 340, rough(*parts) + ''.join(lab),
+    return svg(640, 362, rough(*parts) + ''.join(lab),
                'The paving redrawn: 14 small squares, 13 rectangles and 8 big squares, 35 blocks, and a pie of 14 to 13 to 8')
 
 
@@ -194,14 +194,14 @@ def _rink():
             if sun:
                 parts.append(line(x + 10, y + ch - 8, x + cw - 10, y + 10, k='muted', w=1.4))
                 if lbl == '25':
-                    lab.append(text(x + cw / 2 + 6, y + ch - 10, 'Xmas', k='red', size=16, font='scrawl'))
+                    lab.append(text(x + cw - 8, y + 19, 'Xmas', k='red', size=16, font='scrawl', anchor='end'))
             elif j == 5:
-                parts.append(circle(x + cw / 2 - 8, y + 38, 8, k='ink', fill='o', sw=1.4))
-                parts.append(circle(x + cw / 2 + 14, y + 38, 8, k='ink', fill='b', sw=1.4))
+                parts.append(circle(x + cw / 2 - 8, y + 38, 8, k='orange', fill='o', sw=2.2))
+                parts.append(circle(x + cw / 2 + 14, y + 38, 8, k='pen', fill='b', sw=2.2))
             else:
-                parts.append(circle(x + cw / 2 + 14, y + 38, 8, k='ink', fill='b', sw=1.4))
+                parts.append(circle(x + cw / 2 + 14, y + 38, 8, k='pen', fill='b', sw=2.2))
     ly = y0 + 5 * ch + 22
-    parts += [circle(x0 + 10, ly - 5, 8, k='ink', fill='b', sw=1.4), circle(x0 + 250, ly - 5, 8, k='ink', fill='o', sw=1.4)]
+    parts += [circle(x0 + 10, ly - 5, 8, k='pen', fill='b', sw=2.2), circle(x0 + 250, ly - 5, 8, k='orange', fill='o', sw=2.2)]
     lab += [text(x0 + 26, ly, '2 pm–5 pm session', k='ink', size=16, anchor='start'),
             text(x0 + 266, ly, 'Saturday 10 am–1 pm extra', k='ink', size=16, anchor='start'),
             text(x0, ly + 34, '25 blue + 4 orange = 29 sessions, each 2 h × £2 = £4', k='red', size=20, anchor='start', font='scrawl')]
@@ -276,11 +276,11 @@ Q.append(dict(
     question=f"""<p>I need to create gift bags for the guests who are coming to my party this weekend. Each bag
 will contain {hl('5 sweets, a small toy and a balloon', 'g', 1)}. The prices for the items are shown in the table
 below.</p>
+<p style="text-align:center;margin-bottom:0"><i>price per pack</i></p>
 {table([[f'sweets<br>{hl("(20 in a pack)", "y", 2)}', '$0.45', '$0.40', '$0.35'],
         [f'balloons<br>{hl("(20 in a pack)", "y")}', '$0.90', '$0.80', '$0.70'],
         [f'toys<br>{hl("(1 in a pack)", "y")}', '$3.50', '$3.00', '$2.50']],
-       head=['', f'{hl("first 10 packs", "p", 3)}', 'next 20 packs', 'any further packs'])}
-<p class="stem" style="font-weight:normal">(The prices are <i>price per pack</i>.)</p>
+       head=['', hl('first 10 packs', 'p', 3), 'next 20 packs', 'any further packs'])}
 <p>I need {hl('23 gift bags', 'g', 4)} for my party and {hl('do not wish to buy any more of any item than is necessary', 'y', 5)}.</p>
 <p class="stem">What will be the total price I will pay for the items in my gift bags?</p>""",
     options={'A': '$73.00', 'B': '$78.50', 'C': '$85.50', 'D': '$95.10', 'E': '$103.10'},
@@ -397,8 +397,7 @@ def _cheese():
     lab += [text(fx + W / 2, fy + H + 28, '12 cm: 2 corners + 10 middle', k='ink', size=16),
             text(fx - 10, fy + H / 2, '5', k='ink', size=18, anchor='end'),
             text(fx + W + dx / 2 + 12, fy + H + dy / 2 + 6, '10', k='ink', size=18, anchor='start'),
-            text(fx + W / 2, 30, 'red edges: rind on 2 faces', k='red', size=17),
-            text(fx + W / 2, 52 - 4, '', k='red', size=1)]
+            text(fx + W / 2, 30, 'red edges: rind on 2 faces', k='red', size=17)]
     tx = 440
     rows = [('4 edges of 12:', '4 × 10 = 40'), ('4 edges of 10:', '4 × 8 = 32'), ('4 edges of 5:', '4 × 3 = 12'), ('8 corners:', '8')]
     for i, (a, b) in enumerate(rows):
@@ -468,8 +467,7 @@ def _hotel():
 
 Q.append(dict(
     n=15, orig=31, answer='B', topic='Calendars & offers',
-    question=f"""<p>Imani is looking to book a {hl('four-night stay in May', 'g', 1)} at the Highgate Hotel, to {hl('include a Sunday
-night', 'y', 2)} so that she can attend an evening orchestral concert.</p>
+    question=f"""<p>Imani is looking to book a {hl('four-night stay in May', 'g', 1)} at the Highgate Hotel, to {hl('include a Sunday night', 'y', 2)} so that she can attend an evening orchestral concert.</p>
 <p>The table below shows the daily rates for the Highgate Hotel.</p>
 <p style="text-align:center"><b>Highgate Hotel</b><br>Daily rates for a single room with breakfast<br><b>May</b></p>
 {table([['1st<br><b>£30</b>', '2nd<br><b>£40</b>', '3rd<br><b>£50</b>', '4th<br><b>£50</b>', '5th<br><b>£20</b>', '6th<br><b>£50</b>', '7th<br><b>£40</b>'],

@@ -334,7 +334,7 @@ def _tariff():
               line(X(80), Yc(36) - 14, X(80), Yc(38) + 6, k='red', w=2, dash=True),
               circle(X(100), Yc(40), 13, k='violet', sw=2)]
     lab += [text(X(80) + 18, Yc(36) + 30, 'Sep: £36, but old tariff says £38', k='red', size=17, anchor='start'),
-            text(X(100) + 14, Yc(40) - 16, 'Oct fits both', k='violet', size=16, anchor='start'),
+            text(X(100) - 16, Yc(40) - 24, 'Oct fits both', k='violet', size=16, anchor='end'),
             circle(X(50) + 26, 52, 6, k='pen', fill='b', sw=2),
             text(X(50) + 40, 58, 'Jan–Aug: old, £30 + 10p a unit', k='pen', size=17, anchor='start'),
             circle(X(50) + 26, 82, 6, k='orange', fill='o', sw=2),

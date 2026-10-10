@@ -64,13 +64,13 @@ def _dividends():
     rows = (('Acme 6', 6, 64, 'pen'), ('Better 8', 8, 102, 'orange'), ('Koffmore 18', 18, 140, 'violet'))
     for name, step, y, col in rows:
         parts.append(line(X(0), y, X(74), y, k='muted', w=1.2))
-        lab.append(text(100, y + 5, name, k=col, size=15, anchor='end'))
+        lab.append(text(100, y + 5, name, k=col, size=16, anchor='end'))
         for m in range(0, 73, step):
             parts.append(circle(X(m), y, 6, k=col, fill='g' if m in (0, 72) else 'paper', sw=2))
     parts.append(line(X(0), 176, X(74), 176, k='ink', w=2))
     for m, lbl in ((0, 'Jan 90'), (12, 'Jan 91'), (24, 'Jan 92'), (36, 'Jan 93'), (48, 'Jan 94'), (60, 'Jan 95'), (72, 'Jan 96')):
         parts.append(line(X(m), 170, X(m), 182, k='ink', w=1.6))
-        lab.append(text(X(m), 200, lbl, k='muted', size=13))
+        lab.append(text(X(m), 200, lbl, k='muted', size=14))
     parts.append(line(X(24), 44, X(24), 160, k='orange', w=2, dash=True))
     parts.append(line(X(72), 44, X(72), 160, k='green', w=2.6))
     lab += [text(X(24), 36, 'Acme + Better only', k='orange', size=15),
@@ -385,7 +385,7 @@ along the outline. The orange one is <b>exactly</b> shape A {ar()} {boxed('A')}<
 # ---------------------------------------------------------------- 8 (Q18)
 def _lift():
     parts = [rect(30, 30, 330, 212, k='ink', fill='paper', sw=2.6), line(30, 242, 360, 242, k='ink', w=3)]
-    lab = [stick_person(72, 240, k='pen', s=1.7), text(72, 160, 'me', k='pen', size=17), text(72, 178, '80 kg', k='pen', size=15)]
+    lab = [stick_person(72, 240, k='pen', s=1.7), text(72, 136, 'me', k='pen', size=17), text(72, 156, '80 kg', k='pen', size=15)]
     for row, y in enumerate((200, 158)):
         for i in range(4):
             parts.append(rect(118 + 56 * i, y, 50, 40, k='ink', fill='o', sw=1.6))

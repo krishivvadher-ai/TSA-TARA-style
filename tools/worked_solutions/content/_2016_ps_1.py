@@ -242,7 +242,7 @@ Q.append(dict(
 <ul><li>① A’s head touches B.</li><li>② F is on A’s right; E is on A’s left with its arms pointing at A.</li>
 <li>③ D is under A’s feet, upside down.</li><li>④ E and F stand up on the sides, so their <b>tops touch B</b>.</li></ul>""",
         f"""<p>Test the nets:</p>
-{calc(f'A: E and F stand upright beside B, so their tops point away from B {cross()} (④)',
+{calc(f'A: E and F stand upright beside B, so their tops point up the page, not at B {cross()} (④)',
       f'B: turn it so A is upright: E is now on A’s right, F on its left. Swapped {cross()} (②)',
       f'C: E’s arms point at C, away from A {cross()} (②)',
       f'E: A is above B with its feet on B {cross()} (①)',
@@ -250,7 +250,7 @@ Q.append(dict(
 {note('Moving a square round a corner of a net turns it a quarter turn. That is why E and F lie on their sides in net D but stand upright in the map.', 'tip')}""",
     ],
     answer_text='Net D: every letter touches the right neighbours and points the right way.',
-    why={'A': 'E and F sit beside B standing upright, so their tops point away from B. On the cube their tops touch B, so they would end up lying on their sides.',
+    why={'A': 'E and F sit beside B standing upright, so their tops point up the page, not at B. On the cube their tops touch B, so here they would end up lying on their sides.',
          'B': 'With A turned upright, E is on A’s right and F on A’s left. View 1 shows F on A’s right, so this is the mirror image.',
          'C': 'E’s arms point at C, away from A. View 2 shows E’s arms pointing at A.',
          'E': 'A is above B with A’s feet touching B. On the cube B sits on A’s head.'},
@@ -337,9 +337,9 @@ def _family():
 
 Q.append(dict(
     n=6, orig=13, answer='C', topic='Tables & best deal',
-    question=f"""<p>As a treat for my {hl('sixth birthday', 'g', 2)} I am going swimming with my family {hl('next Saturday afternoon', 'p', 1)}.
-{hl('My mum is a nurse', 'p', 5)} and {hl('my dad is unemployed', 'g', 6)}. {hl('My sister is three years younger than me', 'g', 3)} and
-{hl('my brother is two years older', 'g', 4)} but they will both enjoy the treat too. {hl('Grandma is coming but she will watch rather than swim', 'y', 7)}. Grandpa loves swimming even though he is {hl('nearly 72 years old', 'g', 8)},
+    question=f"""<p>As a treat for my {hl('sixth birthday', 'g', 1)} I am going swimming with my family {hl('next Saturday afternoon', 'p', 2)}.
+{hl('My mum is a nurse', 'p', 3)} and {hl('my dad is unemployed', 'g', 4)}. {hl('My sister is three years younger than me', 'g', 5)} and
+{hl('my brother is two years older', 'g', 6)} but they will both enjoy the treat too. {hl('Grandma is coming but she will watch rather than swim', 'y', 7)}. Grandpa loves swimming even though he is {hl('nearly 72 years old', 'g', 8)},
 so he will be in the pool enjoying the swim.</p>
 <p>The charges at the local swimming centre are shown below:</p>
 {table([['Adult', '£3.80', '£2.90'], ['Unemployed Adult', '£2.10', '£1.50'],
@@ -352,12 +352,12 @@ so he will be in the pool enjoying the swim.</p>
 <p>{hl('*Adults must be Unemployed or Senior Citizens', 'y', 9)}<br>Off-peak – Monday to Friday 9 am to 5 pm<br>Peak – all other times and school holidays</p>
 <p class="stem">What is the lowest price that we could pay for our tickets?</p>""",
     options={'A': '£7.00', 'B': '£9.10', 'C': '£9.30', 'D': '£12.10', 'E': '£12.30'},
-    notes=[(1, 'p', 'Saturday is <b>peak</b> (off-peak is only Monday to Friday). Use the Peak column only.'),
-           (2, 'g', 'Me: 6, a child.'),
-           (3, 'g', 'Sister: 3, under 4, so <b>free</b>.'),
-           (4, 'g', 'Brother: 8, a child.'),
-           (5, 'p', 'Mum works, so she is a full-price adult. She can’t go on a concession ticket.'),
-           (6, 'g', 'Dad is unemployed: he counts for a concession ticket.'),
+    notes=[(1, 'g', 'Me: 6, a child.'),
+           (2, 'p', 'Saturday is <b>peak</b> (off-peak is only Monday to Friday). Use the Peak column only.'),
+           (3, 'p', 'Mum works, so she is a full-price adult. She can’t go on a concession ticket.'),
+           (4, 'g', 'Dad is unemployed: he counts for a concession ticket.'),
+           (5, 'g', 'Sister: 3, under 4, so <b>free</b>.'),
+           (6, 'g', 'Brother: 8, a child.'),
            (7, 'y', 'Grandma just needs a spectator ticket.'),
            (8, 'g', 'Grandpa is over 65: a senior citizen, so he counts for a concession ticket too.'),
            (9, 'y', 'Dad + Grandpa are the two concession adults!')],

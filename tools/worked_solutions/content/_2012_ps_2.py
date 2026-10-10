@@ -222,26 +222,40 @@ each arrival at an airport {hl('they take the next scheduled flight back', 'y', 
 # ---------------------------------------------------------------- 13 (Q26)
 def _fold():
     parts, lab = [], []
-    s, c = 34, 13
-    # panel A: both holes are the same shape after flipping
-    ax, ay = 130, 120
-    hexa = [(ax - s, ay - s), (ax + s - c, ay - s), (ax + s, ay - s + c), (ax + s, ay + s), (ax - s + c, ay + s), (ax - s, ay + s - c)]
-    parts += [poly(hexa, k='pen', fill='p', sw=2.4), poly(hexa, k='red', sw=2, closed=True)]
-    lab += [text(ax, 34, 'A: flip the left hole over', k='ink', size=17, font='scrawl'),
-            text(ax, 196, 'it lands exactly on the right hole', k='ink', size=15),
-            text(ax, 218, 'overlap has 6 sides ✗', k='red', size=18, font='scrawl')]
-    # panel C: square on diamond gives an octagon
-    cx, cy, d = 420, 120, 46
+    s, c = 30, 12
+
+    def cut(cx, cy, corners):
+        # square of half-size s with the listed corners (tl, tr, br, bl) cut off
+        pts = []
+        for name, (x, y), a, b in (('tl', (cx - s, cy - s), (0, c), (c, 0)), ('tr', (cx + s, cy - s), (-c, 0), (0, c)),
+                                   ('br', (cx + s, cy + s), (0, -c), (-c, 0)), ('bl', (cx - s, cy + s), (c, 0), (0, -c))):
+            if name in corners:
+                pts += [(x + a[0], y + a[1]), (x + b[0], y + b[1])]
+            else:
+                pts.append((x, y))
+        return pts
+
+    # panel A
+    parts += [poly(cut(60, 110, ('tl', 'br')), k='red', fill='paper', sw=2.2),
+              arrow(98, 110, 146, 110, k='muted', bend=-0.3, w=1.8),
+              poly(cut(190, 110, ('tr', 'bl')), k='pen', fill='p', sw=2.2),
+              poly(cut(190, 110, ('tr', 'bl')), k='red', sw=2)]
+    lab += [text(130, 32, 'A: flip the left hole over', k='ink', size=17, font='scrawl'),
+            text(60, 164, 'left hole', k='red', size=14), text(122, 86, 'flip', k='muted', size=14),
+            text(190, 164, 'lands exactly on', k='pen', size=14), text(190, 182, 'the right hole', k='pen', size=14),
+            text(130, 214, 'overlap has only 6 sides ✗', k='red', size=18, font='scrawl')]
+    # panel C
+    cx, cy, d = 450, 110, 42
     sq = [(cx - s, cy - s), (cx + s, cy - s), (cx + s, cy + s), (cx - s, cy + s)]
     di = [(cx, cy - d), (cx + d, cy), (cx, cy + d), (cx - d, cy)]
     e = d - s
     octo = [(cx + s, cy - e), (cx + e, cy - s), (cx - e, cy - s), (cx - s, cy - e), (cx - s, cy + e), (cx - e, cy + s), (cx + e, cy + s), (cx + s, cy + e)]
     parts += [poly(octo, k='green', fill='g', sw=1), poly(sq, k='red', sw=2.2), poly(di, k='pen', sw=2.2)]
-    lab += [text(cx, 34, 'C: square flipped onto diamond', k='ink', size=17, font='scrawl'),
-            text(cx, 196, 'you only see through where both', k='ink', size=15),
-            text(cx, 218, 'layers have a hole: 8 sides ✓', k='green', size=18, font='scrawl')]
-    return svg(580, 232, rough(*parts) + ''.join(lab),
-               'Option A: the flipped left hole matches the right hole exactly, a six-sided overlap. Option C: a square on a diamond overlaps in an octagon')
+    lab += [text(cx, 32, 'C: square flipped onto diamond', k='ink', size=17, font='scrawl'),
+            text(cx, 174, 'see-through only where', k='ink', size=14), text(cx, 192, 'both layers have a hole', k='ink', size=14),
+            text(cx, 214, 'overlap has 8 sides ✓', k='green', size=18, font='scrawl')]
+    return svg(600, 228, rough(*parts) + ''.join(lab),
+               'Option A: the flipped left hole lands exactly on the right hole, a six-sided overlap. Option C: a square on a diamond overlaps in an octagon')
 
 
 Q.append(dict(
@@ -282,14 +296,14 @@ def _mixes():
     parts, lab = [], []
     W = 500
     for i, (n, ml, k) in enumerate(((16, 750, 'pen'), (25, 480, 'orange'))):
-        y = 44 + i * 96
+        y = 44 + i * 110
         w = W / n
         for j in range(n):
             parts.append(rect(40 + j * w, y, w, 34, k='ink', fill='g' if j == 0 else 'b', sw=1.2))
         lab += [text(40, y - 10, f'application {i + 1}: 1 + {n - 1} = {n} parts in 12 litres', k=k, size=17, anchor='start'),
                 text(40 + W / 2, y + 58, f'1 part = 12 000 ml ÷ {n} = {ml} ml of Greatgrass', k='green', size=16)]
-    lab.append(text(290, 232, 'total: 750 + 480 = 1230 ml', k='red', size=21, font='scrawl'))
-    return svg(580, 246, rough(*parts) + ''.join(lab),
+    lab.append(text(290, 252, 'total: 750 + 480 = 1230 ml', k='red', size=21, font='scrawl'))
+    return svg(580, 266, rough(*parts) + ''.join(lab),
                '12 litres split into 16 equal parts gives 750 ml of Greatgrass; split into 25 parts gives 480 ml; total 1230 ml')
 
 
@@ -368,7 +382,7 @@ results?</p>""",
 # ---------------------------------------------------------------- 16 (Q32)
 def _trap():
     u = 30
-    ox, oy = 40, 280
+    ox, oy = 40, 316
     P = lambda x, y: (ox + x * u, oy - y * u)
     parts, lab = [], []
     for x in range(0, 17):
@@ -377,15 +391,15 @@ def _trap():
         parts.append(line(*P(0, y), *P(16, y), k='muted', w=0.6))
     pieces = [([(0, 0), (5, 0), (5, 8), (4, 8)], 'b', 'A', (3.6, 3)),
               ([(5, 0), (10, 0), (6, 8), (5, 8)], 'g', 'A', (6.6, 3)),
-              ([(10, 0), (11, 0), (11, 8), (6, 8)], 'o', 'A', (9.5, 5)),
+              ([(10, 0), (11, 0), (11, 8), (6, 8)], 'o', 'A', (9.2, 6.2)),
               ([(11, 0), (16, 0), (12, 8), (11, 8)], 'v', 'A', (12.4, 3))]
     for pts, f, name, (tx, ty) in pieces:
         parts.append(poly([P(*p) for p in pts], k='ink', fill=f, sw=2.2))
         lab.append(text(*P(tx, ty), name, k='ink', size=24, font='scrawl'))
-    lab += [text(*P(2.2, 8.4), 'A', k='pen', size=15), text(*P(13.5, 8.4), 'A flipped', k='violet', size=15),
-            text(*P(8, 9.2), 'middle 6 × 8 rectangle = A + A upside down', k='ink', size=16),
+    lab += [text(*P(9.2, 5.4), 'upside down', k='orange', size=14), text(*P(12.6, 2.2), 'flipped', k='violet', size=14),
+            text(*P(8, 9.0), 'corners: A and A flipped; middle 6 × 8 rectangle: A + A upside down', k='ink', size=15),
             text(*P(8, -1.1), 'bottom 16, top 8, height 8 squares: area 96 → each piece 24', k='red', size=16)]
-    return svg(560, 330, rough(*parts) + ''.join(lab),
+    return svg(560, 366, rough(*parts) + ''.join(lab),
                'The trapezium on a grid split into four copies of piece A: one in each corner and two, one upside down, filling the middle rectangle')
 
 

@@ -68,8 +68,7 @@ def _booked():
         lab += [text(x + 32, ly, v, k='ink', size=19), text(x + 32, base + 22, d, k='ink', size=17)]
     parts += [line(40, base - 30 * s, 625, base - 30 * s, k='red', w=2.2, dash=True), line(40, base, 625, base, k='ink', w=2)]
     lab += [text(320, 24, 'already booked each morning = 100 − spaces', k='pen', size=18),
-            text(44, base - 30 * s - 8, '30 or fewer:', k='red', size=15, anchor='start'),
-            text(44, base - 30 * s + 18, 'small room', k='red', size=15, anchor='start'),
+            text(44, base - 30 * s - 8, '30 or fewer: small room', k='red', size=15, anchor='start'),
             text(102, base + 46, '26 with him ✗', k='red', size=17, font='scrawl'),
             text(542, base + 46, '38 with him ✓', k='green', size=17, font='scrawl'),
             text(542, base + 66, 'fewest others', k='green', size=15)]

@@ -89,10 +89,10 @@ def _pulleys():
            text(B[0], B[1] + 52, 'B: 2 m outside,', k='ink', size=16),
            text(B[0], B[1] + 72, '1 m inside', k='ink', size=16),
            text(C[0], C[1] + 90, 'C: 4 m', k='ink', size=16),
-           text(150, 252, 'belt 1: 8 × 1 = 4 × 2', k='pen', size=17),
-           text(380, 252, 'belt 2: 4 × 1 = 1 × 4', k='pen', size=17),
-           text(320, 280, 'turns × diameter is the same on both ends of a belt', k='muted', size=15)]
-    return svg(640, 292, rough(*parts) + ''.join(lab),
+           text(140, 276, 'belt 1: 8 × 1 = 4 × 2', k='pen', size=17),
+           text(400, 276, 'belt 2: 4 × 1 = 1 × 4', k='pen', size=17),
+           text(320, 302, 'turns × diameter is the same on both ends of a belt', k='muted', size=15)]
+    return svg(640, 314, rough(*parts) + ''.join(lab),
                'Pulley A turns 8 times a second, so B’s 2 m wheel turns 4 times; B’s 1 m wheel then drives the 4 m pulley C once a second')
 
 
@@ -187,7 +187,7 @@ during today's match?</p>""",
 def _zones():
     Z = lambda h: 60 + (h + 8) * 30
     parts = [line(Z(-8), 70, Z(9), 70, k='ink', w=2)]
-    lab = [text(320, 18, 'hours from London', k='muted', size=15)]
+    lab = [text(Z(-8) - 6, 146, 'hours from London', k='muted', size=14, anchor='start')]
     for name, h, col in (('Vancouver', -8, 'muted'), ('New York', -5, 'pen'), ('London', 0, 'ink'), ('Tokyo', 9, 'red')):
         parts.append(circle(Z(h), 70, 6, k=col, fill='paper', sw=2.4))
         lab.append(text(Z(h), 98, name, k=col, size=16))
@@ -200,7 +200,7 @@ def _zones():
     for h, s in ((12, 'Wed 12:00'), (16, '16:00'), (20, '20:00'), (24, 'midnight'), (28, 'Thu 04:00'), (32, '08:00')):
         parts.append(line(T(h), yl - 6, T(h), yl + 6, k='ink', w=1.6))
         lab.append(text(T(h), yl + 24, s, k='muted', size=14))
-    lab.append(text(T(12), yl + 46, 'London time', k='muted', size=14, anchor='start'))
+    lab.append(text(T(32) + 12, yl + 44, 'London time', k='muted', size=14, anchor='end'))
     parts += [circle(T(14.5), yl, 7, k='green', fill='g', sw=2.4), circle(T(28.5), yl, 7, k='red', fill='p', sw=2.4),
               arrow(T(14.5) + 8, yl - 14, T(28.5) - 8, yl - 14, k='red', bend=-0.12)]
     lab += [text(T(14.5), yl + 64, 'expected: 23.30 Tokyo', k='green', size=15),
@@ -215,8 +215,7 @@ def _zones():
 Q.append(dict(
     n=12, orig=25, answer='C', topic='Time zones',
     question=f"""<p>Julie lives in London. She has three daughters; April, who lives in New York (where the
-local time is {hl('5 hours behind London', 'g', 1)}), May, who lives in Vancouver ({hl('8 hours behind
-London', 'g', 2)}), and June, who lives in Tokyo ( {hl('9 hours ahead of London', 'g', 3)}). They all communicate
+local time is {hl('5 hours behind London', 'g', 1)}), May, who lives in Vancouver ({hl('8 hours behind London', 'g', 2)}), and June, who lives in Tokyo ( {hl('9 hours ahead of London', 'g', 3)}). They all communicate
 with each other regularly.</p>
 <p>Last week April received a text message from May that said "call me on Wednesday at
 {hl('23.30 your time', 'y', 4)}." Unfortunately, the message had been sent to April by mistake and was
@@ -264,7 +263,7 @@ def _metallica():
         parts.append(circle(x, y, 7 if t == 'T' else 5, k='red' if t == 'T' else 'ink', fill='p' if t == 'T' else 'ink', sw=2))
     for t, (lx, ly) in lpos.items():
         lab.append(text(lx, ly, t, k='ink', size=18, font='print', anchor='start'))
-        lab.append(text(lx + 16, ly, dist[t], k='red', size=18, anchor='start'))
+        lab.append(text(lx + 19, ly, dist[t], k='red', size=18, anchor='start'))
     lab += [text(552, 232, 'T', k='red', size=18, font='print', anchor='start'),
             text(330, 30, 'red = shortest distance from T', k='red', size=17),
             text(330, 52, 'orange = the roads those shortest routes use', k='orange', size=15)]
@@ -376,7 +375,7 @@ def _restaurant():
             text(x0 + 7 * cw + 14, y0 + 30, '10 openings', k='red', size=19, font='scrawl', anchor='start'),
             text(x0 + 7 * cw + 14, y0 + 54, '× 20 = 200', k='red', size=17, anchor='start'),
             text(x0 + 7 * cw + 14, y0 + 74, 'meals a week', k='red', size=17, anchor='start')]
-    X = lambda k: 40 + k * 5.6
+    X = lambda k: 40 + k * 5.0
     yb = 170
     for a, b, f, s in ((0, 54, 'b', 'wages £54 000'), (54, 90, 'o', 'rent £36 000'), (90, 99, 'v', '£9k')):
         parts.append(rect(X(a), yb, X(b) - X(a), 36, k='ink', fill=f, sw=1.6))
@@ -389,10 +388,7 @@ def _restaurant():
 
 Q.append(dict(
     n=15, orig=31, answer='C', topic='Costs & break-even',
-    question=f"""<p>A small restaurant is open for {hl('45 weeks', 'g', 1)} each year. It employs 6 people at {hl('total wages of
-£1200 per week', 'g', 2)} (they are not paid when the restaurant is closed). It is open for {hl('lunch on
-Monday to Friday and dinner on Tuesday to Saturday', 'y', 3)} and on average {hl('20 people eat at
-each opening', 'g', 4)}. The owners pay rental on the premises of {hl('£36 000 per year', 'g')}. Other
+    question=f"""<p>A small restaurant is open for {hl('45 weeks', 'g', 1)} each year. It employs 6 people at {hl('total wages of £1200 per week', 'g', 2)} (they are not paid when the restaurant is closed). It is open for {hl('lunch on Monday to Friday and dinner on Tuesday to Saturday', 'y', 3)} and on average {hl('20 people eat at each opening', 'g', 4)}. The owners pay rental on the premises of {hl('£36 000 per year', 'g')}. Other
 expenses (insurance, gas electricity, water, rates etc.) come to {hl('£9000 per year', 'g')}. The cost
 of buying food works out at {hl('£5 per meal served', 'p', 5)}.</p>
 <p class="stem">How much must the owner charge for each meal to {hl('cover expenses', 'b', 6)}?</p>""",
@@ -443,7 +439,7 @@ _MAPS = {
 
 
 def _networks():
-    sc = 1.15
+    sc = 1.0
     parts, lab = [], []
     for i, (name, m) in enumerate(_MAPS.items()):
         xs = [p[0] for p in m['nodes'].values()]
@@ -475,9 +471,9 @@ def _networks():
         links = len(m['edges'])
         cx = 10 + i * 128 + 59
         lab.append(text(cx, 22, name, k='ink', size=20, font='print', weight='bold'))
-        lab.append(text(cx, 206, f'{links} links', k='red' if bad else 'green', size=19, font='scrawl'))
-        lab.append(text(cx, 228, '4 3 3 3 3 2' if bad else '3 3 3 3 2 2', k='red' if bad else 'ink', size=15))
-    return svg(650, 244, rough(*parts) + ''.join(lab),
+        lab.append(text(cx, 190, f'{links} links', k='red' if bad else 'green', size=19, font='scrawl'))
+        lab.append(text(cx, 212, '4 3 3 3 3 2' if bad else '3 3 3 3 2 2', k='red' if bad else 'ink', size=15))
+    return svg(650, 226, rough(*parts) + ''.join(lab),
                'The five maps redrawn with the number of links at each station: A, B, D and E have 8 links (3,3,3,3,2,2); C has 9 links and a station with 4')
 
 

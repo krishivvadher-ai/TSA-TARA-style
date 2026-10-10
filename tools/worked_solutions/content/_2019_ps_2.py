@@ -65,12 +65,13 @@ three-year period in 20 countries.</p>
 def _glass():
     c, px, py = 28, 40, 54
     parts, lab = [], []
-    for r in range(5):
-        for col in range(7):
-            if r == 0 and col in (2, 3):
-                continue
-            f = 'b' if r < 3 else 'y'
-            parts.append(rect(px + col * c, py + r * c, c, c, k='muted', fill=f, sw=1))
+    parts.append(poly([(px, py), (px + 2 * c, py), (px + 2 * c, py + c), (px + 4 * c, py + c), (px + 4 * c, py),
+                       (px + 7 * c, py), (px + 7 * c, py + 3 * c), (px, py + 3 * c)], k='muted', fill='b', sw=1))
+    parts.append(rect(px, py + 3 * c, 7 * c, 2 * c, k='muted', fill='y', sw=1))
+    for i in range(1, 7):
+        parts.append(line(px + i * c, py + 5 * c - 6, px + i * c, py + 5 * c + 6, k='ink', w=1.6))
+    for j in range(1, 5):
+        parts.append(line(px - 6, py + j * c, px + 6, py + j * c, k='ink', w=1.6))
     outline = [(0, 0), (2, 0), (2, 1), (4, 1), (4, 0), (7, 0), (7, 5), (0, 5)]
     parts.append(poly([(px + x * c, py + y * c) for x, y in outline], k='ink', sw=2.6))
     parts.append(line(px, py + 3 * c, px + 7 * c, py + 3 * c, k='ink', w=2.2))
@@ -78,7 +79,7 @@ def _glass():
             text(px + 3 * c, py - 6, 'slot', k='red', size=15),
             text(px + 3.5 * c, py + 1.6 * c + 6, '4 high', k='pen', size=18),
             text(px + 3.5 * c, py + 4 * c + 6, '2 high (step)', k='orange', size=17),
-            text(px + 3.5 * c, py + 5 * c + 22, 'FRONT', k='muted', size=15),
+            text(px + 3.5 * c, py + 5 * c + 24, 'FRONT', k='muted', size=15),
             text(px + 3.5 * c, py + 5 * c + 44, 'plan from above: 7 long, 5 deep', k='ink', size=15),
             text(px + 3.5 * c, py + 5 * c + 64, 'slot goes right down to the floor', k='red', size=15)]
     u = 13
@@ -315,24 +316,28 @@ def _roll_path():
 
 
 def _flip():
-    parts, lab = [], []
-    s = 70
-    for i, (topl, sidel, botl) in enumerate((('▲', '', 'bar'), ('', '▲', ''), ('bar', '', '▲'))):
-        x = 40 + i * 170
-        parts.append(rect(x, 40, s, s, k='ink', fill='paper', sw=2.2))
-        parts.append(line(10, 110, 560, 110, k='muted', w=1.4))
-        if topl:
-            lab.append(text(x + s / 2, 34, 'top: ' + topl, k='pen', size=16))
-        if sidel:
-            lab.append(text(x + s + 8, 80, sidel, k='pen', size=16, anchor='start'))
-        if botl:
-            lab.append(text(x + s / 2, 130, 'bottom: ' + botl, k='muted', size=15))
+    parts, lab = [line(10, 120, 570, 120, k='muted', w=1.4)]
+    s = 76
+    specs = [('top', 'bottom', 'start: ▲ on top'), ('right', 'left', '1 roll: ▲ on the side'), ('bottom', 'top', '2 rolls: bar on top')]
+    for i, (tri, bar, cap) in enumerate(specs):
+        x, y = 40 + i * 190, 44
+        parts.append(rect(x, y, s, s, k='ink', fill='paper', sw=2.2))
+        spot = {'top': (x + s / 2, y + 18), 'bottom': (x + s / 2, y + s - 6), 'right': (x + s - 14, y + s / 2 + 6), 'left': (x + 14, y + s / 2 + 6)}
+        tx, ty = spot[tri]
+        lab.append(text(tx, ty, '▲', k='pen', size=18))
+        bx, by = spot[bar]
+        if bar in ('top', 'bottom'):
+            parts.append(rect(bx - 12, by - 12, 24, 7, k='ink', fill='ink', sw=1))
+        else:
+            parts.append(rect(bx - 4, by - 18, 7, 24, k='ink', fill='ink', sw=1))
+        lab.append(text(x + s / 2, 144, cap, k='pen' if i < 2 else 'green', size=16))
         if i < 2:
-            parts.append(arrow(x + s + 30, 30, x + 150, 30, k='red', bend=-0.25))
-            lab.append(text(x + s + 60, 12, 'roll', k='red', size=15))
-    lab.append(text(300, 160, 'two rolls the same way = upside down', k='green', size=19, font='scrawl'))
-    return svg(580, 172, rough(*parts) + ''.join(lab),
-               'Side view of a cube rolled twice: the triangle goes from the top to the side to the bottom, and the bar comes to the top')
+            parts.append(arrow(x + s + 20, 36, x + 170, 36, k='red', bend=-0.25))
+            lab.append(text(x + s + 57, 18, 'roll →', k='red', size=15))
+    lab.append(text(300, 176, 'two rolls the same way = upside down', k='green', size=19, font='scrawl'))
+    return svg(600, 188, rough(*parts) + ''.join(lab),
+               'Side view of a cube rolled twice: the triangle goes from the top to the side to the bottom, and the bar comes up to the top')
+
 
 Q.append(dict(
     n=13, orig=26, answer='D', topic='Rolling a cube',
@@ -388,13 +393,9 @@ Q.append(dict(
 cards is dealt onto the table. The cards for the next round have just been dealt and are as
 shown below.</p>
 {table([['5', '1', '8'], ['3', '6', '2'], ['9', '7', '4']], cls='grid3')}
-<p>{hl('The first player chooses two cards and scores the difference between the two numbers', 'g', 1)}. {hl('The
-second player then chooses two cards from the seven that are left and scores the average of
-the two numbers', 'g', 2)}. The highest score wins the round. {hl('Both players must choose cards that are
-either horizontally or vertically next to each other', 'y', 3)} in the grid.</p>
+<p>{hl('The first player chooses two cards and scores the difference between the two numbers', 'g', 1)}. {hl('The second player then chooses two cards from the seven that are left and scores the average of the two numbers', 'g', 2)}. The highest score wins the round. {hl('Both players must choose cards that are either horizontally or vertically next to each other', 'y', 3)} in the grid.</p>
 <p>For this round of the game Alex has to decide whether to play first or second. She wants to
-{hl('make sure that she wins the round', 'b', 4)}. {hl('If she has more than one possible winning move then she
-wants to achieve the highest score possible', 'p', 5)}.</p>
+{hl('make sure that she wins the round', 'b', 4)}. {hl('If she has more than one possible winning move then she wants to achieve the highest score possible', 'p', 5)}.</p>
 <p class="stem">What should Alex choose to do?</p>""",
     options={'A': 'play first and choose the 1 and 8', 'B': 'play first and choose the 3 and 9',
              'C': 'play first and choose the 6 and 7', 'D': 'play first and choose the 7 and 9', 'E': 'play second'},

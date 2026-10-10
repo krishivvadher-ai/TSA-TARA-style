@@ -30,17 +30,17 @@ Q.append(dict(
     question=f"""<p>The following is from a report on road accidents in Scotland in 1998:</p>
 <p>A total of 13,828 car users were injured in road accidents, representing 62% of all casualties.
 Of these people, a total of 2,386 were either fatally or seriously injured, 223 of whom died.
-{hl('Roads in built-up areas', 'p', 5)} accounted for a little over half of all car-user casualties (53%: 7,389 out
+{hl('Roads in built-up areas', 'p', 1)} accounted for a little over half of all car-user casualties (53%: 7,389 out
 of 13,828). Presumably because average speeds are higher in non-built-up areas, they
-accounted for much higher percentages of the total numbers of car users who were {hl('fatally injured (84%: 187 out of 223)', 'g', 3)} or were {hl('fatally or seriously injured (72%: 1,724 out of 2,386)', 'g', 4)}.</p>
-<p class="stem">How many car users suffered {hl('serious, but not fatal,', 'b', 1)} injuries in accidents on roads in Scotland in
-{hl('non-built-up areas', 'b', 2)} in 1998?</p>""",
+accounted for much higher percentages of the total numbers of car users who were {hl('fatally injured (84%: 187 out of 223)', 'g', 2)} or were {hl('fatally or seriously injured (72%: 1,724 out of 2,386)', 'g', 3)}.</p>
+<p class="stem">How many car users suffered {hl('serious, but not fatal,', 'b', 4)} injuries in accidents on roads in Scotland in
+{hl('non-built-up areas', 'b', 5)} in 1998?</p>""",
     options={'A': '1,537', 'B': '1,724', 'C': '2,199', 'D': '6,439', 'E': '7,389'},
-    notes=[(1, 'b', 'Serious ones only. The deaths must come out.'),
-           (2, 'b', 'Only the non-built-up roads (the faster, country roads).'),
-           (3, 'g', '187 = deaths on non-built-up roads.'),
-           (4, 'g', '1,724 = deaths <b>plus</b> serious injuries on non-built-up roads.'),
-           (5, 'p', 'The 7,389 is for <b>built-up</b> roads: the wrong group.')],
+    notes=[(1, 'p', 'The 7,389 is for <b>built-up</b> roads: the wrong group.'),
+           (2, 'g', '187 = deaths on non-built-up roads.'),
+           (3, 'g', '1,724 = deaths <b>plus</b> serious injuries on non-built-up roads.'),
+           (4, 'b', 'Serious ones only. The deaths must come out.'),
+           (5, 'b', 'Only the non-built-up roads (the faster, country roads).')],
     steps=[
         f"""<p>Picture the groups. Each figure in the bracket is “part out of whole”:</p>{_casualties()}""",
         f"""<p>“Fatally or seriously injured” <b>includes</b> the people who died. Take them out:</p>

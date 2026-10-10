@@ -341,7 +341,7 @@ marked {hl("'33K', I offered a handful of coins and the vendor took four green a
 # ---------------------------------------------------------------- 24 (Q49)
 def _votes():
     parts, lab = [], []
-    rows = [(70, 5, 8, 'before: 5 – 8, defeated', 'red'), (184, 7, 6, '2 switch: 7 – 6, carried ✓', 'green')]
+    rows = [(70, 5, 8, 'before: 5 – 8, defeated', 'red'), (184, 7, 6, 'after 2 switches: 7 – 6, carried ✓', 'green')]
     for y, nf, na, cap, kc in rows:
         for i in range(nf):
             moved = y == 184 and i >= 5

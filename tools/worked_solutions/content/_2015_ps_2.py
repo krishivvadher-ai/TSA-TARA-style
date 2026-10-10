@@ -1,3 +1,4 @@
+import math
 from wslib import *
 
 Y = 2015
@@ -42,7 +43,6 @@ def _floor():
             cx, cy = ox + 54 + i * 108, oy + 46 + row * 88
             parts.append(circle(cx, cy, 20, k='orange', fill='o', sw=2))
             for j in range(8):
-                import math
                 a = math.radians(j * 45)
                 lab.append(circle(cx + 31 * math.cos(a), cy + 31 * math.sin(a), 4.5, k='pen', fill='b', sw=1.4))
     parts += [line(ox, oy - 18, ox + 27 * m, oy - 18, k='red', tail=True, head=True, w=2),
