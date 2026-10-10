@@ -166,7 +166,7 @@ def brace(x1, x2, y, label, k='red', size=17, down=True):
     """Curly bracket under (or over) a horizontal span with a label."""
     h = 9 if down else -9
     mid = (x1 + x2) / 2
-    d = (f'M{x1} {y} q0 {h} 8 {h} L{mid - 8} {y + h} q8 0 8 {h} q0 -{h} 8 -{h} '
-         f'L{x2 - 8} {y + h} q8 0 8 -{h}')
+    d = (f'M{x1} {y} q0 {h} 8 {h} L{mid - 8} {y + h} q8 0 8 {h} q0 {-h} 8 {-h} '
+         f'L{x2 - 8} {y + h} q8 0 8 {-h}')
     ty = y + h * 2 + (size if down else -6)
     return path(d, k=k, sw=2) + text(mid, ty, label, k=k, size=size)
