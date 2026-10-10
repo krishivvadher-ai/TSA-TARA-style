@@ -484,8 +484,8 @@ On a grid of small squares (the size of the bumps on the pieces) the gap is an L
       f'D: 10 + 13 + 7 = 30 {cross()}', f'E: 10 + 7 + 10 = 27 {tick()}')}
 <p>Only A and E are left. Try A: pieces 2 and 5 are both “3 × 3 plus a bump”, so they make the two arms of the L. Their bumps poke
 into the corner square, and piece 1 fits the hole that is left (see the sketch in Step 1).</p>
-{calc(f'1, 2 and 5 fit exactly {ar()} {boxed("A")}')}""",
-        f"""{note('Honest warning: 2, 4 and 5 also make 27, and they can be fitted too if every piece is turned half a turn (2 and 5 in the arms with different bump positions, 4 in the corner). So this question really has two fits. The official answer is A, the fit the question was built around. In the exam, once the area check leaves two options, try the first one; as soon as it fits, choose it and move on.', 'trap')}""",
+{calc(f'1, 2 and 5 fit exactly {ar()} {boxed("A")}')}
+{note('Honest warning: 2, 4 and 5 also make 27, and they can be fitted too if every piece is turned half a turn (2 and 5 in the arms with different bump positions, 4 in the corner). So this question really has two fits. The official answer is A, the fit the question was built around. In the exam, once the area check leaves two options, try the first one; as soon as it fits, choose it and move on.', 'trap')}""",
     ],
     answer_text='Pieces 1, 2 and 5 (7 + 10 + 10 = 27 squares) fit the L-shaped gap.',
     why={'B': '1, 3 and 5 make 30 squares, 3 too many. Piece 3 is too big.',

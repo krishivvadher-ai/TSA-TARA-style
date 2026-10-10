@@ -337,9 +337,9 @@ def render_ct(year, q):
 </section>"""
 
 
-def render_page(year, kind, qs, fonts_css):
+def render_main(year, kind, qs):
+    """The page content: header, questions and footer (no styles or scripts)."""
     meta = KINDS[kind]
-    title = f'TSA {year} {meta["name"]} Solutions'
     if kind == 'ps':
         legend = ''.join(f'<span><span class="sw hl-{c}" style="background:var(--c)">highlight</span> {label}</span>'
                          for c, label in PS_COLOURS)
@@ -357,10 +357,7 @@ def render_page(year, kind, qs, fonts_css):
         nav = ''.join(f'<a href="#q{q["n"]}"><b>{q["n"]}</b><span>{q.get("type", "")}</span>'
                       f'<i>{nav_mark(q)}</i></a>' for q in qs)
     copy = (f'© Cambridge University Press &amp; Assessment {year}' if int(year) >= 2022 else f'© UCLES {year}')
-    return f"""<title>{title}</title>
-<style>{fonts_css}{CSS}</style>
-{DEFS}
-<div class="wrap">
+    return f"""<div class="wrap">
   <header class="page-head">
     <p class="eyebrow">TSA {year} · worked solutions</p>
     <h1>{meta['name']}</h1>
@@ -368,12 +365,20 @@ def render_page(year, kind, qs, fonts_css):
     <div class="legend">{legend}</div>
     <div class="controls"><button class="btn" id="practice" type="button" aria-pressed="false">Practice mode: off</button>
       <span style="color:var(--muted)">Turn practice mode on to hide the working until you have had a go.</span></div>
-    <nav class="nav" aria-label="Questions">{nav}</nav>
+    <nav class="nav" id="questions" aria-label="Questions">{nav}</nav>
   </header>
   <main>{body}</main>
   <p class="foot">Questions {copy}, reproduced from the TSA Oxford {year} Section 1 paper for practice.
     Answers match the official answer key.</p>
-</div>
+</div>"""
+
+
+def render_page(year, kind, qs, fonts_css):
+    title = f'TSA {year} {KINDS[kind]["name"]} Solutions'
+    return f"""<title>{title}</title>
+<style>{fonts_css}{CSS}</style>
+{DEFS}
+{render_main(year, kind, qs)}
 <script>{JS}</script>
 """
 
