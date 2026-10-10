@@ -9,6 +9,22 @@ def _cells(cells, x0, y0, c, fill, k='ink', sw=1.4):
     return [rect(x0 + cx * c, y0 + cy * c, c, c, k=k, fill=fill, sw=sw) for cx, cy in cells]
 
 
+def _outline(cells, x0, y0, c, k='ink', w=3.2):
+    """Thick outline round a shape made of unit squares."""
+    cs, out = set(cells), []
+    for cx, cy in cells:
+        x, y = x0 + cx * c, y0 + cy * c
+        if (cx, cy - 1) not in cs:
+            out.append(line(x, y, x + c, y, k=k, w=w))
+        if (cx, cy + 1) not in cs:
+            out.append(line(x, y + c, x + c, y + c, k=k, w=w))
+        if (cx - 1, cy) not in cs:
+            out.append(line(x, y, x, y + c, k=k, w=w))
+        if (cx + 1, cy) not in cs:
+            out.append(line(x + c, y, x + c, y + c, k=k, w=w))
+    return out
+
+
 # ---------------------------------------------------------------- 1 (Q2)
 def _cafe():
     s = 9
@@ -399,7 +415,7 @@ def _pieces():
     for name, cells, w, f in (('1', P1, 3, 'g'), ('2', P2, 4, 'b'), ('3', P3, 5, 'v'), ('4', P4, 3, 'y'), ('5', P5, 3, 'o')):
         h = max(r for _, r in cells) + 1
         y0 = 40 + (4 - h) * c
-        parts += _cells(cells, x, y0, c, f)
+        parts += _cells(cells, x, y0, c, f, k='muted', sw=1) + _outline(cells, x, y0, c, w=2.6)
         lab.append(text(x + w * c / 2, 22, f'piece {name}', k='ink', size=16))
         lab.append(text(x + w * c / 2, 144, f'{len(cells)} squares', k='red', size=18, font='scrawl'))
         x += w * c + 30
@@ -408,37 +424,40 @@ def _pieces():
 
 
 def _gap_and_fit():
-    c = 32
+    c = 34
     parts, lab = [], []
     # left: the gap seen from above
-    gx, gy = 40, 50
-    for i in range(6):
-        for j in range(6):
-            pill = i < 3 and j < 3
-            parts.append(rect(gx + i * c, gy + j * c, c, c, k='muted', fill='paper' if pill else 'p', sw=1))
-    for d in range(0, 3 * c + 1, 12):
+    gx, gy = 40, 56
+    gap = [(i, j) for i in range(6) for j in range(6) if not (i < 3 and j < 3)]
+    parts += _cells(gap, gx, gy, c, 'p', k='muted', sw=1)
+    parts.append(rect(gx, gy, 3 * c, 3 * c, k='ink', fill='paper', sw=1.6))
+    for d in range(14, 3 * c, 14):
         parts.append(line(gx + d, gy, gx, gy + d, k='muted', w=1))
         parts.append(line(gx + 3 * c, gy + d, gx + d, gy + 3 * c, k='muted', w=1))
-    parts.append(poly([(gx + 3 * c, gy), (gx + 6 * c, gy), (gx + 6 * c, gy + 6 * c), (gx, gy + 6 * c), (gx, gy + 3 * c),
-                       (gx + 3 * c, gy + 3 * c)], k='red', sw=2.6))
-    lab += [text(gx + 1.5 * c, gy + 1.5 * c + 6, 'pillar', k='ink', size=17, weight='700'),
-            text(gx + 3 * c, 30, 'the gap, seen from above', k='ink', size=17),
-            text(gx + 3 * c, gy + 6 * c + 26, '6 × 6 − 3 × 3 = 27 squares', k='red', size=19, font='scrawl'),
-            text(gx + 4.5 * c, gy - 6, '3', k='muted', size=14), text(gx + 6 * c + 10, gy + 4.5 * c, '6', k='muted', size=14)]
+    parts += _outline(gap, gx, gy, c, k='red', w=3)
+    parts.append(rect(gx + 0.5 * c, gy + 1.5 * c - 14, 2 * c, 24, k='ink', fill='paper', sw=1.2))
+    lab += [text(gx + 1.5 * c, gy + 1.5 * c + 5, 'pillar', k='ink', size=17),
+            text(gx + 3 * c, 26, 'the gap, seen from above', k='ink', size=17),
+            text(gx + 4.5 * c, gy - 8, '3', k='red', size=17), text(gx + 6 * c + 12, gy + 3 * c + 6, '6', k='red', size=17),
+            text(gx + 3 * c, gy + 6 * c + 22, '6', k='red', size=17),
+            text(gx + 3 * c, gy + 6 * c + 48, '6 × 6 − 3 × 3 = 27 squares', k='red', size=20, font='scrawl')]
     # right: the fit with 1, 2 and 5
-    fx = 360
+    fx = 370
     two = [(3, 0), (4, 0), (5, 0), (3, 1), (4, 1), (5, 1), (3, 2), (4, 2), (5, 2), (4, 3)]
     five = [(0, 3), (1, 3), (2, 3), (0, 4), (1, 4), (2, 4), (0, 5), (1, 5), (2, 5), (3, 5)]
     one = [(3, 3), (5, 3), (3, 4), (4, 4), (5, 4), (4, 5), (5, 5)]
-    parts += _cells(two, fx, gy, c, 'b') + _cells(five, fx, gy, c, 'o') + _cells(one, fx, gy, c, 'g')
-    lab += [text(fx + 4.5 * c, gy + 1.5 * c + 8, '2', k='pen', size=34, font='scrawl'),
-            text(fx + 1.5 * c, gy + 4.5 * c + 8, '5', k='orange', size=34, font='scrawl'),
-            text(fx + 4.5 * c, gy + 4.5 * c + 10, '1', k='green', size=30, font='scrawl'),
-            text(fx + 3 * c, 30, 'pieces 1, 2 and 5 fill it', k='ink', size=17),
-            text(fx + 3 * c, gy + 6 * c + 26, '2 and 5 turned a quarter turn', k='ink', size=16),
-            text(fx + 3 * c, gy + 6 * c + 46, '1 as drawn', k='ink', size=16)]
-    parts.append(arrow(gx + 6 * c + 30, gy + 3 * c, fx - 24, gy + 3 * c, k='red', bend=-0.15))
-    return svg(620, 300, rough(*parts) + ''.join(lab),
+    for cells, f in ((two, 'b'), (five, 'o'), (one, 'g')):
+        parts += _cells(cells, fx, gy, c, f, k='muted', sw=1)
+    for cells, k in ((two, 'pen'), (five, 'orange'), (one, 'green')):
+        parts += _outline(cells, fx, gy, c, k='ink', w=3)
+    lab += [text(fx + 4.5 * c, gy + 1.5 * c + 10, '2', k='pen', size=36, font='scrawl'),
+            text(fx + 1.5 * c, gy + 4.5 * c + 10, '5', k='orange', size=36, font='scrawl'),
+            text(fx + 4.5 * c, gy + 4.5 * c + 10, '1', k='green', size=32, font='scrawl'),
+            text(fx + 3 * c, 26, 'pieces 1, 2 and 5 fill it', k='ink', size=17),
+            text(fx + 3 * c, gy + 6 * c + 24, '2 and 5 each turned a quarter turn', k='ink', size=16),
+            text(fx + 3 * c, gy + 6 * c + 46, '1 exactly as drawn', k='ink', size=16)]
+    parts.append(arrow(gx + 6 * c + 30, gy + 3.6 * c, fx - 20, gy + 3.6 * c, k='red', bend=-0.15))
+    return svg(620, 330, rough(*parts) + ''.join(lab),
                'Left: the gap is a 6 by 6 square with a 3 by 3 corner under the pillar, 27 squares. Right: piece 2 fills one arm, piece 5 the other and piece 1 the corner')
 
 
@@ -479,8 +498,8 @@ into the corner square, and piece 1 fits the hole that is left (see the sketch i
 
 # ---------------------------------------------------------------- 8 (Q18)
 def _room():
-    s = 18
-    x0, y0 = 60, 40
+    s = 20
+    x0, y0 = 50, 30
     parts = [rect(x0, y0, 8 * s, 4 * s, k='pen', fill='b', sw=2.2)]
     xs = [x0, x0 + 8 * s, x0 + 12 * s, x0 + 20 * s, x0 + 24 * s]
     wy = y0 + 4 * s
@@ -500,11 +519,11 @@ def _room():
             text(x0 + 12 * s, wy + 3 * s + 46, 'walls unrolled: (8 + 4 + 8 + 4) × 3 = 24 × 3 = 72 m²', k='green', size=17),
             text(x0 + 16 * s, y0 + 2 * s + 6, 'door + windows: −10 m²', k='orange', size=17)]
     # paint tin
-    tx = 535
+    tx = 568
     parts += [rect(tx, 100, 70, 84, k='ink', fill='y', sw=2.2, rx=6), line(tx, 116, tx + 70, 116, k='ink', w=1.6),
               path(f'M{tx + 12} 100 Q{tx + 35} 70 {tx + 58} 100', k='ink', sw=2)]
     lab += [text(tx + 35, 146, '8 litres', k='ink', size=16), text(tx + 35, 168, '= 96 m²', k='red', size=17, font='scrawl')]
-    return svg(640, 280, rough(*parts) + ''.join(lab),
+    return svg(660, 240, rough(*parts) + ''.join(lab),
                'Room unfolded: ceiling 8 by 4 above four walls of lengths 8, 4, 8, 4 and height 3; door and windows marked; an 8 litre tin covers 96 square metres')
 
 
