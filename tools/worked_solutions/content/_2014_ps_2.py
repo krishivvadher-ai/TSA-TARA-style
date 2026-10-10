@@ -198,7 +198,7 @@ over the next 10 weeks. He decides he is able to walk the following number of mi
         ['4.0mph', '57', '68', '80', '91', hl('102', 'g'), '114', '125', '142', '156'],
         ['4.5mph', '64', '76', '89', '102', hl('115', 'g'), '127', '140', '159', '175'],
         ['5.0mph', '73', '87', '102', '116', hl('131', 'g'), '145', '160', '182', '200']],
-       head=['Speed', '100lb', '120lb', '140lb', '160lb', hl('180lb', 'b', 4), '200lb', '220lb', '250lb', '275lb'])}
+       head=['Walking speed ↓<br>Starting weight →', '100lb', '120lb', '140lb', '160lb', hl('180lb', 'b', 4), '200lb', '220lb', '250lb', '275lb'])}
 <p>{hl('NB: A lb in fat equals 3500 calories', 'y', 3)}</p>
 <p class="stem">What is the {hl('slowest speed', 'b', 5)} he needs to walk at to lose at least 7.5 lbs if he starts at 180 lbs?</p>""",
     options={'A': '2.5 mph', 'B': '3.0 mph', 'C': '4.0 mph', 'D': '4.5 mph', 'E': '5.0 mph'},

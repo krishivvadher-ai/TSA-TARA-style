@@ -208,7 +208,7 @@ Q.append(dict(
 <p class="stem">If a cylinder is cut into two {hl('equal halves', 'y', 1)} with {hl('one straight cut', 'y', 2)}, which one of the following could {hl('<b>not</b>', 'b', 3)}
 be a view of one of the halves {hl('from any direction', 'p', 4)}?</p>
 {fig(Y, 'ps_q04_opts', 'Option shapes: A rectangle, B circle, C triangle with a point at the top in the middle, D semicircle, E right-angled triangle', 476)}""",
-    options={'A': 'rectangle', 'B': 'circle', 'C': 'triangle', 'D': 'semicircle', 'E': 'thin triangle'},
+    options={'A': 'rectangle', 'B': 'circle', 'C': 'triangle', 'D': 'semicircle', 'E': 'right-angled triangle'},
     notes=[(1, 'y', 'Two equal halves: the cut has to pass through the <b>centre</b> of the cylinder.'),
            (2, 'y', 'One flat cut: across, lengthways or slanting.'),
            (3, 'b', 'Find the one shape you can never see.'),

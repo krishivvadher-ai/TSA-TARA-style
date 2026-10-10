@@ -283,7 +283,7 @@ one 8-hour ticket?</p>""",
         f"""<p>Which ticket is the best value per hour?</p>
 {calc('1 h: 80p an hour', '2 h: 120 ÷ 2 = 60p an hour', '3 h: 170 ÷ 3 ≈ 57p an hour ← best', '4 h: 240 ÷ 4 = 60p an hour', '5 h and up: 70p an hour or more')}""",
         f"""<p>Make 8 hours using as many 3-hour tickets as possible:</p>
-{calc('3 + 3 + 2 = 8 h: 1.70 + 1.70 + 1.20 = <b>£4.60</b>', 'other tries: 4 + 4 = £4.80, 2 + 2 + 2 + 2 = £4.80, 3 + 3 + 3 = £5.10')}
+{calc('3 + 3 + 2 = 8 h: 1.70 + 1.70 + 1.20 = <b>£4.60</b>', 'other tries: 4 h + 4 h → £4.80, 2 h + 2 h + 2 h + 2 h → £4.80, 3 h + 3 h + 3 h → £5.10')}
 {_parking()}
 {calc(f'saving = 6.20 − 4.60 = {boxed("£1.60")}')}""",
     ],
@@ -292,7 +292,7 @@ one 8-hour ticket?</p>""",
          'B': '£1.40 uses two 4-hour tickets (or four 2-hour tickets) for £4.80, not the cheapest mix.',
          'D': '£2.10 uses 4 + 3 hours (£4.10), but 7 hours doesn’t cover his 7½ hours.',
          'E': '£3.60 compares £4.60 with the “over 8 hours” price (£8.20) instead of the 8-hour ticket.'},
-    fast='3-hour tickets are best value. 8 h = 3 + 3 + 2 = £4.60. 6.20 − 4.60 = £1.60.',
+    fast='3-hour tickets are best value. 8 h = 3 h + 3 h + 2 h tickets = £4.60. £6.20 − £4.60 = £1.60.',
 ))
 
 # ---------------------------------------------------------------- 22 (Q44)

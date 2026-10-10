@@ -87,7 +87,7 @@ next week?</p>""",
          'B': '£2.99 (for example an orange bag + two lucky dips) only guarantees 8 oranges and 2 apples. It might work, but you can’t be sure.',
          'C': '£3.04 isn’t the price of any set of bags: no mix of 95p, 99p, 105p and 109p adds to 304p.',
          'E': '£3.19 (an orange bag + two half-and-half bags) does work, but it costs 2p more than £3.17.'},
-    fast='Need 10 oranges + 5 apples. Lucky dips are useless when you must be sure. Two orange bags + an apple bag = 109 + 109 + 99 = £3.17.',
+    fast='Need 10 oranges + 5 apples. Lucky dips are useless when you must be sure. Two orange bags + an apple bag = 109p + 109p + 99p = £3.17.',
 ))
 
 

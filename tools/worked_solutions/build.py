@@ -332,7 +332,8 @@ def render_ps(year, q):
     notes_html = (f'<aside><p class="notes-title">Reading it properly</p><ul class="notes">{notes}</ul></aside>'
                   if notes else '<aside></aside>')
     done = set()
-    steps = ''.join(f'<li><div>{written.add_methods(s, done)}</div></li>' for s in q['steps'])
+    key = f'{year}-{q["n"]}'
+    steps = ''.join(f'<li><div>{written.add_methods(s, done, key)}</div></li>' for s in q['steps'])
     others = ''.join(
         f'<li><span class="ol">{k}</span><span class="crossmark">✗</span><span class="why">{wslib.ar()} {q["why"][k]}</span></li>'
         for k in q['options'] if k != q['answer'])

@@ -401,7 +401,7 @@ Q.append(dict(
         f"""{calc('old: 300 ÷ 6 = <b>50 days</b>', 'new week: 2 × 6 + 5 × 4 = 12 + 20 = <b>32 tablets</b>')}""",
         f"""<p>How many full weeks fit in 300?</p>
 {calc('9 × 32 = 288 (10 × 32 = 320 is too many)', '9 weeks = 63 days, with 300 − 288 = 12 tablets left')}
-<p>To make the last 12 last as long as possible, use the 4-tablet days: 4 + 4 + 4 = 3 more days.</p>
+<p>To make the last 12 last as long as possible, use the 4-tablet days: 4 + 4 + 4 = 12 tablets, so 3 more days.</p>
 {_tablets()}""",
         f"""{calc('63 + 3 = 66 days', f'extra = 66 − 50 = {boxed("16 days")}')}
 {note('If the leftover 12 went on 6-tablet days (6 + 6), it would last only 2 days: 65 days, 15 extra. “Maximum” means start the week with the 4s.', 'trap')}""",

@@ -38,9 +38,9 @@ built in).
 - **Critical Thinking:** each passage colour-coded by the job each sentence does (reason, evidence,
   conclusion…), the answer highlighted with a short reason, a short note on every wrong option, and
   full working for parallel reasoning and principle questions.
-- **Written methods:** every sum in the Problem Solving working is also set out in full underneath:
-  column addition and subtraction, short and long multiplication, and bus stop or long division (with
-  decimals lined up). The *Written methods* button hides them if you want a shorter page.
+- **Written methods** (column subtraction and addition, long multiplication, long division) are set out in
+  full only where they are really needed: where the answer options are too close to estimate and there is
+  no quicker trick. Everywhere else the working estimates or uses a shortcut, because that saves time.
 - **Practice mode** hides the working until you press *Show working* on a question.
 
 They are built from `tools/worked_solutions/` (see `SCHEMA.md` there).

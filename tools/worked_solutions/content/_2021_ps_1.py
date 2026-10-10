@@ -54,7 +54,7 @@ flash {hl('every 5 seconds', 'g', 1)}, the green lights flash {hl('every 8 secon
 {note('The flash at 0 minutes has already happened, so don’t count it. The next one after 44 minutes is at 46 minutes, too late.', 'trap')}""",
     ],
     answer_text='22 times: they line up every 2 minutes, at 2, 4, … 44 minutes.',
-    why={'A': '5 uses 5 × 8 × 12 = 480 s (8 minutes) as the gap: 45 ÷ 8 = 5.6. That is <b>a</b> common multiple, but not the lowest one.',
+    why={'A': '5 uses 5 × 8 × 12 = 480 s (8 minutes) as the gap: 45 ÷ 8 ≈ 5.6. That is <b>a</b> common multiple, but not the lowest one.',
          'C': '45 uses a gap of 60 s (5 × 12). But 60 is not a multiple of 8, so the green lights are not flashing then.',
          'D': '108 adds the gaps: 5 + 8 + 12 = 25 s, and 2700 ÷ 25 = 108. Adding gaps has nothing to do with when they line up.',
          'E': '112 uses 24 s, the LCM of 8 and 12 only, and forgets the blue lights: 2700 ÷ 24 = 112.5.'},

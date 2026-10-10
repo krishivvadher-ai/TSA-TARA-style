@@ -381,7 +381,7 @@ made up of two types of tile: a hexagon and a triangle.</p>
 they come in a repeating set of three: a strip through the left half of the hexagons, a strip through the right half, then a plain strip.</p>""",
         f"""<p>Go down one strip from one hexagon to the next (6 triangle spaces) and count:</p>
 {calc('left-half strip: 3 spaces of hexagon + 3 triangles', 'right-half strip: 3 spaces of hexagon + 3 triangles',
-      'plain strip: 6 triangles', f'block total: 1 hexagon + 3 + 3 + 6 = <b>12 triangles</b>')}
+      'plain strip: 6 triangles', f'block total: 1 hexagon and 3 + 3 + 6 = <b>12 triangles</b>')}
 {_tiling()}""",
         f"""{calc(f'ratio {ar()} {boxed("1 hexagon to 12 triangles")}')}
 {note('Area check: 1 hexagon + 12 triangles = 6 + 12 = 18 triangle spaces, so hexagons cover a third of the floor. That looks right in the picture.', 'check')}

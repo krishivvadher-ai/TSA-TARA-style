@@ -1,0 +1,26 @@
+{
+  "_about": "Sums that get a written method, per question (key YEAR-N, Problem Solving set question number). Each was judged by hand: only where the answer options are too close to estimate and there is no quicker trick. 'python written.py suggest' lists candidates.",
+  "2009-11": [
+    "630 ÷ 14"
+  ],
+  "2014-20": [
+    "13.4 + 13.7 + 13.3 + 14.9",
+    "13.4 + 14.4 + 13.4 + 13.7 + 13"
+  ],
+  "2016-19": [
+    "27 × 56",
+    "24 × 63",
+    "21 × 72",
+    "22 × 68"
+  ],
+  "2017-9": [
+    "555 − 369",
+    "903 − 689"
+  ],
+  "2017-15": [
+    "52.8 ÷ 2.2"
+  ],
+  "2021-15": [
+    "3388 − 338.8"
+  ]
+}

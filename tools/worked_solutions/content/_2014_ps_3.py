@@ -173,8 +173,8 @@ the second year the number of scale sets returned has fallen well short of targe
         ['Gwynt', '500', hl('71', 'g'), hl('132', 'g'), hl('19', 'g'), hl('2', 'g'), '14', '26'],
         ['Tine', '250', hl('105', 'g'), hl('66', 'g'), hl('43', 'g'), hl('19', 'g'), '42', '26'],
         ['Yarrow', '250', hl('80', 'g'), hl('150', 'g'), hl('18', 'g'), hl('25', 'g'), '32', '60']],
-       head=['River', 'Annual target of scale sets', 'Scale sets Year 1', 'Scale sets Year 2', 'Anglers Year 1', 'Anglers Year 2',
-             hl('% of target Year 1', 'p', 4), hl('% of target Year 2', 'p')])}
+       head=['River', 'Annual target of scale sets', 'Scale sets obtained<br>Year 1', 'Scale sets obtained<br>Year 2', 'Number of anglers sending scale sets<br>Year 1', 'Number of anglers sending scale sets<br>Year 2',
+             hl('Percentage of target achieved<br>Year 1', 'p', 4), hl('Percentage of target achieved<br>Year 2', 'p')])}
 <p>{hl('The anglers who participated in the survey sent scales from all the fish they caught', 'y', 2)}.</p>
 <p class="stem">For which river was the {hl('average catch per angler sending in scales', 'b', 1)} the highest {hl('in any one year', 'b', 3)}?</p>""",
     options={'A': 'Dark', 'B': 'Fare', 'C': 'Gwynt', 'D': 'Tine', 'E': 'Yarrow'},

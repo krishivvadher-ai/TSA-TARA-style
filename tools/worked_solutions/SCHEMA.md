@@ -106,15 +106,13 @@ skeleton (A, B, "need A to get B" …) and map every option onto it.
 
 ## Written methods and the division sign
 
-`written.py` adds these automatically when a page is built, so content files do not draw them:
+`written.py` draws written methods (column addition and subtraction, short and long multiplication, bus stop
+and long division) when a page is built, so content files do not draw them.
 
-- Any sum in a step written as `a + b = c`, `a − b = c`, `a × b = c` or `a ÷ b = c` (chains such as
-  `a + b + c = d` are fine, and `≈` works for rounded answers) gets its written method drawn under the
-  `calc` block, or at the end of the step for sums in the text. Money signs, thousands separators and a
-  one-word label after a number (`6 pairs × £1.50 = £9.00`) are understood.
-- The stated answer is checked; a sum that does not work out is left alone, and so are basic facts such as
-  times tables, `5 + 10` or `× 10`.
-- Write the sum on one line with the operator between the numbers. Percentages, fractions made with
-  `frac()` and times such as `16:00` are not drawn.
+- A method is drawn only for sums listed for that question in `methods.json` (key `YEAR-N`). Each one there
+  was judged by hand: the answer options are too close to estimate and there is no quicker trick.
+- Estimates stay estimates. Never list a `≈` sum or a sum in a step that says it is rough.
+- `python tools/worked_solutions/written.py suggest` lists candidate sums (checked arithmetic, not quick in
+  your head) to judge. The stated answer is always checked before a method is drawn.
+- Write the sum on one line with the operator between the numbers, e.g. `903 − 689 = 214`.
 - Every `÷` is replaced by a drawn sign with bold dots, because the handwriting font's `÷` is faint.
-

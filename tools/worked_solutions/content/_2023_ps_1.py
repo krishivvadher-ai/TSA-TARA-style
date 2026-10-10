@@ -376,7 +376,7 @@ make sure that {hl('neither box has any side longer than 25 cm', 'y', 4)}.</p>
          'B': '$30 is two of the $15 wood box. They have to be two <b>different</b> boxes.',
          'C': '$31 ($13 + $18) uses the 550 cm³ wood box, which is 30 cm long.',
          'D': '$34 ($12 + $22) uses the $12 plastic box, which is 30 cm long.'},
-    fast='Cross out the two 30 cm boxes. Of 450, 500 and 600, only pairs with the 600 reach 1000. Cheapest: 450 + 600 = $13 + $22 = $35.',
+    fast='Cross out the two 30 cm boxes. Of 450, 500 and 600, only pairs with the 600 reach 1000. Cheapest: the 450 and 600 boxes, $13 + $22 = $35.',
 ))
 
 

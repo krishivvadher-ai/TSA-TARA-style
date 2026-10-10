@@ -1,19 +1,21 @@
 """Written methods for the arithmetic in the worked solutions, and a clearer division sign.
 
-add_methods(step_html) finds sums in a working step, such as "903 − 689 = 214" or "12 000 ÷ 25 = 480 ml",
-checks that the stated answer is right, and draws the written method underneath:
+add_methods(step_html) finds sums in a working step, such as "903 − 689 = 214", and for the sums approved for
+that question in methods.json checks that the stated answer is right and draws the written method underneath:
     + : column addition (carries under the line)
     − : column subtraction (exchanges shown above the top number)
     × : short multiplication (one-digit multiplier) or long multiplication (a row for each digit)
     ÷ : bus stop (short) division for divisors up to 12, long division otherwise
-Decimals are lined up on the point. Only sums whose stated answer checks out are drawn, and basic facts
-(times tables, 5 + 10, 100 − 30 ...) are left as they are.
+Decimals are lined up on the point. Methods are only for sums you could not sensibly do another way: where
+estimating is enough, or there is a quicker trick, the working is left as it is.
 
 clear_division(html) swaps every ÷ for a drawn sign with bold dots (the handwriting font's ÷ is too faint).
 """
 
 import html as _html
+import json
 import re
+from pathlib import Path
 from decimal import Decimal, getcontext
 
 getcontext().prec = 50
@@ -112,11 +114,24 @@ def matches(value, stated, approx):
 
 
 # ---------------------------------------------------------------- deciding what to draw
+# A written method is drawn only for sums approved one by one in methods.json: places where the answer
+# options are too close to estimate and there is no quicker trick. The rules below only suggest candidates
+# (python written.py suggest); they never flag an estimate (≈, or a step that says it is rough) or anything
+# quick in your head (two-digit sums, times tables, doubling, halving, x10, 100 − 24 ...).
+
+ROUGH = re.compile(r'\brough|\bestimat|\bapprox|\bballpark', re.I)
+QUICK_DIVISORS = {1, 2, 4, 5, 8, 10, 16, 20, 25, 32, 50, 64, 100, 1000}
+
 
 def core(d):
     """Digits without the point and without trailing zeros, e.g. 0.40 -> 4, 1200 -> 12."""
     s = format(d.normalize(), 'f').replace('.', '').lstrip('0') or '0'
     return int(s.rstrip('0') or '0')
+
+
+def nd(d):
+    """How many digits you would write down: 230 -> 3, 3.49 -> 3, 0.17 -> 2."""
+    return len(str(int(d.normalize().scaleb(dp(d.normalize())))))
 
 
 def strip_common_zeros(a, b):
@@ -127,36 +142,77 @@ def strip_common_zeros(a, b):
     return a, b
 
 
+def carries(terms):
+    F = max(dp(t) for t in terms)
+    ints = [int(t.scaleb(F)) for t in terms]
+    n = carry = 0
+    while any(ints) or carry:
+        carry = (sum(i % 10 for i in ints) + carry) // 10
+        n += carry > 0
+        ints = [i // 10 for i in ints]
+    return n
+
+
+def exchanges(a, b):
+    F = max(dp(a), dp(b))
+    x, y = int(a.scaleb(F)), int(b.scaleb(F))
+    n = borrow = 0
+    while x or y:
+        borrow = 1 if x % 10 - borrow - y % 10 < 0 else 0
+        n += borrow
+        x, y = x // 10, y // 10
+    return n
+
+
 def worth_adding(terms):
-    if any(dp(t) for t in terms):
-        return True
-    cores = sorted((core(t) for t in terms), reverse=True)
-    return cores[0] >= 100 or (len(cores) > 1 and cores[1] >= 10 and sum(cores) >= 20)
+    """Big numbers, decimals that do not line up, or long lists: things you would write out."""
+    c = carries(terms)
+    if c < 2:
+        return False
+    digits = [nd(t) for t in terms]
+    places = {dp(t) for t in terms}
+    if max(digits) >= 4 and sorted(digits)[-2] >= 4:
+        return True                      # e.g. 37862 + 25517 + 20143
+    if len(places) > 1 and max(digits) >= 4 and min(digits) >= 3:
+        return True                      # e.g. 16.25 + 4.875 (the points must line up)
+    if len(terms) >= 4 and min(digits) >= 3:
+        return True                      # e.g. 13.4 + 13.7 + 13.3 + 14.9
+    return len(terms) >= 8               # a long column of numbers
 
 
 def worth_subtracting(a, b):
-    if dp(a) or dp(b):
-        return True
+    """Both numbers at least three digits, at least two exchanges, and a difference you cannot count on to."""
     a, b = strip_common_zeros(a, b)
-    return a >= 100 or (a >= 20 and b >= 10)
+    return nd(a) >= 3 and nd(b) >= 3 and exchanges(a, b) >= 2 and nd(a - b) >= 3
 
 
 def worth_multiplying(a, b):
-    if core(a) == 1 or core(b) == 1:      # x 10, x 100, x 0.1 ...
-        return False
-    return not (core(a) <= 12 and core(b) <= 12)
+    """Long multiplication with a four-figure answer, or a big number times 3, 6, 7, 8 or 9."""
+    big, small = sorted([core(a), core(b)], reverse=True)
+    if small >= 10:
+        return big * small >= 1000
+    return small in (3, 6, 7, 8, 9) and big >= 1000
 
 
 def worth_dividing(a, b, q):
+    """Long division by an awkward divisor, or a four-figure number divided by 3, 6, 7, 8 or 9."""
+    while b != b.to_integral_value():
+        a, b = a * 10, b * 10
     a, b = strip_common_zeros(a, b)
-    if b != b.to_integral_value():
-        return True
-    return not (b <= 12 and q == q.to_integral_value() and core(q) <= 12 and dp(a) == 0)
+    if core(b) in QUICK_DIVISORS:
+        return False
+    if q == q.to_integral_value() and core(q) <= 12:
+        return False                     # the answer is a times-table number
+    if b < 10:
+        return nd(a) >= 4
+    return nd(a) >= 3
 
 
-def methods_for(vals, ops, stated, approx):
+def methods_for(vals, ops, stated, approx, force=False):
     """The written methods for one sum, as HTML strings."""
     out = []
+    if approx:
+        return out
     if set(ops) <= {'+', '-'}:
         acc, i = vals[0], 0
         while i < len(ops):
@@ -166,12 +222,12 @@ def methods_for(vals, ops, stated, approx):
                     group.append(vals[i + 1])
                     i += 1
                 total = sum(group, Decimal(0))
-                if worth_adding(group):
+                if force or worth_adding(group):
                     out.append(col_add(group, total))
                 acc = total
             else:
                 b = vals[i + 1]
-                if worth_subtracting(acc, b) and acc >= b:
+                if acc >= b and (force or worth_subtracting(acc, b)):
                     out.append(col_sub(acc, b))
                 acc -= b
                 i += 1
@@ -180,15 +236,13 @@ def methods_for(vals, ops, stated, approx):
     for o, x in zip(ops, vals[1:]):
         if o == '×':
             r = acc * x
-            if worth_multiplying(acc, x):
+            if force or worth_multiplying(acc, x):
                 out.append(multiply(acc, x, r))
             acc = r
         else:
             r = acc / x
-            last = o is ops[-1] and x is vals[-1]
-            places = dp(stated) + (1 if approx else 0) if last else MAX_DP
-            if worth_dividing(acc, x, r):
-                m = divide(acc, x, places, stated if last else None, approx and last)
+            if force or worth_dividing(acc, x, r):
+                m = divide(acc, x, MAX_DP, None, False)
                 if m:
                     out.append(m)
             acc = r
@@ -477,36 +531,83 @@ def _balanced_div(s, start):
     return len(s)
 
 
-def _render(sums, done):
+def _load_approved():
+    path = Path(__file__).resolve().parent / 'methods.json'
+    data = json.loads(path.read_text()) if path.exists() else {}
+    return {k: v for k, v in data.items() if not k.startswith('_')}
+
+
+APPROVED = _load_approved()
+
+
+def canon(vals, ops):
+    """The sum as it is written in a caption, e.g. '3388 − 338.8'."""
+    sym = {'-': '−'}
+    return fmt(vals[0]) + ''.join(f' {sym.get(o, o)} {fmt(v)}' for o, v in zip(ops, vals[1:]))
+
+
+def _render(sums, done, approved):
     out = []
-    for shown, vals, ops, stated, approx in sums:
-        if shown in done:
+    for _shown, vals, ops, stated, approx in sums:
+        c = canon(vals, ops)
+        if c in done or not any(c.startswith(a) for a in approved):
             continue
-        done.add(shown)
+        done.add(c)
         try:
-            out += methods_for(vals, ops, stated, approx)
+            out += methods_for(vals, ops, stated, approx, force=True)
         except (ArithmeticError, ValueError, IndexError):
             continue
     return f'<div class="wms">{"".join(out)}</div>' if out else ''
 
 
-def add_methods(step_html, done=None):
-    """step_html with the written methods for its sums added after each calc block (and at the end for the rest)."""
+def add_methods(step_html, done=None, key=None):
+    """step_html with written methods for its approved sums (methods.json) after each calc block,
+    or at the end of the step for sums in the text. key is "YEAR-N", e.g. "2014-20"."""
     done = set() if done is None else done
+    approved = APPROVED.get(key, []) if key else []
+    if not approved:
+        return step_html
     out, pos = [], 0
     for m in re.finditer(r'<div class="calc">', step_html):
         if m.start() < pos:
             continue
         end = _balanced_div(step_html, m.start())
-        block = step_html[m.start():end]
         out.append(step_html[pos:end])
-        out.append(_render(find_sums(to_text(block)), done))
+        out.append(_render(find_sums(to_text(step_html[m.start():end])), done, approved))
         pos = end
     out.append(step_html[pos:])
     joined = ''.join(out)
     rest = re.sub(r'<div class="calc">.*?</div></div>', ' ', step_html, flags=re.S)
     rest = re.sub(r'<div class="sticky.*?</div>', ' ', rest, flags=re.S)
-    return joined + _render(find_sums(to_text(rest)), done)
+    return joined + _render(find_sums(to_text(rest)), done, approved)
+
+
+def suggest(questions_by_key):
+    """Candidates for methods.json: checked sums that the rules think may need a written method.
+
+    questions_by_key: {"YEAR-N": [step_html, ...]}. Estimates and rough steps are never suggested."""
+    found = {}
+    for key, steps in questions_by_key.items():
+        for st in steps:
+            if ROUGH.search(to_text(st)):
+                continue
+            for _shown, vals, ops, stated, approx in find_sums(to_text(st)):
+                if not approx and methods_for(vals, ops, stated, approx):
+                    found.setdefault(key, []).append(canon(vals, ops))
+    return found
+
+
+if __name__ == '__main__':
+    # python written.py suggest   -> list sums the rules would flag, so they can be judged one by one
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'content'))
+    import build
+    keys = json.loads((Path(__file__).resolve().parent / 'keys.json').read_text())
+    qs = {f'{y}-{q["n"]}': q['steps'] for y in sorted(keys) for q in (build.load_content(y, 'ps') or [])}
+    for key, sums in suggest(qs).items():
+        mark = 'approved' if key in APPROVED else 'not used'
+        print(f'{key}: {"; ".join(sums)}   [{mark}]')
 
 
 DIV_SVG = ('<svg class="dvs" viewBox="0 0 12 12" role="img" aria-label="divided by"><path d="M1.6 6h8.8"/>'
