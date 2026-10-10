@@ -105,7 +105,7 @@ h1,h2,h3{text-wrap:balance}
 
 .slip{background:var(--slip);color:var(--slip-ink);font-family:var(--print);font-size:15.5px;line-height:1.55;
   border:1px solid var(--slip-edge);padding:18px 20px;box-shadow:3px 4px 0 rgba(0,0,0,.07);min-width:0}
-.slip p{margin:0 0 .75em}
+.slip p,.slip .passage{margin:0 0 .75em}
 .slip .stem{font-weight:600}
 .slip .paperfig{display:block;margin:.4em 0 .9em;height:auto;max-width:100%}
 .opts{list-style:none;margin:.6em 0 0;padding:0;display:grid;gap:.35em}
@@ -327,7 +327,7 @@ def render_ct(year, q):
   <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">(Q{q['orig']} in the original paper)</span>
     <span class="chip">{q.get('type', '')}</span>{attempt_chip(q)}</div>
   <div class="slip ct-tag-wrap">
-    <p>{passage}</p>
+    <div class="passage">{passage}</div>
     <p class="stem">{q['stem']}</p>
     <ol class="ct-opts">{opts}</ol>
   </div>

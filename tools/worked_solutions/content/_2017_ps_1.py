@@ -272,18 +272,18 @@ value of {hl('exactly £1', 'g', 3)}.</p>
     steps=[
         f"""<p>Use the free information first: take one of each out.</p>
 {calc('19 + 12 + 7 = 38p used', f'left: 4 coupons worth 100 − 38 = <b>62p</b>')}""",
-        f"""<p>Now find 4 coupons that make 62p. Try different numbers of extra 19s:</p>
-{calc(f'no 19s: 4 × 12 = 48 at most {ar()} too small {cross()}',
-      f'one 19: 62 − 19 = 43 from three 12s/7s, but 3 × 12 = 36 at most {cross()}',
-      f'two 19s: 62 − 38 = 24 = 12 + 12 {tick()}',
-      f'three 19s: 62 − 57 = 5 from one coupon {cross()}')}""",
+        f"""<p>Now find 4 coupons that make 62p. Try different numbers of extra 19p coupons:</p>
+{calc(f'no more 19s: 4 × 12 = 48 at most {ar()} too small {cross()}',
+      f'one more 19: 62 − 19 = 43 from three 12s or 7s, but 3 × 12 = 36 at most {cross()}',
+      f'two more 19s: 62 − 38 = 24 = 12 + 12 {tick()}',
+      f'three more 19s: 62 − 57 = 5 from one coupon {cross()}')}""",
         f"""<p>So he has 1 + 2 = <b>three</b> 19p coupons, 1 + 2 = three 12p coupons and one 7p coupon.</p>
 {_coupons()}
 {calc(f'number of 19p coupons = {boxed("3")}')}""",
     ],
     answer_text='3 coupons are worth 19p (3 × 19 + 3 × 12 + 1 × 7 = 100).',
     why={'A': 'With one 19p, the other six coupons (12p and 7p) would have to make 81p. Even six 12s only make 72p.',
-         'B': 'With two 19s, five 12p/7p coupons must make 62p. That needs 12 × b + 7 × c = 62 with b + c = 5, which has no whole-number answer (it gives b = 5.4).',
+         'B': 'With two 19s, the other five coupons must make 62p. Five 7s make 35p and swapping a 7 for a 12 adds 5p, so five coupons make 35, 40, 45, 50, 55 or 60p. Never 62p.',
          'D': 'With four 19s (76p), three coupons must make 24p and include a 12 and a 7. 12 + 7 + anything is at least 26p.',
          'E': 'With five 19s (95p), only 5p is left for two coupons, but you need a 12p and a 7p.'},
     fast='Remove one of each (38p): 4 coupons make 62p. 19 + 19 + 12 + 12 = 62, so 3 × 19p in total.',
