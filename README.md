@@ -38,22 +38,27 @@ built in).
 - **Critical Thinking:** each passage colour-coded by the job each sentence does (reason, evidence,
   conclusion…), the answer highlighted with a short reason, a short note on every wrong option, and
   full working for parallel reasoning and principle questions.
+- **Written methods:** every sum in the Problem Solving working is also set out in full underneath:
+  column addition and subtraction, short and long multiplication, and bus stop or long division (with
+  decimals lined up). The *Written methods* button hides them if you want a shorter page.
 - **Practice mode** hides the working until you press *Show working* on a question.
 
 They are built from `tools/worked_solutions/` (see `SCHEMA.md` there).
 
 ## Website
 
-Open `TSA_Website/index.html` in a web browser (it works offline).
+Open `TSA_Website/index.html` in a web browser (it works offline). It holds everything: the answers, the
+worked solutions and the question papers for every year.
 
-- The home page shows every year as an exercise book. Pick one to see its four pages: Critical
-  Thinking answers, Critical Thinking worked solutions, Problem Solving answers and Problem Solving
-  worked solutions.
-- The bar at the top of every page links home, steps to the previous or next year, jumps to the same
-  page in any other year, and switches between the four pages of the year you are in.
-- On an answers page, tap a question to jump straight to its worked solution.
+- The home page shows every year as a card. Pick one to see its pages: for each set (Critical Thinking and
+  Problem Solving) the **answers**, the **worked solutions** and the **question paper**.
+- To check a paper, open its *Answers* and tap any question to jump straight to its worked solution. Each
+  worked solution also shows the answer at the top.
+- The side menu (the *Menu* button on a phone) reaches every page of the year in one tap, and every other
+  year. The arrows in the top bar step to the same page in the previous or next year.
 
-Rebuild it with `python tools/worked_solutions/build_site.py`.
+Rebuild it with `python tools/worked_solutions/build_site.py` (it needs `pymupdf` and `pillow` to draw the
+question papers).
 
 ## Time limits
 

@@ -103,3 +103,18 @@ skeleton (A, B, "need A to get B" …) and map every option onto it.
    (the build checks numbering, answers and that every wrong option has a reason).
 3. Look at your sketches: `node <scratch>/work/shot.js <html file> <png> 1200 light full`, then view
    the PNG (split tall pages into parts). Fix overlaps, clipped text and anything unclear.
+
+## Written methods and the division sign
+
+`written.py` adds these automatically when a page is built, so content files do not draw them:
+
+- Any sum in a step written as `a + b = c`, `a − b = c`, `a × b = c` or `a ÷ b = c` (chains such as
+  `a + b + c = d` are fine, and `≈` works for rounded answers) gets its written method drawn under the
+  `calc` block, or at the end of the step for sums in the text. Money signs, thousands separators and a
+  one-word label after a number (`6 pairs × £1.50 = £9.00`) are understood.
+- The stated answer is checked; a sum that does not work out is left alone, and so are basic facts such as
+  times tables, `5 + 10` or `× 10`.
+- Write the sum on one line with the operator between the numbers. Percentages, fractions made with
+  `frac()` and times such as `16:00` are not drawn.
+- Every `÷` is replaced by a drawn sign with bold dots, because the handwriting font's `÷` is faint.
+

@@ -10,6 +10,7 @@
   --hl-y:#fde46a; --hl-p:#ffb0cf; --hl-g:#aeeec1; --hl-b:#b6d8ff; --hl-o:#ffcf98; --hl-v:#dccbff; --hl-k:#e2e2dc; --hl-t:#a6ece4;
   --fill-y:#fff0a8; --fill-p:#ffd3e4; --fill-g:#cdf5d8; --fill-b:#d5e8ff; --fill-o:#ffe2bf; --fill-v:#e9ddff;
   --note-bg:#fff3a3; --note-ink:#2b2710; --chip:#e9e7df; --chip-ink:#34373c;
+  --wm-bg:rgba(255,255,255,.6); --wm-edge:rgba(31,78,168,.28);
   --print:Arial,"Helvetica Neue",Helvetica,sans-serif;
   --hand:"Patrick Hand","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
   --scrawl:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
@@ -18,13 +19,13 @@
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--paper);color:var(--ink);
@@ -60,6 +61,10 @@ h1,h2,h3{text-wrap:balance}
 .qorig{color:var(--muted);font-size:1.05rem}
 .chip{background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 10px;font-size:.92rem}
 .attempt{border-radius:999px;padding:1px 10px;font-size:.92rem;border:2px solid currentColor}
+.anschip{margin-left:auto;border-radius:999px;padding:1px 4px 1px 12px;font-size:.95rem;background:var(--fill-g);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px}
+.anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
+  border-radius:50%;background:var(--green);color:var(--paper)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -117,6 +122,40 @@ svg.ar{width:1.7em;height:.85em;vertical-align:middle;stroke:currentColor;stroke
   padding:0 .35em;line-height:1.5}
 .others .why{min-width:0}
 .fast{margin-top:16px}
+.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:20px;font-size:1rem}
+.qfoot a{color:var(--pen);text-decoration:none;border:1.5px solid currentColor;border-radius:10px 8px 11px 7px;padding:.05em .7em}
+.qfoot a:hover{background:var(--pen);color:var(--paper)}
+
+/* written methods (column addition and subtraction, multiplication, bus stop and long division) */
+.wms{display:flex;flex-wrap:wrap;gap:10px 14px;margin:.25em 0 .8em;align-items:flex-start}
+.wm{border:1.5px solid var(--wm-edge);border-radius:12px 9px 13px 8px;padding:6px 12px 8px;background:var(--wm-bg);max-width:100%;overflow-x:auto}
+.wm-cap{font-family:var(--scrawl);font-weight:700;font-size:1.05rem;line-height:1.15;color:var(--red);margin-bottom:4px}
+.wm table{border-collapse:collapse;font-family:var(--hand);font-size:1.35rem;line-height:1;color:var(--pen);font-variant-numeric:tabular-nums}
+.wm td{min-width:.95em;height:1.45em;padding:0 .04em;text-align:center;vertical-align:middle;position:relative}
+.wm td.pt{min-width:.3em;width:.3em}
+.wm table.bus td:not(.dv):not(.pt){min-width:1.45em;padding-left:.5em}
+.wm td.op{color:var(--ink);padding-right:.15em}
+.wm td.sum{border-top:2px solid var(--ink)}
+.wm tr.res td,.wm td.qt{color:var(--green)}
+.wm tr.first td:not(.lab):not(:first-child){border-top:2px solid var(--ink)}
+.wm .fz{opacity:.4}
+.wm tr.cyrow td{height:1em;vertical-align:top}
+.wm td.cy{font-size:.62em;color:var(--red)}
+.wm tr.ex-row td{height:2.15em;vertical-align:bottom;padding-bottom:.12em}
+.wm .x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.wm .nv{position:absolute;left:50%;top:.1em;transform:translateX(-50%);font-size:.62em;color:var(--red);white-space:nowrap}
+.wm .ci{position:absolute;left:.08em;top:.05em;font-size:.6em;color:var(--red)}
+.wm td.roof{border-top:2px solid var(--ink)}
+.wm td.wall{border-left:2px solid var(--ink);border-top-left-radius:12px}
+.wm td.dv{padding-right:.35em;text-align:right;color:var(--ink)}
+.wm td.lab{font-size:.62em;color:var(--muted);text-align:left;padding-left:.7em;white-space:nowrap}
+.wm-note{font-family:var(--hand);font-size:.98rem;color:var(--muted);margin-top:4px;max-width:32ch}
+.no-wm .wms{display:none}
+@media (max-width:700px){.wms{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wm{flex:none;scroll-snap-align:start}}
+svg.dvs{display:inline-block;width:.68em;height:.68em;vertical-align:-.02em;margin:0 .1em;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;fill:currentColor}
+svg.dvs path{fill:none}svg.dvs circle{stroke:none}
+.dvt{font-family:Arial,Helvetica,sans-serif;font-weight:700}
 
 /* critical thinking passage */
 .seg{border-radius:3px;padding:.05em .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--slip-ink);
@@ -159,7 +198,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -184,7 +223,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <main>
 <section class="q" id="q1">
   <div class="q-head"><span class="qnum">1</span><span class="qorig">(Q1 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Heroin and cocaine are not the only illegal drugs with a terrible impact on global health. Counterfeit medicines can also do damage.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Some of these fakes contain potentially toxic chemicals, and when taken to treat a disease they can kill.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-analogy">Others are like homeopathic remedies – while harmless in themselves, as they contain no active ingredients, they do not work as advertised.</span><span class="seg-tag">Comparison</span> <span class="seg seg-ic">Efforts to tackle drug crime have prioritised illegal drugs and so have not dealt with crimes that are just as serious.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">This should now be remedied.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above passage?</p>
@@ -193,10 +232,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> A short “This should…” at the end is the conclusion. Work out what “this” refers to.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><span></span><a href="#questions">All questions</a><a href="#q2">Question 2 →</a></nav></section>
 <section class="q" id="q2">
   <div class="q-head"><span class="qnum">2</span><span class="qorig">(Q3 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">All European countries have seen a decline in the number of people who vote in elections.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">In the 2005 General Election in the UK only 61% of those eligible to vote did so. When this percentage is further broken down to show the number of people who voted for the political party that went on to form the government, the number is even lower. Of those who did vote, only 35% voted for the party that won power.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">It becomes clear, therefore, that the party voted into government did not have legitimacy, if 'legitimacy' is defined as the government having the support of the majority of the people.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following represents a flaw in the argument above?</p>
@@ -205,10 +244,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Didn’t vote for it” is not the same as “doesn’t support it”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q1">← Question 1</a><a href="#questions">All questions</a><a href="#q3">Question 3 →</a></nav></section>
 <section class="q" id="q3">
   <div class="q-head"><span class="qnum">3</span><span class="qorig">(Q4 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Only John Lewis, the nationally adored and trusted UK retail group, can get away with the shamelessly sentimental marketing that they do.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">More than 100,000 people watched and re-watched on <i>YouTube</i> in the first week it was available their most popular 'Always a Woman' advertisement.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">If anyone else had dreamt it up, they would have been pilloried as sexist and out-of-touch.</span><span class="seg-tag">Reason</span> <span class="seg seg-ctx">In it, John Lewis offers a politically incorrect view of modern womanhood: pair-bonding and breeding are significant milestones, they say, not making CEO of a company.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">Surprisingly however, figures show that the retailer has magnificently outperformed every single rival.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -217,10 +256,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “In the right hands” is the option’s way of saying “only John Lewis can get away with it”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q2">← Question 2</a><a href="#questions">All questions</a><a href="#q4">Question 4 →</a></nav></section>
 <section class="q" id="q4">
   <div class="q-head"><span class="qnum">4</span><span class="qorig">(Q5 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">In the 1920s and 1930s there were successes for extremist parties in elections across Europe. Several of these parties formed governments and were directly involved in starting the Second World War.</span> <span class="seg seg-evid">In recent elections extremist parties were particularly successful at the expense of the more traditional parties.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">It is possible that this dangerous situation will get worse.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">Our schools must teach children about the link between extremist politics and war in order to reduce the likelihood of future wars.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -229,10 +268,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “the lessons will NOT change how anyone votes”. Then they can’t reduce war, so C is assumed.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q3">← Question 3</a><a href="#questions">All questions</a><a href="#q5">Question 5 →</a></nav></section>
 <section class="q" id="q5">
   <div class="q-head"><span class="qnum">5</span><span class="qorig">(Q9 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">A study of shooting victims in Philadelphia has found that people who carry guns are far more likely to be shot than those who are unarmed.</span> <span class="seg seg-evid">Researchers at the University of Pennsylvania looked at 677 shootings over two and a half years, taking into account various factors such as the age and socioeconomic status of those involved. The researchers concluded that armed citizens were 4.5 times more likely to get shot and 4.2 times more likely to get killed than those who were unarmed.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Therefore, it is significantly safer not to carry a gun in Philadelphia.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -241,10 +280,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Correlation (armed and shot) → cause (the gun). Ask: could it run the other way?</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q4">← Question 4</a><a href="#questions">All questions</a><a href="#q6">Question 6 →</a></nav></section>
 <section class="q" id="q6">
   <div class="q-head"><span class="qnum">6</span><span class="qorig">(Q10 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Recurring dreams (those that you keep on having time after time) make good sense when you think of them as messages from your unconscious.</span> <span class="seg seg-prem">Some messages are too important to send just once in case you don't understand them first time around or don't realise their importance.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">So, a recurring dream must contain a message that is worth repeating over and over.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following identifies the flaw in the reasoning in the above argument?</p>
@@ -253,10 +292,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Watch the jump in strength: “makes good sense” → “must”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q5">← Question 5</a><a href="#questions">All questions</a><a href="#q7">Question 7 →</a></nav></section>
 <section class="q" id="q7">
   <div class="q-head"><span class="qnum">7</span><span class="qorig">(Q11 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ic">Conspicuous consumption does not make us happy.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">Buying a flashy car sends the message: 'I've got so many resources, I can afford to squander them.' Paying more for organic foods signals another desirable trait: conscientiousness.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">We put too much effort into sending signals that don't actually impress others and cause us stress.</span> <span class="seg seg-prem">We evolved into emotionally well-balanced individuals thousands of years ago.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">To be truly happy now, we should devote more time to the activities that dominated life back then: being at one with nature, being with children, or holding face-to-face conversations. We need to evaluate our lives and make sure they include many of those things we were doing 250,000 years ago.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -265,10 +304,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Look for the “should”. The last sentence just repeats it.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q6">← Question 6</a><a href="#questions">All questions</a><a href="#q8">Question 8 →</a></nav></section>
 <section class="q" id="q8">
   <div class="q-head"><span class="qnum">8</span><span class="qorig">(Q15 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Currently 56% of British school children do not study a foreign language at all at GCSE, and seven university language departments have closed in the past seven years.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">People with only one language feel disempowered, whereas those who speak other languages are comfortable to travel the world.</span> <span class="seg seg-prem">Once you can speak their languages, some of the mystique of foreigners goes away and you feel less intimidated by them.</span> <span class="seg seg-prem">Good language skills are also important in the international business world.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following conclusions is best supported by the passage above?</p>
@@ -277,10 +316,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The best-supported conclusion uses <b>all</b> the strands (school figures + travel + business), not just one.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q7">← Question 7</a><a href="#questions">All questions</a><a href="#q9">Question 9 →</a></nav></section>
 <section class="q" id="q9">
   <div class="q-head"><span class="qnum">9</span><span class="qorig">(Q16 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">School science lessons were once the place of bangs, flashes, smells, blood and droplets of mercury on the bench. Few, if any, people ever died from these experiences.</span> <span class="seg seg-evid">Now, the activities that once made science fun are rare – banned on health and safety grounds.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ctx">It has been reported that governments are concerned about the decreasing percentage of students enrolling on science courses at universities.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">If they do wish to reverse this trend, they need to take steps to curtail the pervasive 'health and safety' culture in which we now live.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -289,10 +328,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Find the gap between the reason (fun lessons banned) and the conclusion (university numbers).</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q8">← Question 8</a><a href="#questions">All questions</a><a href="#q10">Question 10 →</a></nav></section>
 <section class="q" id="q10">
   <div class="q-head"><span class="qnum">10</span><span class="qorig">(Q17 in the original paper)</span>
-    <span class="chip">Strengthen</span></div>
+    <span class="chip">Strengthen</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">In the UK, house prices have risen at far greater rates than inflation, fuelled by unprecedented levels of borrowing.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">Because of these high prices, owning their own home has become unaffordable for many people. Those who are able to 'own' their own home must do so burdened by a huge level of debt.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">Since the recent financial crisis can be attributed in part to those who were unable to meet the repayments on their debts,</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">governments should attempt to tackle the problem at its root and take action to prevent a continued rise in house prices above the level of inflation.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, most strengthens the above argument?</p>
@@ -301,10 +340,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Strengthen a “should act” argument by showing the problem is real and still growing.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q9">← Question 9</a><a href="#questions">All questions</a><a href="#q11">Question 11 →</a></nav></section>
 <section class="q" id="q11">
   <div class="q-head"><span class="qnum">11</span><span class="qorig">(Q21 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">We need a fair policy for dealing with drivers whose ability is impaired by drugs, such as cannabis, amphetamines and cocaine.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">Setting limits for driving under the influence of drugs may be difficult. Tests would be necessary for the levels in the blood of each of these drugs. But, such limits may not reflect the complex interactions between drugs and their effect on driving: a driver may be severely impaired but under the limit for each individual drug. Also, setting a legal limit for the use of a substance that is illegal seems self-contradictory.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">So to solve the problem of drug-driving there should be a new offence of driving with any level of illegal drug in the body.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">This would make it much easier to catch and convict drug-drivers – the ultimate deterrent.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following identifies the flaw in the above argument?</p>
@@ -313,10 +352,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Check the solution covers the whole problem: impaired by drugs ≠ has illegal drugs in the body.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q10">← Question 10</a><a href="#questions">All questions</a><a href="#q12">Question 12 →</a></nav></section>
 <section class="q" id="q12">
   <div class="q-head"><span class="qnum">12</span><span class="qorig">(Q22 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Adding fluoride to the water supply would not,</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-counter">as some claim,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">improve dental health.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">If fluoride really did improve dental health, one would expect people living in areas where water is naturally fluoridated to have healthier teeth than people whose water is fluoride free.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">In fact, research suggests that there is no difference in dental health between the two groups.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -333,10 +372,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Look for all three parts in order: “if X, then Y”, “no Y”, “so no X”.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q11">← Question 11</a><a href="#questions">All questions</a><a href="#q13">Question 13 →</a></nav></section>
 <section class="q" id="q13">
   <div class="q-head"><span class="qnum">13</span><span class="qorig">(Q23 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Inhabitants of towns and roads with odd names often complain that property values are lower and that they face embarrassment when describing where they live.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">People have a right to decide as a community what is in the best interests of that community</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">and, therefore, local residents should have the right to rename their town or road if they wish.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following illustrates the principle used in the above argument?</p>
@@ -354,10 +393,10 @@ So the principle: <b>the people affected should decide matters that concern thei
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Strip out the topic (road names) and keep the rule (the community decides). Then find it somewhere new.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q12">← Question 12</a><a href="#questions">All questions</a><a href="#q14">Question 14 →</a></nav></section>
 <section class="q" id="q14">
   <div class="q-head"><span class="qnum">14</span><span class="qorig">(Q27 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Increasing quantities of personal data are recorded and stored on computers: for example, where and when you use your mobile phone or what purchases you make in the supermarket.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">This poses a potential threat to our privacy.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-ctx">The Data Protection Act forbids the use of this information for a purpose other than that for which it was collected, apart from instances in which serious crime could be prevented or detected.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">We must not allow this principle to be abandoned</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">because our liberty depends on it.</span><span class="seg-tag">Reason</span> <span class="seg seg-counter">Although at present there is no malign political purpose to which this information is put,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">we cannot be certain that this will never be the case.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -366,10 +405,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “X because Y”: X is the conclusion, Y the reason.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q13">← Question 13</a><a href="#questions">All questions</a><a href="#q15">Question 15 →</a></nav></section>
 <section class="q" id="q15">
   <div class="q-head"><span class="qnum">15</span><span class="qorig">(Q28 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">An intensely irritating fashion among politicians of all parties is to use the sound bite 'doing the right thing' to justify whatever action they have taken or propose to take.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">The phrase cleverly implies that if you do not agree with the action you are an immoral person – and no-one wants to be that.</span> <span class="seg seg-prem">Taken to its logical conclusion, all we need are politicians who have some sixth sense that tells them what 'the right thing' is, and, hey presto, we can trust them to act on our behalf without any need for accountability.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">This is nothing short of dangerous brainwashing.</span><span class="seg-tag">Intermediate conclusion</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion of the passage above?</p>
@@ -378,10 +417,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> When a passage ends by condemning a practice, the conclusion is usually what should be done instead.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q14">← Question 14</a><a href="#questions">All questions</a><a href="#q16">Question 16 →</a></nav></section>
 <section class="q" id="q16">
   <div class="q-head"><span class="qnum">16</span><span class="qorig">(Q29 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ic">Thankfully, logicians did not devise the British Constitution.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">It has evolved through the work of ordinary people, who have adapted the Government of the country to meet the needs of their age. They have always preserved sufficient flexibility to permit such adaptation.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">And we have avoided a lot of problems because we have never been guided in anything we have done by logic.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">If you study the period of history from the Civil War, in the middle of the 17th century, to the accession of George I in 1714, you will see the benefits of not making the Constitution too rigid by writing it down.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">It proves how much there is to be said for ignoring logic and following common sense.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -390,10 +429,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The argument treats logic and common sense as either/or. That hidden “you can’t have both” is the assumption.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q15">← Question 15</a><a href="#questions">All questions</a><a href="#q17">Question 17 →</a></nav></section>
 <section class="q" id="q17">
   <div class="q-head"><span class="qnum">17</span><span class="qorig">(Q33 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Most city centres in the UK are now covered by sophisticated CCTV cameras which can record crimes being committed.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">Many towns and cities report a reduction in crime where cameras are installed: for example, Airdrie reported a 75% fall in crime and Kings Lynn reported a massive 90% reduction.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Thus, they are a real success in controlling 'opportunistic' crime.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -402,10 +441,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Crime fell where cameras went in” → look for something else that changed at the same time.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q16">← Question 16</a><a href="#questions">All questions</a><a href="#q18">Question 18 →</a></nav></section>
 <section class="q" id="q18">
   <div class="q-head"><span class="qnum">18</span><span class="qorig">(Q34 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">All British students should study a foreign language at school.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">We live in a rapidly expanding global market, where knowledge of a foreign language is essential if you want to work at the highest level.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">If all students studied a foreign language at school, there would be more British people at the heart of global business.</span><span class="seg-tag">Intermediate conclusion</span> </div>
     <p class="stem">Which one of the following is the best statement of the flaw in the above argument?</p>
@@ -414,10 +453,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Essential” / “need” = necessary. “Would” / “guarantees” = sufficient. Spot the switch.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q17">← Question 17</a><a href="#questions">All questions</a><a href="#q19">Question 19 →</a></nav></section>
 <section class="q" id="q19">
   <div class="q-head"><span class="qnum">19</span><span class="qorig">(Q35 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Paying bonuses of at least £1 million to high-flying stockbrokers and employees of banks cannot be justified.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Such massive bonuses encourage these high-flyers to take unacceptable risks with shareholders' assets in the pursuit of profits.</span> <span class="seg seg-prem">Furthermore, the system discourages our brightest young talent from taking jobs in industry, where the rewards are much more modest but where there is a great need for such talent.</span> <span class="seg seg-prem">One of the reasons why City firms (i.e. London-based financial organisations) can pay such bonuses is that they charge enormous fees for assisting with takeover bids between companies. City firms often encourage companies to engage in such takeover battles but the costs for these frequently unsuccessful battles fall on to the companies and thus on to the consumer.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -426,10 +465,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Three reasons (“Such…”, “Furthermore…”, “One of the reasons…”) all point back to the first sentence.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q18">← Question 18</a><a href="#questions">All questions</a><a href="#q20">Question 20 →</a></nav></section>
 <section class="q" id="q20">
   <div class="q-head"><span class="qnum">20</span><span class="qorig">(Q39 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Critics of homeopathic medicine argue that much of the apparent success of its remedies is due to the placebo effect (a placebo is a substance containing no medication). The remedies work because the patients believe they will work.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-ctx">In rebuttal, homeopaths often refer to a study involving a herd of pedigree Friesian cows.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">The herd was divided into two groups of 41 cows each. One group, the treatment group, was given a homeopathic remedy against mastitis, while the control group was given a placebo. The findings showed that 10 of the cows in the control group developed mastitis, while only one in the treatment group developed it.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following conclusions is best supported by the passage above?</p>
@@ -438,10 +477,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Stick to what the study covers: cows. Don’t stretch it to all homeopathy.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q19">← Question 19</a><a href="#questions">All questions</a><a href="#q21">Question 21 →</a></nav></section>
 <section class="q" id="q21">
   <div class="q-head"><span class="qnum">21</span><span class="qorig">(Q40 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-analogy">Car owners must have insurance in case they have an accident. Similarly, home owners have insurance in case anyone on their property is injured and claims compensation.</span><span class="seg-tag">Comparison</span> <span class="seg seg-prem">However, insurance is not required for dog owners. Any injury caused by a dog is compensated by taking the owner to court, which is not easy.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">A law must be passed to make insurance compulsory for every dog owner.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Any injuries would be paid for by the insurance companies, not long-suffering taxpayers.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -450,10 +489,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Usually “all” is too strong, but here the passage itself says “any injuries”, so it needs every owner insured.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q20">← Question 20</a><a href="#questions">All questions</a><a href="#q22">Question 22 →</a></nav></section>
 <section class="q" id="q22">
   <div class="q-head"><span class="qnum">22</span><span class="qorig">(Q41 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The main reason private schools thrive in Britain is that they are extremely good at getting their students into elite universities.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">In the UK only 7% of students attend private schools but they account for 40% of students at Oxford and Cambridge.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">As entry to the top universities is dependent on examination results (particularly A-level results),</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">private school students must be achieving higher grades than those in the state sector.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">Higher grades are the result of good teaching,</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">so the teaching in private schools must be better than the teaching in state schools.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, would most weaken the above argument?</p>
@@ -462,10 +501,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Check the comparison group. 7% of all pupils is not the same as 7% of the pupils who apply.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q21">← Question 21</a><a href="#questions">All questions</a><a href="#q23">Question 23 →</a></nav></section>
 <section class="q" id="q23">
   <div class="q-head"><span class="qnum">23</span><span class="qorig">(Q45 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Suppose a book begins with the sentence 'Dark clouds gathered'. Does this mean that it is going to rain, or there is going to be a war, or something else no-one had thought of?</span><span class="seg-tag">Context</span> <span class="seg seg-counter">The traditional answer was: ask the author, or try to work out what the author intended it to mean.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">But this would not give you the answer, surprising though that may seem.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Why not? Because what the words mean is what they mean to you, the reader, and to anyone else who speaks the language to which they belong.</span> <span class="seg seg-prem">Authors can't change what words mean by intending something different, any more than you can.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">What they say they mean is no more correct than anyone else's interpretation.</span><span class="seg-tag">Intermediate conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -474,10 +513,10 @@ So the principle: <b>the people affected should decide matters that concern thei
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “But…” after a traditional view, then “Why not? Because…”: the “But” sentence is the conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q22">← Question 22</a><a href="#questions">All questions</a><a href="#q24">Question 24 →</a></nav></section>
 <section class="q" id="q24">
   <div class="q-head"><span class="qnum">24</span><span class="qorig">(Q46 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">If you want to get a good job then you need to write a good application letter.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">You didn't get the last job that you applied for,</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">so you can't have written a good application letter.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -495,10 +534,10 @@ So the principle: <b>the people affected should decide matters that concern thei
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Match the three parts in order: “need A for B”, “no B”, “so no A”. The options that start “have A” are a different mistake.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q23">← Question 23</a><a href="#questions">All questions</a><a href="#q25">Question 25 →</a></nav></section>
 <section class="q" id="q25">
   <div class="q-head"><span class="qnum">25</span><span class="qorig">(Q47 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">The credit crisis has significantly damaged pensions and pensioners. Millions of people coming up to retirement now, without a final salary pension, are at risk of poverty.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">It is previous government policy decisions, not just the credit crisis, that are to blame.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">We have had a pensions crisis building up for the last few years.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">One should always take responsibility for one's mistakes.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Therefore, the Government must act!</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the principle underlying the argument above?</p>
@@ -516,7 +555,7 @@ So the principle: <b>if your mistake contributed to the harm, you must take acti
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Both halves must match: the mistake <b>and</b> the duty to fix it. C has the action without the mistake; E has the blame without the action.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section></main>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q24">← Question 24</a><a href="#questions">All questions</a><span></span></nav></section></main>
   <p class="foot">Questions © UCLES 2015, reproduced from the TSA Oxford 2015 Section 1 paper for practice.
     Answers match the official answer key.</p>
 </div>
@@ -529,6 +568,11 @@ So the principle: <b>if your mistake contributed to the harm, you must take acti
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
   set(saved);
   btn.addEventListener('click',function(){set(!root.classList.contains('practice'))});
+  var wm=document.getElementById('wm-toggle'), WKEY='tsa-ws-methods';
+  function setWm(on){root.classList.toggle('no-wm',!on);wm.setAttribute('aria-pressed',on?'true':'false');
+    wm.textContent=on?'Written methods: shown':'Written methods: hidden';try{localStorage.setItem(WKEY,on?'1':'0')}catch(e){}}
+  if(wm){var wsaved=true;try{wsaved=localStorage.getItem(WKEY)!=='0'}catch(e){}
+    setWm(wsaved);wm.addEventListener('click',function(){setWm(root.classList.contains('no-wm'))});}
   document.querySelectorAll('.reveal').forEach(function(b){b.addEventListener('click',function(){
     var q=b.closest('.q'), on=!q.classList.contains('shown');
     q.classList.toggle('shown',on); b.textContent=on?'Hide working':'Show working';});});

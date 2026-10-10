@@ -10,6 +10,7 @@
   --hl-y:#fde46a; --hl-p:#ffb0cf; --hl-g:#aeeec1; --hl-b:#b6d8ff; --hl-o:#ffcf98; --hl-v:#dccbff; --hl-k:#e2e2dc; --hl-t:#a6ece4;
   --fill-y:#fff0a8; --fill-p:#ffd3e4; --fill-g:#cdf5d8; --fill-b:#d5e8ff; --fill-o:#ffe2bf; --fill-v:#e9ddff;
   --note-bg:#fff3a3; --note-ink:#2b2710; --chip:#e9e7df; --chip-ink:#34373c;
+  --wm-bg:rgba(255,255,255,.6); --wm-edge:rgba(31,78,168,.28);
   --print:Arial,"Helvetica Neue",Helvetica,sans-serif;
   --hand:"Patrick Hand","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
   --scrawl:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
@@ -18,13 +19,13 @@
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--paper);color:var(--ink);
@@ -60,6 +61,10 @@ h1,h2,h3{text-wrap:balance}
 .qorig{color:var(--muted);font-size:1.05rem}
 .chip{background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 10px;font-size:.92rem}
 .attempt{border-radius:999px;padding:1px 10px;font-size:.92rem;border:2px solid currentColor}
+.anschip{margin-left:auto;border-radius:999px;padding:1px 4px 1px 12px;font-size:.95rem;background:var(--fill-g);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px}
+.anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
+  border-radius:50%;background:var(--green);color:var(--paper)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -117,6 +122,40 @@ svg.ar{width:1.7em;height:.85em;vertical-align:middle;stroke:currentColor;stroke
   padding:0 .35em;line-height:1.5}
 .others .why{min-width:0}
 .fast{margin-top:16px}
+.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:20px;font-size:1rem}
+.qfoot a{color:var(--pen);text-decoration:none;border:1.5px solid currentColor;border-radius:10px 8px 11px 7px;padding:.05em .7em}
+.qfoot a:hover{background:var(--pen);color:var(--paper)}
+
+/* written methods (column addition and subtraction, multiplication, bus stop and long division) */
+.wms{display:flex;flex-wrap:wrap;gap:10px 14px;margin:.25em 0 .8em;align-items:flex-start}
+.wm{border:1.5px solid var(--wm-edge);border-radius:12px 9px 13px 8px;padding:6px 12px 8px;background:var(--wm-bg);max-width:100%;overflow-x:auto}
+.wm-cap{font-family:var(--scrawl);font-weight:700;font-size:1.05rem;line-height:1.15;color:var(--red);margin-bottom:4px}
+.wm table{border-collapse:collapse;font-family:var(--hand);font-size:1.35rem;line-height:1;color:var(--pen);font-variant-numeric:tabular-nums}
+.wm td{min-width:.95em;height:1.45em;padding:0 .04em;text-align:center;vertical-align:middle;position:relative}
+.wm td.pt{min-width:.3em;width:.3em}
+.wm table.bus td:not(.dv):not(.pt){min-width:1.45em;padding-left:.5em}
+.wm td.op{color:var(--ink);padding-right:.15em}
+.wm td.sum{border-top:2px solid var(--ink)}
+.wm tr.res td,.wm td.qt{color:var(--green)}
+.wm tr.first td:not(.lab):not(:first-child){border-top:2px solid var(--ink)}
+.wm .fz{opacity:.4}
+.wm tr.cyrow td{height:1em;vertical-align:top}
+.wm td.cy{font-size:.62em;color:var(--red)}
+.wm tr.ex-row td{height:2.15em;vertical-align:bottom;padding-bottom:.12em}
+.wm .x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.wm .nv{position:absolute;left:50%;top:.1em;transform:translateX(-50%);font-size:.62em;color:var(--red);white-space:nowrap}
+.wm .ci{position:absolute;left:.08em;top:.05em;font-size:.6em;color:var(--red)}
+.wm td.roof{border-top:2px solid var(--ink)}
+.wm td.wall{border-left:2px solid var(--ink);border-top-left-radius:12px}
+.wm td.dv{padding-right:.35em;text-align:right;color:var(--ink)}
+.wm td.lab{font-size:.62em;color:var(--muted);text-align:left;padding-left:.7em;white-space:nowrap}
+.wm-note{font-family:var(--hand);font-size:.98rem;color:var(--muted);margin-top:4px;max-width:32ch}
+.no-wm .wms{display:none}
+@media (max-width:700px){.wms{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wm{flex:none;scroll-snap-align:start}}
+svg.dvs{display:inline-block;width:.68em;height:.68em;vertical-align:-.02em;margin:0 .1em;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;fill:currentColor}
+svg.dvs path{fill:none}svg.dvs circle{stroke:none}
+.dvt{font-family:Arial,Helvetica,sans-serif;font-weight:700}
 
 /* critical thinking passage */
 .seg{border-radius:3px;padding:.05em .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--slip-ink);
@@ -159,7 +198,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -184,7 +223,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <main>
 <section class="q" id="q1">
   <div class="q-head"><span class="qnum">1</span><span class="qorig">(Q1 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">‘How much does an aeroplane weigh?’; ‘Why are manhole covers round?’. Despite the popularity of bizarre questions like this in interviews for jobs in the big technology companies,</span><span class="seg-tag">Context</span> <span class="seg seg-prem">they have been proved to give little insight into the applicant’s ability or personality.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Applicants faced with such questions would be well-advised to reconsider their interest in working for such companies.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">A study which investigated why these approaches persist concluded that these ‘brainteaser’ questions are popular with interviewers who like to protect and enhance their self-esteem by appearing to know the answers to impossibly difficult questions. They enjoy the feeling of power and superiority over the candidate, revealing a narcissistic or sadistic personality.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">No-one wants to work for someone like that.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -193,10 +232,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The conclusion can sit in the middle. Ask which sentence all the others are there to support.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><span></span><a href="#questions">All questions</a><a href="#q2">Question 2 →</a></nav></section>
 <section class="q" id="q2">
   <div class="q-head"><span class="qnum">2</span><span class="qorig">(Q3 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">A supermarket chain is to remove traditional plastic bags for loose fruit and vegetables from its stores by spring next year and 5p single-use plastic bags by March, replacing them with compostable bags in each case.</span><span class="seg-tag">Context</span> <span class="seg seg-counter">This will save 134 million plastic bags, the equivalent of 500 tonnes of plastic a year, and make it the first nationwide chain to remove them from the fruit and vegetable aisles.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">However, there are problems associated with the compostable bags that will replace the plastic ones.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">This plan to replace plastic bags should be opposed.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the flaw in the above argument?</p>
@@ -205,10 +244,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “X has problems, so reject X” forgets that what X replaces has problems too. Look for the missing comparison.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q1">← Question 1</a><a href="#questions">All questions</a><a href="#q3">Question 3 →</a></nav></section>
 <section class="q" id="q3">
   <div class="q-head"><span class="qnum">3</span><span class="qorig">(Q4 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">There is often talk of this or that job being ‘exploitative’ or of people on low wages being ‘exploited’ by their employers, as if there were something deeply unjust about paying someone poorly.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">But this misses a fundamental point about injustice. You cannot be unjustly treated voluntarily: if you agree to the action, you are not being unjustly treated.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Anyone who accepts a job, regardless of the pay, is not being unjustly treated by their employer.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-counter">Obviously this does not apply to someone forced into a job against their will.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">But if they have accepted their job, even if the reasons pushing them to accept it might be deemed unfair in a wider sense, the act of employing them cannot itself be deemed unjust.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following illustrates the principle used in the above argument?</p>
@@ -226,10 +265,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The agreement must cover the very thing complained about. Only B has that.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q2">← Question 2</a><a href="#questions">All questions</a><a href="#q4">Question 4 →</a></nav></section>
 <section class="q" id="q4">
   <div class="q-head"><span class="qnum">4</span><span class="qorig">(Q5 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Genuine apologies are an expression of regret and repentance on the part of the person who has acted wrongly.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">However, in some recent cases government ministers have apologised for unjust policies of previous governments, in which they personally played no part; some of these actions occurred before the person apologising was even born.</span> <span class="seg seg-evid">Apologies for offensive comments or language are sometimes expressed in terms which suggest that the fault lies with those who are offended: ‘I am sorry if anyone was offended by what I said.’</span> <span class="seg seg-evid">Some people – especially children – apologise because they are being forced to do so by someone in a position of power over them, such as a parent.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -238,10 +277,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> A definition followed by examples: the conclusion is usually “these don’t meet the definition”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q3">← Question 3</a><a href="#questions">All questions</a><a href="#q5">Question 5 →</a></nav></section>
 <section class="q" id="q5">
   <div class="q-head"><span class="qnum">5</span><span class="qorig">(Q9 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Part-time undergraduate numbers have fallen by more than 50% since 2010</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">– this represents a lost opportunity for people wanting to improve their job options.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">More needs to be done to provide support for people to take short, flexible part-time courses.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">A survey was conducted of 830 people who had considered studying part-time, but decided against it or dropped out. They were asked what barriers needed to be removed. Flexibility of courses was seen to be an important factor, with 44% wanting more flexible courses to fit around their other commitments. However, financial concerns were most important, with 59% wanting cheaper tuition fees and 37% wanting more support for living costs.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -250,10 +289,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “More needs to be done” is a classic conclusion. Survey percentages are nearly always evidence.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q4">← Question 4</a><a href="#questions">All questions</a><a href="#q6">Question 6 →</a></nav></section>
 <section class="q" id="q6">
   <div class="q-head"><span class="qnum">6</span><span class="qorig">(Q10 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">The mobile phone was said to be the ultimate liberating device. Rather than being forced to stay, not just inside a house, not just in a particular room, but almost literally chained to a wall, you could now go anywhere to talk to someone.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-ic">The irony is, however, that mobile phones have actually made us a lot less mobile.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">Not only are we more sedentary than ever before, but evidence suggests we now spend longer indoors than we did before mobile phones became prevalent.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">We should rename our beloved devices ‘immobile’ phones.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Why would we feel the need to go anywhere, after all, if we can obtain all the information we need and communicate with anyone we want from the comfort of our own homes?</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -262,10 +301,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> A cause claimed from a before-and-after trend? Look for a group without the cause that shows the same effect.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q5">← Question 5</a><a href="#questions">All questions</a><a href="#q7">Question 7 →</a></nav></section>
 <section class="q" id="q7">
   <div class="q-head"><span class="qnum">7</span><span class="qorig">(Q11 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">A lot of people who fear snakes imagine that their skin is slimy.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Snakes are not slimy but have smooth, dry skin.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Therefore, if these people were better informed, they would lose their fear of snakes.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -282,10 +321,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Match all three parts: an attitude, a false belief behind it, and “correct the belief and the attitude goes”.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q6">← Question 6</a><a href="#questions">All questions</a><a href="#q8">Question 8 →</a></nav></section>
 <section class="q" id="q8">
   <div class="q-head"><span class="qnum">8</span><span class="qorig">(Q15 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">The government should be active in promoting marriage.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-counter">Notwithstanding bad marriages,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-evid">research shows that married adults are happier, have better health, are less likely to be involved in crime, and enjoy many other advantages related to their personal welfare and the welfare of their family. Research also shows that children are most likely to flourish in the married-couple family.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Marriage rates are declining and non-marital birth rates are rocketing, taking a toll on the nation’s welfare.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Government promotion of marriage is not only justified but also necessary.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -294,10 +333,10 @@ So the principle: <b>if you freely agree to something, you are not treated unjus
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “the government has NO right to influence family life”. Then “justified” falls apart.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q7">← Question 7</a><a href="#questions">All questions</a><a href="#q9">Question 9 →</a></nav></section>
 <section class="q" id="q9">
   <div class="q-head"><span class="qnum">9</span><span class="qorig">(Q16 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Many drivers think that the laws that make it compulsory to use a seat belt are an intrusion into their private lives – a denial of an autonomous lifestyle choice.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">But state intervention in our freedom is justified when, because of our short-sightedness, impulsiveness or carelessness, we act in a way that actually or potentially restricts our freedom – especially when dangerous and irreversible consequences are involved. In those cases, the law should protect our future selves from the short-sighted and foolish choices of our earlier selves. It should require us to act in the way that we would act if we carefully took into account our long-term welfare.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">The legal requirement to wear a seat belt is thus a protection of drivers’ freedom and future selves.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the principle used in the above argument?</p>
@@ -315,10 +354,10 @@ So the principle: <b>the law may force people to protect themselves from their o
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Check each part: a legal requirement, on the person themselves, to protect them from their own risky choice.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q8">← Question 8</a><a href="#questions">All questions</a><a href="#q10">Question 10 →</a></nav></section>
 <section class="q" id="q10">
   <div class="q-head"><span class="qnum">10</span><span class="qorig">(Q17 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Intensive farming, designed to give the greatest food yield per hectare, is widely believed to create higher levels of pollution and damage to the environment than organic farming.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">But the reality is that the opposite is the case:</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">a global research team measured what they call ‘externalities’ – the environmental costs such as greenhouse gas emissions, fertiliser and water use – of producing a given amount of food on both high-yield and low-yield farms. In its study of dairy farming in Switzerland, it found that high-yield systems were actually less damaging to the environment than organic, which by contrast took up twice as much land for the same volume of milk and caused at least one-third more soil loss than conventional dairy farming.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following best expresses the flaw in the above argument?</p>
@@ -327,10 +366,10 @@ So the principle: <b>the law may force people to protect themselves from their o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Compare the size of the evidence with the size of the conclusion: one example against a general rule.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q9">← Question 9</a><a href="#questions">All questions</a><a href="#q11">Question 11 →</a></nav></section>
 <section class="q" id="q11">
   <div class="q-head"><span class="qnum">11</span><span class="qorig">(Q21 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">If we were ever to detect an alien transmission from outer space, ought we to reply?</span><span class="seg-tag">Context</span> <span class="seg seg-counter">There are good grounds for keeping silent. After all, how do we know that any such aliens will be peaceable?</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">But the truth is that it is too late for such precautions.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Since World War II, we’ve been broadcasting TV, radio, and radar inadvertently into the heavens.</span><span class="seg-tag">Reason</span> <span class="seg seg-counter">Admittedly, these signals would be very weak at light years’ distance.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">But the difficulty extraterrestrials would have in picking these up is nothing compared to the challenge they’d face in launching weaponry our way.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">Any society with the capability to threaten Earth will certainly already have the kit required to pick up the leakage we’ve been wafting skyward for seven decades.</span><span class="seg-tag">Intermediate conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -339,10 +378,10 @@ So the principle: <b>the law may force people to protect themselves from their o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “But the truth is…” straight after an opposing view is a strong conclusion signal.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q10">← Question 10</a><a href="#questions">All questions</a><a href="#q12">Question 12 →</a></nav></section>
 <section class="q" id="q12">
   <div class="q-head"><span class="qnum">12</span><span class="qorig">(Q22 in the original paper)</span>
-    <span class="chip">Strengthen</span></div>
+    <span class="chip">Strengthen</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">We have long known that if women take folic acid supplements during the first months of pregnancy (and preferably just before getting pregnant too), it decreases the likelihood of babies being born with neural tube defects. Research has shown, however, that not enough women in the UK are choosing to take the supplements.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">Obviously, the Government’s public information campaign about folic acid supplementation is not succeeding.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">It is time that the UK followed the lead of countries that require that flour and some other basic or staple foods are fortified with folic acid during the manufacturing process.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">This strategy provides the necessary levels of folic acid to women who become pregnant, without the need for supplements and without bringing any harm to the wider population.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following, if true, most strengthens the above argument?</p>
@@ -351,10 +390,10 @@ So the principle: <b>the law may force people to protect themselves from their o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Strengthen: find why the voluntary route can’t work, so fortifying food is needed.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q11">← Question 11</a><a href="#questions">All questions</a><a href="#q13">Question 13 →</a></nav></section>
 <section class="q" id="q13">
   <div class="q-head"><span class="qnum">13</span><span class="qorig">(Q23 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ic">Conditions in some of the UK’s prisons are scandalous.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">Inspectors found some prisons to be dirty, vermin-infested places, with frightening levels of violence and prisoners having easy access to illegal drugs.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ctx">Some critics attribute the poor management of these prisons to the fact that the government has allowed private companies to run many prisons, although inspectors also criticised some state-run prisons. Others say the real problem is one of drastic funding cuts, affecting both state-run and privately-run prisons.</span><span class="seg-tag">Context</span> <span class="seg seg-ic">Either way, we have allowed the situation to become very serious – and why? Because for the most part, we do not care.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">The truth is that, personally, we can much better imagine that at some point we’ll need a clean, well-run hospital than a decent criminal justice system.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -363,10 +402,10 @@ So the principle: <b>the law may force people to protect themselves from their o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Two views followed by “Either way”: the conclusion won’t pick one of them.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q12">← Question 12</a><a href="#questions">All questions</a><a href="#q14">Question 14 →</a></nav></section>
 <section class="q" id="q14">
   <div class="q-head"><span class="qnum">14</span><span class="qorig">(Q27 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Rhona is a self-employed IT technician. Some of her clients are also friends. When she checks a computer for problems, she sees what is stored on the hard disk.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">She has sometimes teased friends in front of others about the websites they have been visiting and the pictures she has seen stored on their computers.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">She should not have done this,</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">because it is wrong for people to reveal sensitive information which they know only because of their work.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following illustrates the principle used in the above argument?</p>
@@ -384,10 +423,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Both halves must match: learned through work, and revealing it is wrong. D only has the second half.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q13">← Question 13</a><a href="#questions">All questions</a><a href="#q15">Question 15 →</a></nav></section>
 <section class="q" id="q15">
   <div class="q-head"><span class="qnum">15</span><span class="qorig">(Q28 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Following a few simple rules can help you keep your job.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">For instance, if you arrive late for work, you will definitely get fired.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">You lost your last job</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">so you must have arrived late for work.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -404,10 +443,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The original is flawed, so the answer must be flawed in the same way. Four valid options can be crossed out fast.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q14">← Question 14</a><a href="#questions">All questions</a><a href="#q16">Question 16 →</a></nav></section>
 <section class="q" id="q16">
   <div class="q-head"><span class="qnum">16</span><span class="qorig">(Q29 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">As a result of a recent initiative, energy providers are encouraging their customers to have ‘smart meters’ installed in their properties.</span><span class="seg-tag">Context</span> <span class="seg seg-counter">Smart meters are recommended because they help you to control your energy usage and therefore mean that you will have lower bills.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">However, you should refuse to have one installed.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">The device only tells you how much energy you are using – it doesn’t suggest a cheaper alternative</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">and, as a result, the information is not useful to the customer.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">In fact, the information is far more useful to the energy companies in saving them money.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -416,10 +455,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “However, you should…” right after the other side’s case is the conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q15">← Question 15</a><a href="#questions">All questions</a><a href="#q17">Question 17 →</a></nav></section>
 <section class="q" id="q17">
   <div class="q-head"><span class="qnum">17</span><span class="qorig">(Q33 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Rats, like wood pigeons, badgers and foxes, are synurbic – i.e. a species that thrives in urban habitats.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">Cities provide perfect conditions for rats, offering warmth and shelter and plentiful supplies of food – and cities are getting bigger.</span><span class="seg-tag">Reason</span> <span class="seg seg-ctx">Human antipathy to rats is well founded: they breed quickly and spread disease. Until recently, unwanted rats have been controlled by the use of warfarin, a blood-thinning (anticoagulant) drug used medicinally on humans. It has been the perfect poison for rats, being odourless and colourless; rats will return to eat food laced with warfarin until a lethal dose is accumulated.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">But rats are developing resistance to warfarin and passing this resistance to their offspring. We do not yet have an alternative.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">The rat population will continue to increase as cities grow.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -428,10 +467,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Not yet” in a reason and “will continue” in the conclusion: the gap is the future.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q16">← Question 16</a><a href="#questions">All questions</a><a href="#q18">Question 18 →</a></nav></section>
 <section class="q" id="q18">
   <div class="q-head"><span class="qnum">18</span><span class="qorig">(Q34 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The dark tendencies humans may have, such as psychopathy (lack of empathy), narcissism (excessive self-absorption), egoism and sadism are based on the same single underlying source: a drive to maximize one’s individual interests, and to disregard or malevolently cause harm to others’ interests. These tendencies often underlie the most serious violent crime in any society, usually dealt with by imprisonment.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">Psychiatrists say that people with these characteristics are notoriously difficult to change.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">This suggests that these personality traits are likely to be inherited genetic dispositions over which people have no control.</span> <span class="seg seg-ic">It is wrong, therefore, to punish people for the actions that have resulted from such tendencies.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">The justice system should not imprison someone for actions over which they had no control.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the flaw in the above argument?</p>
@@ -440,10 +479,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Watch a word swap between steps: “punish” in one, “imprison” in the next. Do they mean the same?</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q17">← Question 17</a><a href="#questions">All questions</a><a href="#q19">Question 19 →</a></nav></section>
 <section class="q" id="q19">
   <div class="q-head"><span class="qnum">19</span><span class="qorig">(Q35 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Surely there can be few things more commendable than donating to charitable organisations.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">Yet there are compelling strategic reasons to rethink the charitable model used for tackling social problems in many countries.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Relying on voluntary public donations to fund charitable work can leave important but less popular causes without the support they require.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">For instance, many people are more willing to donate to charities assisting cancer patients or neglected animals than to those helping drug addicts, who are often viewed less sympathetically.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Also, in some countries, the largest donors are wealthy individuals given tax reductions in exchange for their charitable donations. Such ‘tax breaks’ reduce the government’s revenue, meaning that they have less money to fund a more comprehensive public service approach to addressing society’s problems.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -452,10 +491,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> To weaken “rethink X”, give a strong advantage of X that the argument ignores.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q18">← Question 18</a><a href="#questions">All questions</a><a href="#q20">Question 20 →</a></nav></section>
 <section class="q" id="q20">
   <div class="q-head"><span class="qnum">20</span><span class="qorig">(Q39 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">In 1992, the bestseller <i>Men Are from Mars, Women Are from Venus</i> was published. Decades later, even in places where women and men occupy relatively similar positions in society, the notion of fundamental psychological differences between the sexes still has great appeal.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">However, this idea that ‘men and women are from different planets’ is as unfounded as it is enduring.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Research has found no evidence of such profound, unalterable differences.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Studies have debunked, for instance, the myth that women’s communication is more cooperative, and men’s more competitive. Many observed differences have been shown to be context-dependent and disappear when social circumstances are changed.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">But a news headline of ‘Men and women pretty similar, research finds’ just wouldn’t grab the same attention, would it?</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -464,10 +503,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The right answer is often a paraphrase: “unfounded… enduring” becomes “unsupported… persistent”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q19">← Question 19</a><a href="#questions">All questions</a><a href="#q21">Question 21 →</a></nav></section>
 <section class="q" id="q21">
   <div class="q-head"><span class="qnum">21</span><span class="qorig">(Q40 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">In order for a gritted road surface to freeze over, temperatures must fall to –10&nbsp;°C or below. Above this temperature, grit will continue to melt ice on the road.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Since ice has formed even on treated surfaces in recent weeks,</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">the temperature must have fallen below –10&nbsp;°C at times.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -484,10 +523,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Needed (necessary): if the result happened, the condition was met. Enough (sufficient): the result could have come another way.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q20">← Question 20</a><a href="#questions">All questions</a><a href="#q22">Question 22 →</a></nav></section>
 <section class="q" id="q22">
   <div class="q-head"><span class="qnum">22</span><span class="qorig">(Q41 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Advocates of alternative or complementary medicine frequently say things like, ‘You need to treat the body, mind and spirit together’, contending that mainstream medicine focuses too much on the purely physical. Alternative medicine prides itself on treating the person ‘as a whole’, taking account of their underlying psychological states as well as their physical symptoms.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">Suggest to an advocate of alternative medicine, however, that the effectiveness of such treatment may largely be due to the placebo effect (i.e. to the belief that the medicine will work rather than the medicine itself), and they will typically find this objectionable.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Yet what is the placebo effect other than a perfect example of the mind and body working together, of the power of ‘mind over matter’?</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -496,10 +535,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> A rhetorical question that exposes a contradiction usually leads to “they should be consistent”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q21">← Question 21</a><a href="#questions">All questions</a><a href="#q23">Question 23 →</a></nav></section>
 <section class="q" id="q23">
   <div class="q-head"><span class="qnum">23</span><span class="qorig">(Q45 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">A charity dealing with homelessness in the UK has reported that its case workers have compiled a list of private landlords and commercial rental companies which have refused to undertake necessary repairs to properties. In some of those cases, tenants have been evicted simply for complaining about the conditions in which they were living.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Acting unjustly towards vulnerable people in these ways is an abuse of power.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">Tenants therefore need to be protected from individuals and commercial companies which profit from owning and letting properties.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">Only not-for-profit housing associations should be allowed to let accommodation to people who cannot afford to buy their own homes.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the flaw in the above argument?</p>
@@ -508,10 +547,10 @@ So the principle: <b>do not reveal sensitive information you only know because o
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> When an argument bans one option and keeps another, check it shows the other is actually better.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q22">← Question 22</a><a href="#questions">All questions</a><a href="#q24">Question 24 →</a></nav></section>
 <section class="q" id="q24">
   <div class="q-head"><span class="qnum">24</span><span class="qorig">(Q47 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Acting is surely the most overrated occupation of all time.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-counter">Although top actors are held in high esteem,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">sometimes people walk into the profession without any training and win critical acclaim.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">In the film <i>Captain Phillips</i>, for example, Barkhad Abdi won several awards for best supporting actor, despite having never acted before in his life – he was chosen because of how he looked and, presumably, because he had some natural ability to act.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Yet how difficult can something be if natural ability is enough to get by? And in any case, no one should be admired simply for having a natural ability.</span><span class="seg-tag">Reason</span> <span class="seg seg-analogy">It is like being congratulated for being tall or having good eyesight.</span><span class="seg-tag">Comparison</span> <span class="seg seg-conc">Film actors do not, therefore, deserve to be held in such high regard.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following illustrates the principle used in the above argument?</p>
@@ -529,10 +568,10 @@ So the principle: <b>a natural ability on its own does not deserve admiration</b
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Keep both parts: the cause (a natural gift, no effort) and the verdict (it doesn’t earn admiration).</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q23">← Question 23</a><a href="#questions">All questions</a><a href="#q25">Question 25 →</a></nav></section>
 <section class="q" id="q25">
   <div class="q-head"><span class="qnum">25</span><span class="qorig">(Q49 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Couples who want to divorce will face a less confrontational process under recent proposals to change UK law.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">The proposed changes would remove the need to show evidence of the other spouse’s conduct and so avoid the ‘blame game’ that has existed when a marriage breaks down. Additionally, the opportunity for the other spouse to contest the intent to divorce will be removed.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">These reforms must be enacted as a matter of urgency.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Since confrontations can create a lot of stress for couples,</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">the changes would remove some of the emotional burden from the process of divorce.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">And with some divorce cases having taken five or more years to finalise, that is a lot of stress to put on a couple and their family members.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -541,7 +580,7 @@ So the principle: <b>a natural ability on its own does not deserve admiration</b
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Must” plus “urgency”: the call to act is the conclusion, even in the middle of the passage.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section></main>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q24">← Question 24</a><a href="#questions">All questions</a><span></span></nav></section></main>
   <p class="foot">Questions © UCLES 2021, reproduced from the TSA Oxford 2021 Section 1 paper for practice.
     Answers match the official answer key.</p>
 </div>
@@ -554,6 +593,11 @@ So the principle: <b>a natural ability on its own does not deserve admiration</b
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
   set(saved);
   btn.addEventListener('click',function(){set(!root.classList.contains('practice'))});
+  var wm=document.getElementById('wm-toggle'), WKEY='tsa-ws-methods';
+  function setWm(on){root.classList.toggle('no-wm',!on);wm.setAttribute('aria-pressed',on?'true':'false');
+    wm.textContent=on?'Written methods: shown':'Written methods: hidden';try{localStorage.setItem(WKEY,on?'1':'0')}catch(e){}}
+  if(wm){var wsaved=true;try{wsaved=localStorage.getItem(WKEY)!=='0'}catch(e){}
+    setWm(wsaved);wm.addEventListener('click',function(){setWm(root.classList.contains('no-wm'))});}
   document.querySelectorAll('.reveal').forEach(function(b){b.addEventListener('click',function(){
     var q=b.closest('.q'), on=!q.classList.contains('shown');
     q.classList.toggle('shown',on); b.textContent=on?'Hide working':'Show working';});});

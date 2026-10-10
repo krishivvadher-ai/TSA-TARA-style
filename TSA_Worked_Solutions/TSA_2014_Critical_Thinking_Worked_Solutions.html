@@ -10,6 +10,7 @@
   --hl-y:#fde46a; --hl-p:#ffb0cf; --hl-g:#aeeec1; --hl-b:#b6d8ff; --hl-o:#ffcf98; --hl-v:#dccbff; --hl-k:#e2e2dc; --hl-t:#a6ece4;
   --fill-y:#fff0a8; --fill-p:#ffd3e4; --fill-g:#cdf5d8; --fill-b:#d5e8ff; --fill-o:#ffe2bf; --fill-v:#e9ddff;
   --note-bg:#fff3a3; --note-ink:#2b2710; --chip:#e9e7df; --chip-ink:#34373c;
+  --wm-bg:rgba(255,255,255,.6); --wm-edge:rgba(31,78,168,.28);
   --print:Arial,"Helvetica Neue",Helvetica,sans-serif;
   --hand:"Patrick Hand","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
   --scrawl:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
@@ -18,13 +19,13 @@
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--paper);color:var(--ink);
@@ -60,6 +61,10 @@ h1,h2,h3{text-wrap:balance}
 .qorig{color:var(--muted);font-size:1.05rem}
 .chip{background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 10px;font-size:.92rem}
 .attempt{border-radius:999px;padding:1px 10px;font-size:.92rem;border:2px solid currentColor}
+.anschip{margin-left:auto;border-radius:999px;padding:1px 4px 1px 12px;font-size:.95rem;background:var(--fill-g);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px}
+.anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
+  border-radius:50%;background:var(--green);color:var(--paper)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -117,6 +122,40 @@ svg.ar{width:1.7em;height:.85em;vertical-align:middle;stroke:currentColor;stroke
   padding:0 .35em;line-height:1.5}
 .others .why{min-width:0}
 .fast{margin-top:16px}
+.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:20px;font-size:1rem}
+.qfoot a{color:var(--pen);text-decoration:none;border:1.5px solid currentColor;border-radius:10px 8px 11px 7px;padding:.05em .7em}
+.qfoot a:hover{background:var(--pen);color:var(--paper)}
+
+/* written methods (column addition and subtraction, multiplication, bus stop and long division) */
+.wms{display:flex;flex-wrap:wrap;gap:10px 14px;margin:.25em 0 .8em;align-items:flex-start}
+.wm{border:1.5px solid var(--wm-edge);border-radius:12px 9px 13px 8px;padding:6px 12px 8px;background:var(--wm-bg);max-width:100%;overflow-x:auto}
+.wm-cap{font-family:var(--scrawl);font-weight:700;font-size:1.05rem;line-height:1.15;color:var(--red);margin-bottom:4px}
+.wm table{border-collapse:collapse;font-family:var(--hand);font-size:1.35rem;line-height:1;color:var(--pen);font-variant-numeric:tabular-nums}
+.wm td{min-width:.95em;height:1.45em;padding:0 .04em;text-align:center;vertical-align:middle;position:relative}
+.wm td.pt{min-width:.3em;width:.3em}
+.wm table.bus td:not(.dv):not(.pt){min-width:1.45em;padding-left:.5em}
+.wm td.op{color:var(--ink);padding-right:.15em}
+.wm td.sum{border-top:2px solid var(--ink)}
+.wm tr.res td,.wm td.qt{color:var(--green)}
+.wm tr.first td:not(.lab):not(:first-child){border-top:2px solid var(--ink)}
+.wm .fz{opacity:.4}
+.wm tr.cyrow td{height:1em;vertical-align:top}
+.wm td.cy{font-size:.62em;color:var(--red)}
+.wm tr.ex-row td{height:2.15em;vertical-align:bottom;padding-bottom:.12em}
+.wm .x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.wm .nv{position:absolute;left:50%;top:.1em;transform:translateX(-50%);font-size:.62em;color:var(--red);white-space:nowrap}
+.wm .ci{position:absolute;left:.08em;top:.05em;font-size:.6em;color:var(--red)}
+.wm td.roof{border-top:2px solid var(--ink)}
+.wm td.wall{border-left:2px solid var(--ink);border-top-left-radius:12px}
+.wm td.dv{padding-right:.35em;text-align:right;color:var(--ink)}
+.wm td.lab{font-size:.62em;color:var(--muted);text-align:left;padding-left:.7em;white-space:nowrap}
+.wm-note{font-family:var(--hand);font-size:.98rem;color:var(--muted);margin-top:4px;max-width:32ch}
+.no-wm .wms{display:none}
+@media (max-width:700px){.wms{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wm{flex:none;scroll-snap-align:start}}
+svg.dvs{display:inline-block;width:.68em;height:.68em;vertical-align:-.02em;margin:0 .1em;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;fill:currentColor}
+svg.dvs path{fill:none}svg.dvs circle{stroke:none}
+.dvt{font-family:Arial,Helvetica,sans-serif;font-weight:700}
 
 /* critical thinking passage */
 .seg{border-radius:3px;padding:.05em .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--slip-ink);
@@ -159,7 +198,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -184,7 +223,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <main>
 <section class="q" id="q1">
   <div class="q-head"><span class="qnum">1</span><span class="qorig">(Q1 in the original paper)</span>
-    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">In the past 15 years the government has poured millions of pounds into promoting sport to try to increase adult participation. The results show no lasting effect.</span> <span class="seg seg-evid">A survey showed that unless children 'catch the sport habit' between the ages of seven and fourteen years they are unlikely to participate in sport as an adult, and that the sports they adopt as children are likely to be the sports they play as adults.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Schools need and should be given money to give children an interest in sport.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-analogy">Spending money trying to persuade adults to take up sport is like locking the stable door after the horse has bolted.</span><span class="seg-tag">Comparison</span> </div>
     <p class="stem">Which one of the following best expresses the conclusion of the argument in the passage above?</p>
@@ -193,10 +232,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Look for the “should”. The survey and the stable-door comparison both point to it.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><span></span><a href="#questions">All questions</a><a href="#q2">Question 2 →</a></nav></section>
 <section class="q" id="q2">
   <div class="q-head"><span class="qnum">2</span><span class="qorig">(Q3 in the original paper)</span>
-    <span class="chip">Flaw</span><span class="attempt bad">Your attempt: A ✗</span></div>
+    <span class="chip">Flaw</span><span class="attempt bad">Your attempt: A ✗</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Sales of printed books are steadily declining, with sales dropping to a seven-year low in 2011.</span> <span class="seg seg-evid">Independent bookshops are closing all over the country and chain bookstores are likely to be hit next.</span> <span class="seg seg-evid">Sales of e-books, meanwhile, are booming, with many predicting that 50 per cent of all books sold within 10 years will be digital downloads.</span> <span class="seg seg-evid">Anecdotal evidence suggests that people enjoy the convenience of digital media.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">E-books have triumphed: they have led readers away from traditional forms of print to a digital world.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is a flaw in the above argument?</p>
@@ -205,10 +244,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Print down + e-books up does not prove the <b>same people</b> switched.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q1">← Question 1</a><a href="#questions">All questions</a><a href="#q3">Question 3 →</a></nav></section>
 <section class="q" id="q3">
   <div class="q-head"><span class="qnum">3</span><span class="qorig">(Q4 in the original paper)</span>
-    <span class="chip">Assumption</span><span class="attempt good">Your attempt: B ✓</span></div>
+    <span class="chip">Assumption</span><span class="attempt good">Your attempt: B ✓</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">When Arnold Schwarzenegger was the Governor of California, he looked for ways to make savings in an effort to balance the California budget.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">He was particularly concerned about the high cost of school text books, which he considered to be outdated.</span><span class="seg-tag">Reason</span> <span class="seg seg-ctx">Schwarzenegger, who portrayed a time-travelling robot killer in the <i>Terminator</i> films in which a computer network takes over the world, looked to information technology to solve the problem of the high cost of text books.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">He proposed that as an alternative to books, students could be given hand-held devices that store up-to-date books electronically and allow them access to online work for maths and science.</span> <span class="seg seg-prem">Since students are experienced with computers and will readily accept the new technology,</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">this is not just Hollywood sci-fi but common sense.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -217,10 +256,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “the devices will NOT save money”. Then the argument collapses, so B is assumed.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q2">← Question 2</a><a href="#questions">All questions</a><a href="#q4">Question 4 →</a></nav></section>
 <section class="q" id="q4">
   <div class="q-head"><span class="qnum">4</span><span class="qorig">(Q5 in the original paper)</span>
-    <span class="chip">Assumption</span><span class="attempt good">Your attempt: E ✓</span></div>
+    <span class="chip">Assumption</span><span class="attempt good">Your attempt: E ✓</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Recent news stories have mistakenly implied that animals can understand mathematics better than humans.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">Participants in a study were asked to state a choice of one of three doors, behind one of which there was a prize. Then the researcher opened one of the other two doors, revealing that there was no prize behind it. Asked if they would like to change their choice, most chose not to change. Switching to the remaining closed door would have increased their chance of winning. Even after playing the game many times, which allowed them to observe that they would win more often if they switched, most did not do so.</span> <span class="seg seg-evid">When pigeons played a similar game, after a few attempts they switched every time.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">So the pigeons learnt from experience, whereas the people overanalysed and became confused.</span><span class="seg-tag">Intermediate conclusion</span> </div>
     <p class="stem">Which one of the following is an assumption underlying the above argument?</p>
@@ -229,10 +268,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Watch the jump from “learnt from experience” to “doesn’t understand maths”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q3">← Question 3</a><a href="#questions">All questions</a><a href="#q5">Question 5 →</a></nav></section>
 <section class="q" id="q5">
   <div class="q-head"><span class="qnum">5</span><span class="qorig">(Q9 in the original paper)</span>
-    <span class="chip">Weaken</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Weaken</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Action should be taken to prevent the use of children as low-cost labour in poor Asian countries in industries such as electronics, garment, shoe and toy manufacture. Nothing short of a ban on child labour is acceptable.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-ctx">Child labour is an attractive proposition for employers: children have quick fingers, good eyesight and are often more productive than adults and do not have to be paid very much. And there's a ready supply, thanks to the number of children dropping out of education because their parents cannot afford to educate them.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">If children have to work they are denied their childhood and education.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -241,10 +280,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Reason → conclusion: work denies education → ban it. Attack whether a ban really gives education back.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q4">← Question 4</a><a href="#questions">All questions</a><a href="#q6">Question 6 →</a></nav></section>
 <section class="q" id="q6">
   <div class="q-head"><span class="qnum">6</span><span class="qorig">(Q10 in the original paper)</span>
-    <span class="chip">Flaw</span><span class="attempt good">Your attempt: E ✓</span></div>
+    <span class="chip">Flaw</span><span class="attempt good">Your attempt: E ✓</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">During the Industrial Revolution, savvy entrepreneurs realised canals were a cost-effective, efficient way to move goods around the country. Gradually, however, canal carriage was replaced with other modes of transportation that were faster and cheaper. In twenty-first century Britain, most businesses choose to use road haulage as a means of transportation.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">With the rise in fuel costs and introduction of 'low emission' zones, road haulage is now becoming less practical and economical.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">As the roads grind to a halt, it will not be long before the canals once again become the backbone of goods transportation.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is the best statement of the flaw in the above argument?</p>
@@ -253,10 +292,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Two options (road or canal) are treated as the only two.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q5">← Question 5</a><a href="#questions">All questions</a><a href="#q7">Question 7 →</a></nav></section>
 <section class="q" id="q7">
   <div class="q-head"><span class="qnum">7</span><span class="qorig">(Q11 in the original paper)</span>
-    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: A ✓</span></div>
+    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: A ✓</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">The presence of an ethical symbol, such as 'right' or 'wrong', in a proposition adds nothing to its factual content.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">If I say to someone, 'You acted wrongly in stealing that money', I am not stating anything more than if I had simply said, 'You stole that money'.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">In adding that this action is wrong I am not making any further statement about it. I am simply evincing moral disapproval.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-analogy">It is as if I had said, 'You stole that money' in a tone of horror, or written it with exclamation marks after it. The tone, or exclamation mark, adds nothing to the literal meaning of the sentence. It merely serves to show that the expression is attended by certain feelings in the speaker.</span><span class="seg-tag">Comparison</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -265,10 +304,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Ask “which sentence do the others prove?” It is the first one.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q6">← Question 6</a><a href="#questions">All questions</a><a href="#q8">Question 8 →</a></nav></section>
 <section class="q" id="q8">
   <div class="q-head"><span class="qnum">8</span><span class="qorig">(Q15 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Draw a conclusion</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">The funding of the BBC through a universal licensing system is considered by many to be outdated and unfair.</span> <span class="seg seg-prem">There seem to be only a limited number of options for the continued funding of this public broadcasting network. Firstly, the licence fee system could continue as at present. Secondly, the BBC could raise its own revenue as a commercial company through advertising and sponsorship. Finally, the BBC could be paid for like other parts of the public sector, through general taxation.</span> <span class="seg seg-prem">Funding of the BBC through taxation may raise questions about the BBC's independence from government. This independence might also be put at risk if the BBC had to operate as a commercial company. It might be unduly influenced by its advertising and sponsorship customers unless serious safeguards are put in place.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -277,10 +316,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> When a passage lists options and knocks out all but one, the conclusion is “the one left is best”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q7">← Question 7</a><a href="#questions">All questions</a><a href="#q9">Question 9 →</a></nav></section>
 <section class="q" id="q9">
   <div class="q-head"><span class="qnum">9</span><span class="qorig">(Q16 in the original paper)</span>
-    <span class="chip">Assumption</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Assumption</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">A palaeontologist has argued that T.rex could not have been a predator.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">He says this because few predators have small eyes (needed to see prey) small arms (needed to hold prey), and huge legs (meaning slow speed), all of which are true of T.rex and that there is no evidence for predation such as bones with T.rex teeth embedded in them.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">Instead, he argues, it must have been a scavenger as its skull shows it had a good sense of smell and its legs were suited for walking long distances.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-counter">Other scientists disagree, pointing out that many predators do not use forelimbs in hunting and that the speed of any dinosaur is very hard to assess.</span><span class="seg-tag">Opposing view</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the palaeontologist's argument?</p>
@@ -289,10 +328,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Instead” is the clue: he treats scavenger and predator as either/or.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q8">← Question 8</a><a href="#questions">All questions</a><a href="#q10">Question 10 →</a></nav></section>
 <section class="q" id="q10">
   <div class="q-head"><span class="qnum">10</span><span class="qorig">(Q17 in the original paper)</span>
-    <span class="chip">Strengthen</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Strengthen</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">There was a 17 per cent decline in public library use in the UK between 1993 and 2003 according to a report by CABE (The Commission for Architecture and the Built Environment).</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">They suggest this is not due to a lack of public interest in reading books. Rather it is the authoritarian style and image of libraries with their rules about silence and fines for late returns of books.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">Those few libraries that have moved away from this image such as the one in Bournemouth, which provide cafes and 'chill-out' zones, have seen a 40 per cent increase in library use.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Therefore it is clear that the future of the function of the UK library service will be more assured if all libraries follow this lead.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, would most strengthen the above argument?</p>
@@ -301,10 +340,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The weak spot is “not due to a lack of interest in reading”. Find evidence that people still want to read.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q9">← Question 9</a><a href="#questions">All questions</a><a href="#q11">Question 11 →</a></nav></section>
 <section class="q" id="q11">
   <div class="q-head"><span class="qnum">11</span><span class="qorig">(Q21 in the original paper)</span>
-    <span class="chip">Flaw</span><span class="attempt bad">Your attempt: D ✗</span></div>
+    <span class="chip">Flaw</span><span class="attempt bad">Your attempt: D ✗</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The Government are transferring the cost of a university education from the state to the student.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">This is described as a reform which will put universities' finance on a sustainable footing with more freedom and less bureaucracy. In addition it will lead to a greater choice for students with a focus on high quality teaching.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">The rise in tuition fees to £9,000 per year, making the cost of a three–year degree £27,000, should not be considered as too high.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-analogy">After all, the cost of a Mercedes Benz B-Class Sports Model is about the same price on the road as a three-year degree. This should put the rise in tuition fees into perspective</span><span class="seg-tag">Comparison</span> <span class="seg seg-conc">and we can conclude that the tuition fees are very reasonable.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is the best statement of the flaw in this argument?</p>
@@ -313,10 +352,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Find the sentence that leads straight to the conclusion: here, the car comparison.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q10">← Question 10</a><a href="#questions">All questions</a><a href="#q12">Question 12 →</a></nav></section>
 <section class="q" id="q12">
   <div class="q-head"><span class="qnum">12</span><span class="qorig">(Q22 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span><span class="attempt good">Your attempt: D ✓</span></div>
+    <span class="chip">Parallel reasoning</span><span class="attempt good">Your attempt: D ✓</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">You probably don't have to be a cat-lover to enjoy <i>The Great Race</i> – an excellent short film about a Yorkshireman who goes running with (and against) his one-eyed cat.</span><span class="seg-tag">Reason</span> <span class="seg seg-ctx">Now he wants to make it a full-length film,</span><span class="seg-tag">Context</span> <span class="seg seg-conc">but this is a mistake.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Eight minutes of feline fun is about as much as any audience can take.</span><span class="seg-tag">Reason</span> <span class="seg seg-analogy">Cats are like babies in this respect: endlessly fascinating to their owners, enjoyable only in short bursts for everyone else.</span><span class="seg-tag">Comparison</span> </div>
     <p class="stem">Which one of the following most clearly parallels the reasoning used in the above argument?</p>
@@ -334,10 +373,10 @@ but everyone else only enjoys short bursts <svg class="ar k-pen" viewBox="0 0 34
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Parallel questions: ignore the topic, copy the shape. Write the argument with X and Y and test each option.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q11">← Question 11</a><a href="#questions">All questions</a><a href="#q13">Question 13 →</a></nav></section>
 <section class="q" id="q13">
   <div class="q-head"><span class="qnum">13</span><span class="qorig">(Q23 in the original paper)</span>
-    <span class="chip">Principle</span><span class="attempt bad">Your attempt: E ✗</span></div>
+    <span class="chip">Principle</span><span class="attempt bad">Your attempt: E ✗</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The Universities Minister faced a torrent of criticism when he suggested that students could find themselves "cut-price degrees" at the last minute as universities charging the new maximum fee of £9,000 would slash prices to fill any vacant places.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">The chair of a group of student unions attacked the proposal, saying: "If a student qualifies for a place they will pay one amount, while someone who fails but then gets an unfilled place at the end will somehow pay less."</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Clearly this turns justice on its head.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best matches the principle underlying the above argument?</p>
@@ -348,10 +387,10 @@ but everyone else only enjoys short bursts <svg class="ar k-pen" viewBox="0 0 34
 So the principle: <b>never reward the weaker performer more than the stronger one</b>.</p>
 <p>C: second-best rewarded more than the winner → wrong. <span class="tickmark">✓</span> Same principle in a new setting.</p></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q12">← Question 12</a><a href="#questions">All questions</a><a href="#q14">Question 14 →</a></nav></section>
 <section class="q" id="q14">
   <div class="q-head"><span class="qnum">14</span><span class="qorig">(Q27 in the original paper)</span>
-    <span class="chip">Main conclusion</span><span class="attempt bad">Your attempt: E ✗</span></div>
+    <span class="chip">Main conclusion</span><span class="attempt bad">Your attempt: E ✗</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">We need to find solutions to the problem of high levels of carbon dioxide emissions. A number of solutions are being proposed</span><span class="seg-tag">Context</span> <span class="seg seg-ic">but one of the most promising is that of using willow trees as a fuel for generating electricity.</span> <span class="seg seg-ic">There are many environmental advantages in using willow.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">Burning wood has the environmental advantage that in doing so one releases into the atmosphere only as much carbon dioxide as the trees themselves absorbed. In addition, plantations of willows will not only support the insects on which songbirds feed, but also, being trees that thrive in wet areas, they will help to conserve our threatened wetlands.</span> <span class="seg seg-evid">Other countries, such as Sweden, have already recognised the advantages of using willow for fuel.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">We should follow their example.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the argument above?</p>
@@ -360,10 +399,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> When the last line says “We should follow their example”, turn it into plain words: we should use willow for fuel.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q13">← Question 13</a><a href="#questions">All questions</a><a href="#q15">Question 15 →</a></nav></section>
 <section class="q" id="q15">
   <div class="q-head"><span class="qnum">15</span><span class="qorig">(Q28 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span><span class="attempt bad">Your attempt: C ✗</span></div>
+    <span class="chip">Draw a conclusion</span><span class="attempt bad">Your attempt: C ✗</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Brazilian police in Bahia recently ended their strike over low pay, which lasted 12 days and saw the region's homicide rate double.</span> <span class="seg seg-evid">During that time, politicians accused some police officers of causing panic by encouraging looting while on strike.</span> <span class="seg seg-evid">Now the strike has ended they have offered an amnesty against the punishment of any striking officers as long as they did not commit any crimes during the strike.</span> <span class="seg seg-evid">For their part, the officers have received a 6.5 per cent pay rise and have complained that they were played off against the public and ended their strike so they could properly police the Salvador carnival.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-counter">The Government contest this and say their decision to stop salary payments to any officers still on strike is what made the police return to work.</span><span class="seg-tag">Opposing view</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -372,10 +411,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Only conclude what is agreed fact. When two sides disagree (“The Government contest this”), neither side’s story is a safe conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q14">← Question 14</a><a href="#questions">All questions</a><a href="#q16">Question 16 →</a></nav></section>
 <section class="q" id="q16">
   <div class="q-head"><span class="qnum">16</span><span class="qorig">(Q29 in the original paper)</span>
-    <span class="chip">Assumption</span><span class="attempt bad">Your attempt: D ✗</span></div>
+    <span class="chip">Assumption</span><span class="attempt bad">Your attempt: D ✗</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">When preparing for examinations, it is important that students do not suppress any emotional or other problems they might be having during their course of study.</span> <span class="seg seg-prem">A good way of revealing problems is the creation of a partnership and a discussion between students, parents and teachers.</span> <span class="seg seg-prem">This is far preferable to the problems only becoming apparent with the arrival of the results causing upset and disappointment for all concerned.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">Therefore, if schools and colleges create as many opportunities as possible for three-way meetings between students, parents and teachers, they will make a valuable contribution to their students' achievements in examinations.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -384,10 +423,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Assumptions are the <b>minimum</b> the argument needs. Words like always, all and never are usually too strong.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q15">← Question 15</a><a href="#questions">All questions</a><a href="#q17">Question 17 →</a></nav></section>
 <section class="q" id="q17">
   <div class="q-head"><span class="qnum">17</span><span class="qorig">(Q33 in the original paper)</span>
-    <span class="chip">Weaken</span><span class="attempt bad">Your attempt: E ✗</span></div>
+    <span class="chip">Weaken</span><span class="attempt bad">Your attempt: E ✗</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">It is a strange fact that many people find violence entertaining as long as it's fictional. Encountering a chainsaw-wielding maniac on television in one's own home is obviously less traumatising than meeting one at the bus stop. But is it actually fun? The same is often true of reading crime novels. Take, for example, the popularity of the violent Swedish 'Millennium Trilogy', also now made into films. Psychologists call this enjoyment 'the horror paradox'.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">However, today's increase in violent – and frankly unpleasant – crime</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">proves that, for a growing number of people, simply reading about or watching horror on screen is not enough 'fun': they need to go out to stalk and horribly kill a passer-by to get their kicks.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -396,10 +435,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Weaken = give another explanation for the evidence (the crime rise) or show it doesn’t fit the conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q16">← Question 16</a><a href="#questions">All questions</a><a href="#q18">Question 18 →</a></nav></section>
 <section class="q" id="q18">
   <div class="q-head"><span class="qnum">18</span><span class="qorig">(Q34 in the original paper)</span>
-    <span class="chip">Flaw</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Flaw</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">A recent peaceful demonstration against government cuts ended in violence caused by relatively small numbers of 'anarchists' attacking police and property.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ctx">Anarchism is a political philosophy, and as a group, anarchists tend to be unable to agree among themselves on exactly what it means. But what does it tell us about these events or about those involved if we call everyone with a brick in their hand an anarchist?</span><span class="seg-tag">Context</span> <span class="seg seg-prem">Given that the central idea all anarchists have in common is the abolition of the state (not necessarily by violence),</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">'anarchist' is a daft way to characterise the violent hangers-on of a demonstration protesting not for but against the shrinking of the state.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is the best statement of the flaw in the argument above?</p>
@@ -408,10 +447,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The leap: “the demonstration opposed cuts” → “everyone at it opposed cuts”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q17">← Question 17</a><a href="#questions">All questions</a><a href="#q19">Question 19 →</a></nav></section>
 <section class="q" id="q19">
   <div class="q-head"><span class="qnum">19</span><span class="qorig">(Q35 in the original paper)</span>
-    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Acting on government advice, schools in England now provide only semi-skimmed milk to pupils.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">This assumes that all children are similarly at risk of becoming obese and ignores the benefits full-fat milk may bring to many children, including vegetarians and those who are underweight.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">It is another example of the Government interfering unhelpfully in the way people live their lives.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -420,10 +459,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The two criticisms are reasons, and “another example of…” is the verdict.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q18">← Question 18</a><a href="#questions">All questions</a><a href="#q20">Question 20 →</a></nav></section>
 <section class="q" id="q20">
   <div class="q-head"><span class="qnum">20</span><span class="qorig">(Q39 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span><span class="attempt bad">Your attempt: B ✗</span></div>
+    <span class="chip">Draw a conclusion</span><span class="attempt bad">Your attempt: B ✗</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Many argue that successive government programmes to increase road safety have caused a progressive decline in the number of accidents on our roads.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-evid">However, some observers have shown that the real number of accidents may be much higher than those officially recorded, with many accidents simply not being reported by drivers.</span> <span class="seg seg-evid">They also point to the fact that, during the most recent period in which accident figures decreased, hospital admission rates for road accidents have remained fairly constant.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -432,10 +471,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Match the strength of the conclusion to the evidence: “may” evidence → “may” conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q19">← Question 19</a><a href="#questions">All questions</a><a href="#q21">Question 21 →</a></nav></section>
 <section class="q" id="q21">
   <div class="q-head"><span class="qnum">21</span><span class="qorig">(Q40 in the original paper)</span>
-    <span class="chip">Assumption</span><span class="attempt bad">Your attempt: E ✗</span></div>
+    <span class="chip">Assumption</span><span class="attempt bad">Your attempt: E ✗</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Concern has been expressed about the UK Government policy of expanding the number of university places available. It is argued that the economy does not need the number of graduates that this policy produces.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-evid">However, graduate unemployment has actually decreased since the policy of expansion was implemented.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">This shows that the Government has wisely anticipated the employment demands of an expanding modern 'high-tech' economy and that the policy of increasing the supply of university places is an appropriate response.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an assumption underlying the above argument?</p>
@@ -444,10 +483,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “graduates HAVE taken lots of non-graduate jobs”. Then falling graduate unemployment proves nothing, so C is assumed.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q20">← Question 20</a><a href="#questions">All questions</a><a href="#q22">Question 22 →</a></nav></section>
 <section class="q" id="q22">
   <div class="q-head"><span class="qnum">22</span><span class="qorig">(Q41 in the original paper)</span>
-    <span class="chip">Weaken</span><span class="attempt bad">Your attempt: C ✗</span></div>
+    <span class="chip">Weaken</span><span class="attempt bad">Your attempt: C ✗</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">The number of crimes carried out by girls has increased significantly.</span> <span class="seg seg-evid">The rise in offences such as criminal damage, public disorder, robbery and minor assaults by girls under 18 are all seen as linked to a rise in alcohol consumption.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">So the greater availability of alcohol is contributing to rising crime levels among young girls.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, would most weaken the above argument?</p>
@@ -456,10 +495,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The evidence is a rise in <b>recorded</b> crime. Ask: could something other than alcohol explain the rise?</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q21">← Question 21</a><a href="#questions">All questions</a><a href="#q23">Question 23 →</a></nav></section>
 <section class="q" id="q23">
   <div class="q-head"><span class="qnum">23</span><span class="qorig">(Q45 in the original paper)</span>
-    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span></div>
+    <span class="chip">Main conclusion</span><span class="attempt good">Your attempt: C ✓</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">Some people believe that raw food is healthier than cooked food because cooking destroys vitamins.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">However, we should be grateful that our ancestors discovered how to cook.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">Researchers have found that people who stuck to a raw food diet for three years suffered from chronic energy deficiency and lost a lot of weight.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">Cooked food is easier to digest, so enables us to take in the necessary calories without too much expenditure of energy. Cooking also removes toxins from food, making cooked food safer.</span> <span class="seg seg-prem">This has the result that our bodies are not very good at disposing of toxins naturally, but this is not a problem provided that our diet consists principally of cooked food.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -468,10 +507,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “However” straight after an opposing view often signals the main conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q22">← Question 22</a><a href="#questions">All questions</a><a href="#q24">Question 24 →</a></nav></section>
 <section class="q" id="q24">
   <div class="q-head"><span class="qnum">24</span><span class="qorig">(Q46 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span><span class="attempt good">Your attempt: B ✓</span></div>
+    <span class="chip">Parallel reasoning</span><span class="attempt good">Your attempt: B ✓</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">The level of light pollution must be low in order to be able to observe the moon, planets and stars.</span> <span class="seg seg-prem">My house is in the darkness of the countryside</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">so stargazing will always be possible from my back garden.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -489,10 +528,10 @@ So the principle: <b>never reward the weaker performer more than the stronger on
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Write the original as “need A for B; have A; so B” and look for the option with the same three parts in the same order.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q23">← Question 23</a><a href="#questions">All questions</a><a href="#q25">Question 25 →</a></nav></section>
 <section class="q" id="q25">
   <div class="q-head"><span class="qnum">25</span><span class="qorig">(Q47 in the original paper)</span>
-    <span class="chip">Principle</span><span class="attempt good">Your attempt: D ✓</span></div>
+    <span class="chip">Principle</span><span class="attempt good">Your attempt: D ✓</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">Although boxing is unacceptable, other risky sports are not.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">When people get injured or killed in horse sports, motor sports or while climbing, yachting or skydiving it is because things have gone horribly wrong.</span> <span class="seg seg-prem">When people get killed in boxing it is because things have gone horribly right.</span> <span class="seg seg-prem">The aim of any boxing match is to cause more permanent brain damage to your opponent than you yourself sustain.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best illustrates the principle underlying the argument?</p>
@@ -502,7 +541,7 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   <div class="work-box"><h4>Working: write the principle first</h4><p class="skel">Risky sports: harm = things going <b>wrong</b> <svg class="ar k-pen" viewBox="0 0 34 16" aria-hidden="true"><path d="M2 9 C 10 3, 20 13, 30 8" fill="none"/><path d="M24 3 L31 8 L24 13" fill="none"/></svg> OK.<br>Boxing: harm = things going <b>right</b> (the aim) <svg class="ar k-pen" viewBox="0 0 34 16" aria-hidden="true"><path d="M2 9 C 10 3, 20 13, 30 8" fill="none"/><path d="M24 3 L31 8 L24 13" fill="none"/></svg> not OK.</p>
 <p>D: bonfire (harm only if it goes wrong) is fine, arson (harm is the point) is not. <span class="tickmark">✓</span></p></div>
   <button class="btn reveal" type="button">Show working</button>
-</section></main>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q24">← Question 24</a><a href="#questions">All questions</a><span></span></nav></section></main>
   <p class="foot">Questions © UCLES 2014, reproduced from the TSA Oxford 2014 Section 1 paper for practice.
     Answers match the official answer key.</p>
 </div>
@@ -515,6 +554,11 @@ So the principle: <b>never reward the weaker performer more than the stronger on
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
   set(saved);
   btn.addEventListener('click',function(){set(!root.classList.contains('practice'))});
+  var wm=document.getElementById('wm-toggle'), WKEY='tsa-ws-methods';
+  function setWm(on){root.classList.toggle('no-wm',!on);wm.setAttribute('aria-pressed',on?'true':'false');
+    wm.textContent=on?'Written methods: shown':'Written methods: hidden';try{localStorage.setItem(WKEY,on?'1':'0')}catch(e){}}
+  if(wm){var wsaved=true;try{wsaved=localStorage.getItem(WKEY)!=='0'}catch(e){}
+    setWm(wsaved);wm.addEventListener('click',function(){setWm(root.classList.contains('no-wm'))});}
   document.querySelectorAll('.reveal').forEach(function(b){b.addEventListener('click',function(){
     var q=b.closest('.q'), on=!q.classList.contains('shown');
     q.classList.toggle('shown',on); b.textContent=on?'Hide working':'Show working';});});

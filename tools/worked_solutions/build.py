@@ -19,6 +19,7 @@ REPO = HERE.parent.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE / 'content'))
 import wslib  # noqa: E402
+import written  # noqa: E402
 
 KINDS = {
     'ps': dict(name='Problem Solving', slug='Problem_Solving', key='PS'),
@@ -49,6 +50,7 @@ CSS = r"""
   --hl-y:#fde46a; --hl-p:#ffb0cf; --hl-g:#aeeec1; --hl-b:#b6d8ff; --hl-o:#ffcf98; --hl-v:#dccbff; --hl-k:#e2e2dc; --hl-t:#a6ece4;
   --fill-y:#fff0a8; --fill-p:#ffd3e4; --fill-g:#cdf5d8; --fill-b:#d5e8ff; --fill-o:#ffe2bf; --fill-v:#e9ddff;
   --note-bg:#fff3a3; --note-ink:#2b2710; --chip:#e9e7df; --chip-ink:#34373c;
+  --wm-bg:rgba(255,255,255,.6); --wm-edge:rgba(31,78,168,.28);
   --print:Arial,"Helvetica Neue",Helvetica,sans-serif;
   --hand:"Patrick Hand","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
   --scrawl:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
@@ -57,13 +59,13 @@ CSS = r"""
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--paper);color:var(--ink);
@@ -99,6 +101,10 @@ h1,h2,h3{text-wrap:balance}
 .qorig{color:var(--muted);font-size:1.05rem}
 .chip{background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 10px;font-size:.92rem}
 .attempt{border-radius:999px;padding:1px 10px;font-size:.92rem;border:2px solid currentColor}
+.anschip{margin-left:auto;border-radius:999px;padding:1px 4px 1px 12px;font-size:.95rem;background:var(--fill-g);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px}
+.anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
+  border-radius:50%;background:var(--green);color:var(--paper)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -156,6 +162,40 @@ svg.ar{width:1.7em;height:.85em;vertical-align:middle;stroke:currentColor;stroke
   padding:0 .35em;line-height:1.5}
 .others .why{min-width:0}
 .fast{margin-top:16px}
+.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:20px;font-size:1rem}
+.qfoot a{color:var(--pen);text-decoration:none;border:1.5px solid currentColor;border-radius:10px 8px 11px 7px;padding:.05em .7em}
+.qfoot a:hover{background:var(--pen);color:var(--paper)}
+
+/* written methods (column addition and subtraction, multiplication, bus stop and long division) */
+.wms{display:flex;flex-wrap:wrap;gap:10px 14px;margin:.25em 0 .8em;align-items:flex-start}
+.wm{border:1.5px solid var(--wm-edge);border-radius:12px 9px 13px 8px;padding:6px 12px 8px;background:var(--wm-bg);max-width:100%;overflow-x:auto}
+.wm-cap{font-family:var(--scrawl);font-weight:700;font-size:1.05rem;line-height:1.15;color:var(--red);margin-bottom:4px}
+.wm table{border-collapse:collapse;font-family:var(--hand);font-size:1.35rem;line-height:1;color:var(--pen);font-variant-numeric:tabular-nums}
+.wm td{min-width:.95em;height:1.45em;padding:0 .04em;text-align:center;vertical-align:middle;position:relative}
+.wm td.pt{min-width:.3em;width:.3em}
+.wm table.bus td:not(.dv):not(.pt){min-width:1.45em;padding-left:.5em}
+.wm td.op{color:var(--ink);padding-right:.15em}
+.wm td.sum{border-top:2px solid var(--ink)}
+.wm tr.res td,.wm td.qt{color:var(--green)}
+.wm tr.first td:not(.lab):not(:first-child){border-top:2px solid var(--ink)}
+.wm .fz{opacity:.4}
+.wm tr.cyrow td{height:1em;vertical-align:top}
+.wm td.cy{font-size:.62em;color:var(--red)}
+.wm tr.ex-row td{height:2.15em;vertical-align:bottom;padding-bottom:.12em}
+.wm .x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.wm .nv{position:absolute;left:50%;top:.1em;transform:translateX(-50%);font-size:.62em;color:var(--red);white-space:nowrap}
+.wm .ci{position:absolute;left:.08em;top:.05em;font-size:.6em;color:var(--red)}
+.wm td.roof{border-top:2px solid var(--ink)}
+.wm td.wall{border-left:2px solid var(--ink);border-top-left-radius:12px}
+.wm td.dv{padding-right:.35em;text-align:right;color:var(--ink)}
+.wm td.lab{font-size:.62em;color:var(--muted);text-align:left;padding-left:.7em;white-space:nowrap}
+.wm-note{font-family:var(--hand);font-size:.98rem;color:var(--muted);margin-top:4px;max-width:32ch}
+.no-wm .wms{display:none}
+@media (max-width:700px){.wms{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wm{flex:none;scroll-snap-align:start}}
+svg.dvs{display:inline-block;width:.68em;height:.68em;vertical-align:-.02em;margin:0 .1em;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;fill:currentColor}
+svg.dvs path{fill:none}svg.dvs circle{stroke:none}
+.dvt{font-family:Arial,Helvetica,sans-serif;font-weight:700}
 
 /* critical thinking passage */
 .seg{border-radius:3px;padding:.05em .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--slip-ink);
@@ -198,7 +238,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -224,6 +264,11 @@ JS = r"""
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
   set(saved);
   btn.addEventListener('click',function(){set(!root.classList.contains('practice'))});
+  var wm=document.getElementById('wm-toggle'), WKEY='tsa-ws-methods';
+  function setWm(on){root.classList.toggle('no-wm',!on);wm.setAttribute('aria-pressed',on?'true':'false');
+    wm.textContent=on?'Written methods: shown':'Written methods: hidden';try{localStorage.setItem(WKEY,on?'1':'0')}catch(e){}}
+  if(wm){var wsaved=true;try{wsaved=localStorage.getItem(WKEY)!=='0'}catch(e){}
+    setWm(wsaved);wm.addEventListener('click',function(){setWm(root.classList.contains('no-wm'))});}
   document.querySelectorAll('.reveal').forEach(function(b){b.addEventListener('click',function(){
     var q=b.closest('.q'), on=!q.classList.contains('shown');
     q.classList.toggle('shown',on); b.textContent=on?'Hide working':'Show working';});});
@@ -276,13 +321,18 @@ def attempt_chip(q):
     return f'<span class="attempt {"good" if ok else "bad"}">Your attempt: {a} {"✓" if ok else "✗"}</span>'
 
 
+def answer_chip(q):
+    return f'<span class="anschip">Answer <b>{q["answer"]}</b></span>'
+
+
 def render_ps(year, q):
     notes = ''.join(
         f'<li><span class="pinbadge hl-{c}" style="background:var(--c)">{n}</span><span>{t}</span></li>'
         for n, c, t in q.get('notes', []))
     notes_html = (f'<aside><p class="notes-title">Reading it properly</p><ul class="notes">{notes}</ul></aside>'
                   if notes else '<aside></aside>')
-    steps = ''.join(f'<li><div>{s}</div></li>' for s in q['steps'])
+    done = set()
+    steps = ''.join(f'<li><div>{written.add_methods(s, done)}</div></li>' for s in q['steps'])
     others = ''.join(
         f'<li><span class="ol">{k}</span><span class="crossmark">✗</span><span class="why">{wslib.ar()} {q["why"][k]}</span></li>'
         for k in q['options'] if k != q['answer'])
@@ -290,7 +340,7 @@ def render_ps(year, q):
     return f"""
 <section class="q" id="q{q['n']}">
   <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">(Q{q['orig']} in the original paper)</span>
-    <span class="chip">{q.get('topic', '')}</span>{attempt_chip(q)}</div>
+    <span class="chip">{q.get('topic', '')}</span>{attempt_chip(q)}{answer_chip(q)}</div>
   <div class="q-grid">
     <div class="slip">{q['question']}{wslib.options(q['options'])}</div>
     {notes_html}
@@ -326,7 +376,7 @@ def render_ct(year, q):
     return f"""
 <section class="q" id="q{q['n']}">
   <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">(Q{q['orig']} in the original paper)</span>
-    <span class="chip">{q.get('type', '')}</span>{attempt_chip(q)}</div>
+    <span class="chip">{q.get('type', '')}</span>{attempt_chip(q)}{answer_chip(q)}</div>
   <div class="slip ct-tag-wrap">
     <div class="passage">{passage}</div>
     <p class="stem">{q['stem']}</p>
@@ -338,6 +388,15 @@ def render_ct(year, q):
 </section>"""
 
 
+def with_foot(section, n, total):
+    """Add previous / all / next links to the end of a question."""
+    prev = f'<a href="#q{n - 1}">← Question {n - 1}</a>' if n > 1 else '<span></span>'
+    nxt = f'<a href="#q{n + 1}">Question {n + 1} →</a>' if n < total else '<span></span>'
+    foot = f'<nav class="qfoot" aria-label="Move between questions">{prev}<a href="#questions">All questions</a>{nxt}</nav>'
+    head, _, tail = section.rpartition('</section>')
+    return head + foot + '</section>' + tail
+
+
 def render_main(year, kind, qs):
     """The page content: header, questions and footer (no styles or scripts)."""
     meta = KINDS[kind]
@@ -346,32 +405,35 @@ def render_main(year, kind, qs):
                          for c, label in PS_COLOURS)
         lede = ('Every question in full, annotated, then worked through step by step with sketches. '
                 'Numbers in brackets are the question numbers in the original paper.')
-        body = ''.join(render_ps(year, q) for q in qs)
+        body = ''.join(with_foot(render_ps(year, q), q['n'], len(qs)) for q in qs)
         nav = ''.join(f'<a href="#q{q["n"]}"><b>{q["n"]}</b><span>{q.get("topic", "")}</span>'
                       f'<i>{nav_mark(q)}</i></a>' for q in qs)
+        wm_btn = ('<button class="btn" id="wm-toggle" type="button" aria-pressed="true">Written methods: shown</button>'
+                  if 'class="wms"' in body else '')
     else:
         legend = ''.join(f'<span><span class="sw seg-{r}" style="background:var(--c)">{label}</span></span>'
                          for r, label in CT_ROLES)
         lede = ('Each argument is colour-coded by the job each sentence does. The right answer is highlighted, '
                 'and every wrong option gets a quick note on why it fails.')
-        body = ''.join(render_ct(year, q) for q in qs)
+        body = ''.join(with_foot(render_ct(year, q), q['n'], len(qs)) for q in qs)
         nav = ''.join(f'<a href="#q{q["n"]}"><b>{q["n"]}</b><span>{q.get("type", "")}</span>'
                       f'<i>{nav_mark(q)}</i></a>' for q in qs)
+        wm_btn = ''
     copy = (f'© Cambridge University Press &amp; Assessment {year}' if int(year) >= 2022 else f'© UCLES {year}')
-    return f"""<div class="wrap">
+    return written.clear_division(f"""<div class="wrap">
   <header class="page-head">
     <p class="eyebrow">TSA {year} · worked solutions</p>
     <h1>{meta['name']}</h1>
     <p class="lede">{lede}</p>
     <div class="legend">{legend}</div>
-    <div class="controls"><button class="btn" id="practice" type="button" aria-pressed="false">Practice mode: off</button>
+    <div class="controls"><button class="btn" id="practice" type="button" aria-pressed="false">Practice mode: off</button>{wm_btn}
       <span style="color:var(--muted)">Turn practice mode on to hide the working until you have had a go.</span></div>
     <nav class="nav" id="questions" aria-label="Questions">{nav}</nav>
   </header>
   <main>{body}</main>
   <p class="foot">Questions {copy}, reproduced from the TSA Oxford {year} Section 1 paper for practice.
     Answers match the official answer key.</p>
-</div>"""
+</div>""")
 
 
 def render_page(year, kind, qs, fonts_css):

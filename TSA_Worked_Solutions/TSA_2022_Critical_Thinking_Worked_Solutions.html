@@ -10,6 +10,7 @@
   --hl-y:#fde46a; --hl-p:#ffb0cf; --hl-g:#aeeec1; --hl-b:#b6d8ff; --hl-o:#ffcf98; --hl-v:#dccbff; --hl-k:#e2e2dc; --hl-t:#a6ece4;
   --fill-y:#fff0a8; --fill-p:#ffd3e4; --fill-g:#cdf5d8; --fill-b:#d5e8ff; --fill-o:#ffe2bf; --fill-v:#e9ddff;
   --note-bg:#fff3a3; --note-ink:#2b2710; --chip:#e9e7df; --chip-ink:#34373c;
+  --wm-bg:rgba(255,255,255,.6); --wm-edge:rgba(31,78,168,.28);
   --print:Arial,"Helvetica Neue",Helvetica,sans-serif;
   --hand:"Patrick Hand","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
   --scrawl:"Caveat","Bradley Hand","Segoe Print","Comic Sans MS",cursive;
@@ -18,13 +19,13 @@
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --paper:#16211d; --grid:rgba(255,255,255,.045); --ink:#e7ece8; --muted:#a3aea8;
   --pen:#9cc3ff; --red:#ff8d84; --green:#86e0a6; --orange:#ffc07d; --violet:#c9b0ff;
   --fill-y:#5a5016; --fill-p:#5c2742; --fill-g:#1d4f33; --fill-b:#1b3d63; --fill-o:#653d13; --fill-v:#3d2d68;
-  --chip:#23312b; --chip-ink:#dfe6e1; color-scheme:dark;
+  --chip:#23312b; --chip-ink:#dfe6e1; --wm-bg:rgba(255,255,255,.04); --wm-edge:rgba(156,195,255,.3); color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--paper);color:var(--ink);
@@ -60,6 +61,10 @@ h1,h2,h3{text-wrap:balance}
 .qorig{color:var(--muted);font-size:1.05rem}
 .chip{background:var(--chip);color:var(--chip-ink);border-radius:999px;padding:1px 10px;font-size:.92rem}
 .attempt{border-radius:999px;padding:1px 10px;font-size:.92rem;border:2px solid currentColor}
+.anschip{margin-left:auto;border-radius:999px;padding:1px 4px 1px 12px;font-size:.95rem;background:var(--fill-g);color:var(--ink);
+  display:inline-flex;align-items:center;gap:8px}
+.anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
+  border-radius:50%;background:var(--green);color:var(--paper)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -117,6 +122,40 @@ svg.ar{width:1.7em;height:.85em;vertical-align:middle;stroke:currentColor;stroke
   padding:0 .35em;line-height:1.5}
 .others .why{min-width:0}
 .fast{margin-top:16px}
+.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:20px;font-size:1rem}
+.qfoot a{color:var(--pen);text-decoration:none;border:1.5px solid currentColor;border-radius:10px 8px 11px 7px;padding:.05em .7em}
+.qfoot a:hover{background:var(--pen);color:var(--paper)}
+
+/* written methods (column addition and subtraction, multiplication, bus stop and long division) */
+.wms{display:flex;flex-wrap:wrap;gap:10px 14px;margin:.25em 0 .8em;align-items:flex-start}
+.wm{border:1.5px solid var(--wm-edge);border-radius:12px 9px 13px 8px;padding:6px 12px 8px;background:var(--wm-bg);max-width:100%;overflow-x:auto}
+.wm-cap{font-family:var(--scrawl);font-weight:700;font-size:1.05rem;line-height:1.15;color:var(--red);margin-bottom:4px}
+.wm table{border-collapse:collapse;font-family:var(--hand);font-size:1.35rem;line-height:1;color:var(--pen);font-variant-numeric:tabular-nums}
+.wm td{min-width:.95em;height:1.45em;padding:0 .04em;text-align:center;vertical-align:middle;position:relative}
+.wm td.pt{min-width:.3em;width:.3em}
+.wm table.bus td:not(.dv):not(.pt){min-width:1.45em;padding-left:.5em}
+.wm td.op{color:var(--ink);padding-right:.15em}
+.wm td.sum{border-top:2px solid var(--ink)}
+.wm tr.res td,.wm td.qt{color:var(--green)}
+.wm tr.first td:not(.lab):not(:first-child){border-top:2px solid var(--ink)}
+.wm .fz{opacity:.4}
+.wm tr.cyrow td{height:1em;vertical-align:top}
+.wm td.cy{font-size:.62em;color:var(--red)}
+.wm tr.ex-row td{height:2.15em;vertical-align:bottom;padding-bottom:.12em}
+.wm .x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.wm .nv{position:absolute;left:50%;top:.1em;transform:translateX(-50%);font-size:.62em;color:var(--red);white-space:nowrap}
+.wm .ci{position:absolute;left:.08em;top:.05em;font-size:.6em;color:var(--red)}
+.wm td.roof{border-top:2px solid var(--ink)}
+.wm td.wall{border-left:2px solid var(--ink);border-top-left-radius:12px}
+.wm td.dv{padding-right:.35em;text-align:right;color:var(--ink)}
+.wm td.lab{font-size:.62em;color:var(--muted);text-align:left;padding-left:.7em;white-space:nowrap}
+.wm-note{font-family:var(--hand);font-size:.98rem;color:var(--muted);margin-top:4px;max-width:32ch}
+.no-wm .wms{display:none}
+@media (max-width:700px){.wms{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wm{flex:none;scroll-snap-align:start}}
+svg.dvs{display:inline-block;width:.68em;height:.68em;vertical-align:-.02em;margin:0 .1em;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;fill:currentColor}
+svg.dvs path{fill:none}svg.dvs circle{stroke:none}
+.dvt{font-family:Arial,Helvetica,sans-serif;font-weight:700}
 
 /* critical thinking passage */
 .seg{border-radius:3px;padding:.05em .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--slip-ink);
@@ -159,7 +198,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -184,7 +223,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <main>
 <section class="q" id="q1">
   <div class="q-head"><span class="qnum">1</span><span class="qorig">(Q1 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Throughout history, gold has been revered and used for expensive jewellery and ornamentation.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">But in the future, it will be prized for its practical uses rather than for its aesthetic appeal.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-ctx">It wasn’t until early in the last century that gold’s electrical conductivity properties were discovered.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">Solid state electronic devices use very low voltages and currents, which are easily interrupted by corrosion at the contact points. Gold is such an efficient conductor that it can carry these tiny currents and remain free of corrosion, making the devices highly reliable.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">A small amount of gold is used in almost every modern electronic device, and it is predicted that within ten years, more gold will be used in the production of electronics than in jewellery.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -193,10 +232,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “But” straight after the history often flags the conclusion. Ask which sentence the rest supports.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><span></span><a href="#questions">All questions</a><a href="#q2">Question 2 →</a></nav></section>
 <section class="q" id="q2">
   <div class="q-head"><span class="qnum">2</span><span class="qorig">(Q3 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Whether known as the high street, main street, or market square, central shopping districts in many towns throughout the world are in danger of disappearing. The decline in some downtown shopping areas began decades ago because of various social and economic trends, including an increase in the number of women working outside of the home and the development of large supermarkets and retail parks further out on the outskirts of towns.</span><span class="seg-tag">Context</span> <span class="seg seg-counter">While change is inevitably difficult,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">communities should not be fearful about the loss of their traditional shopping areas.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Shopping is increasingly conducted via the internet. Compared to traditional ways of shopping, the online model offers savings in terms of time and other resources while also providing greater consumer choice.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -205,10 +244,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “high streets DO serve an important purpose online shopping can’t meet”. Then the fear is justified, so E is assumed.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q1">← Question 1</a><a href="#questions">All questions</a><a href="#q3">Question 3 →</a></nav></section>
 <section class="q" id="q3">
   <div class="q-head"><span class="qnum">3</span><span class="qorig">(Q4 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ic">I have always said that owners of expensive cars are less considerate drivers, and now a study has proved me right.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">The study showed that they are less likely to stop at a pedestrian crossing to allow someone to cross the road than drivers of less expensive cars – in fact, their likelihood to do so decreased by about 3% for every £800 increase in the vehicle’s value. Previous studies have also shown that wealth is associated with greater self-regard and lower levels of fellow feeling.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">So next time an expensive sports car comes along while you are waiting at a pedestrian crossing, you can be sure that it won’t stop.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the flaw in the above argument?</p>
@@ -217,10 +256,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Watch the strength words: “less likely” in the evidence, “you can be sure” in the conclusion.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q2">← Question 2</a><a href="#questions">All questions</a><a href="#q4">Question 4 →</a></nav></section>
 <section class="q" id="q4">
   <div class="q-head"><span class="qnum">4</span><span class="qorig">(Q5 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">You only win an election if you gain a majority of votes.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">You must have gained a majority of votes</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">because you were named the winner in the election.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -237,10 +276,10 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Only if A, B” means B needs A. If B happened you can say A happened, but having A does not guarantee B.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q3">← Question 3</a><a href="#questions">All questions</a><a href="#q5">Question 5 →</a></nav></section>
 <section class="q" id="q5">
   <div class="q-head"><span class="qnum">5</span><span class="qorig">(Q9 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Bicycle owners have a duty to have their bicycles maintained properly. This is to ensure the safety both of the rider and of other road users.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">If an injury is caused to another person as a result of a failure to maintain a bicycle properly, then the injured person should be entitled to compensation from the owner of the bicycle.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the principle used in the above argument?</p>
@@ -258,10 +297,10 @@ So the principle: <b>if something is not properly maintained and it injures some
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Check each part: who owns it, was it badly maintained, did that cause the injury, and is the claim against the owner?</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q4">← Question 4</a><a href="#questions">All questions</a><a href="#q6">Question 6 →</a></nav></section>
 <section class="q" id="q6">
   <div class="q-head"><span class="qnum">6</span><span class="qorig">(Q10 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Despite ranking top of gender equality lists, Sweden is like practically every other country in terms of having an unequal division of labour for unpaid housework. Perpetuating stereotypes about who should be responsible for cleaning tasks, women still perform more domestic chores than their male partners. To address this enduring sexism about ‘women’s work’, Sweden has recently implemented a tax policy through which the government pays half of the bill when households employ a cleaner.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">This policy has been a success:</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">couples that hired a cleaner because of the subsidy report fewer arguments over housework, and the female partners have been able to devote a significant number of additional hours per month to their own paid employment.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -270,10 +309,10 @@ So the principle: <b>if something is not properly maintained and it injures some
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Test the policy against its stated aim (“to address this enduring sexism”), not just its side benefits.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q5">← Question 5</a><a href="#questions">All questions</a><a href="#q7">Question 7 →</a></nav></section>
 <section class="q" id="q7">
   <div class="q-head"><span class="qnum">7</span><span class="qorig">(Q11 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">People are attracted to cities because of the job opportunities that they bring. At the same time, house prices tend to push people away from urban centres. The draw of healthy living and green environments similarly pulls people towards less urban environments, further from city centres.</span> <span class="seg seg-prem">The limiting factor in suburban spread – the expansion of cities beyond their existing boundaries – is often travel time, by either public or private means.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">One of the appeals of driverless cars is that they are set to cut delays by up to 40 per cent because they switch lanes more efficiently, drive closer to the vehicle in front, and travel at a constant speed without repeatedly braking and accelerating, which is the main cause of congestion.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -282,10 +321,10 @@ So the principle: <b>if something is not properly maintained and it injures some
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Link the two key pieces: travel time limits spread + driverless cars cut travel time. Then pick the cautious option.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q6">← Question 6</a><a href="#questions">All questions</a><a href="#q8">Question 8 →</a></nav></section>
 <section class="q" id="q8">
   <div class="q-head"><span class="qnum">8</span><span class="qorig">(Q15 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">There is no denying the unwanted consequences of car emissions, burning of fossil fuels, chemical effluent, and other pollutants. Their negative effects include the increasing incidence of respiratory, skin, and heart conditions.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">But ‘environments’ consist of more than just the elements of air, earth, and water.</span><span class="seg-tag">Reason</span> <span class="seg seg-counter">Whilst it is quite right to headline the damage we are doing to our lungs and other bodily organs,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">it must not be thought that this is the only way in which we are polluting our world.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">The effects of artificial light and constant noise are also detrimental to mental and physical wellbeing.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Many people, to their cost, rarely see the stars in the night sky, or experience the quiet of the natural environment in which our species evolved.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -294,10 +333,10 @@ So the principle: <b>if something is not properly maintained and it injures some
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> After “Whilst X,” the main clause is the author’s own point.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q7">← Question 7</a><a href="#questions">All questions</a><a href="#q9">Question 9 →</a></nav></section>
 <section class="q" id="q9">
   <div class="q-head"><span class="qnum">9</span><span class="qorig">(Q16 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The past couple of decades have been fairly tricky for many countries due to economic challenges and political and social uncertainties. The UK has certainly been amongst such countries.</span><span class="seg-tag">Context</span> <span class="seg seg-ic">But life there is getting better, according to the World Happiness Report, and indeed the latest findings of this annual review are something for the UK to celebrate.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-ctx">The project measures the quality of life in over 150 countries by scoring such factors as life expectancy, social support infrastructure, personal freedoms, and absence of corruption.</span><span class="seg-tag">Context</span> <span class="seg seg-evid">In the latest Report, the UK had risen in the rankings from 15th to 13th place.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ctx">While still a number of places beneath Finland, once again rated the happiest country,</span><span class="seg-tag">Context</span> <span class="seg seg-conc">the UK has definitely become happier.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -306,10 +345,10 @@ So the principle: <b>if something is not properly maintained and it injures some
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> A ranking is relative. You can move up because others fall, not because you rise.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q8">← Question 8</a><a href="#questions">All questions</a><a href="#q10">Question 10 →</a></nav></section>
 <section class="q" id="q10">
   <div class="q-head"><span class="qnum">10</span><span class="qorig">(Q17 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-counter">People complain about the fact that newspapers are often full of recycled articles about celebrity gossip,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">but they forget that real news costs money – investigative reporters need to go out into the world and unearth new information. The trouble is, those who complain are also unprepared to pay to read newspapers, expecting to get information for free online.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">But what can people expect if they want to be able to read the news for free?</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">As they say, you get what you pay for.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">If you want something for free, then don’t complain about the quality. This is as true of the news as of anything else.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the principle used in the above argument?</p>
@@ -327,10 +366,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Check both halves: the thing must be free, and the complaint must be about its quality.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q9">← Question 9</a><a href="#questions">All questions</a><a href="#q11">Question 11 →</a></nav></section>
 <section class="q" id="q11">
   <div class="q-head"><span class="qnum">11</span><span class="qorig">(Q21 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">Some people have such good natural stamina that they can run a marathon with no training.</span> <span class="seg seg-prem">John was able to run a marathon on Saturday.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">It is possible he did no training in preparation.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -347,10 +386,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Match the strength words too: “can … without” in the premise and “possible” in the conclusion.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q10">← Question 10</a><a href="#questions">All questions</a><a href="#q12">Question 12 →</a></nav></section>
 <section class="q" id="q12">
   <div class="q-head"><span class="qnum">12</span><span class="qorig">(Q22 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">In a recent UK news broadcast, a white reporter appeared to mistake a Labour Member of Parliament (MP), who is Black, for another MP who is also Black.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">This shows the dangers of a lack of diversity in workplaces.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-evid">It is not the first time that such a mistake has occurred: a week earlier the same television channel had mistakenly shown footage of LeBron James in their coverage of the death of his fellow basketball star Kobe Bryant. A recent report showed that only 14.8% of that television channel’s workforce were from a minority ethnic or racial background.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Media organisations in the UK should take this as a wake-up call, and take steps to ensure that the diversity of their workforce mirrors that of the wider population.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the argument above?</p>
@@ -359,10 +398,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “a more diverse workforce would NOT help avoid these mistakes”. Then the wake-up call collapses.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q11">← Question 11</a><a href="#questions">All questions</a><a href="#q13">Question 13 →</a></nav></section>
 <section class="q" id="q13">
   <div class="q-head"><span class="qnum">13</span><span class="qorig">(Q23 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>E</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">Recent figures issued by the UK Department of Education have revealed that the proportion of students with special educational needs and disabilities (SEND) who have reached the expected level of educational achievement by the time they leave secondary school is lower than that of the population as a whole.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">The Government cannot evade responsibility for this disappointing statistic.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">By not providing the funds required by schools who have students with these needs, the Government has failed to ensure the right of such students to equality of opportunity.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -371,10 +410,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Weaken = another cause of the gap that money could not fix.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q12">← Question 12</a><a href="#questions">All questions</a><a href="#q14">Question 14 →</a></nav></section>
 <section class="q" id="q14">
   <div class="q-head"><span class="qnum">14</span><span class="qorig">(Q27 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Trains in the UK are operated by private companies approved by the government and awarded a franchise for which they must meet certain standards, for example on punctuality.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">SuperRail, which operates the trains in one part of the country, has a poor record to date and has been warned that if it again exceeds the annual limits set by the government for late departures or arrivals, it will receive a heavy fine and will lose its franchise.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">At the end of the third quarter, however, SuperRail’s performance was within the defined limits.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">So if the operator can maintain their performance in the final quarter, they will keep the franchise for another year.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the flaw in the above argument?</p>
@@ -383,10 +422,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “If you exceed the limits, you lose it” does not give “if you don’t, you keep it”.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q13">← Question 13</a><a href="#questions">All questions</a><a href="#q15">Question 15 →</a></nav></section>
 <section class="q" id="q15">
   <div class="q-head"><span class="qnum">15</span><span class="qorig">(Q28 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>A</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">If you arrive late for work, you will definitely get fired.</span> <span class="seg seg-prem">You lost your last job</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">so you must have arrived late for work.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -403,10 +442,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> If the original is flawed, the answer must share the flaw. Cross out every sound option first.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q14">← Question 14</a><a href="#questions">All questions</a><a href="#q16">Question 16 →</a></nav></section>
 <section class="q" id="q16">
   <div class="q-head"><span class="qnum">16</span><span class="qorig">(Q29 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">‘Progressive’ teaching methods – used in schools for the last 40 or 50 years – put an emphasis on collaborative ways of learning.</span><span class="seg-tag">Context</span> <span class="seg seg-conc">It is time to reconsider the idea that this constitutes best practice in the classroom.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Collaborative learning appeals to those with extrovert personalities, but much less so to introverts.</span><span class="seg-tag">Reason</span> <span class="seg seg-ctx">Extroverts are people with an outgoing or gregarious personality, who enjoy group projects and plenty of stimulation, whereas introverts prefer to work on their own and in a quiet place.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">Modern classroom environments embrace extroverted behaviour, through fast-paced lessons and social learning activities.</span><span class="seg-tag">Reason</span> <span class="seg seg-counter">These can foster an appealing classroom environment, of course,</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">but over-emphasising them can undermine the learning of students who are inward-thinking and easily drained by constant interactions with others.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -415,10 +454,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “It is time to…” is a typical conclusion phrase. Here it comes second, straight after the background.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q15">← Question 15</a><a href="#questions">All questions</a><a href="#q17">Question 17 →</a></nav></section>
 <section class="q" id="q17">
   <div class="q-head"><span class="qnum">17</span><span class="qorig">(Q33 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">The UK has one of the world’s highest levels of regional inequality, according to a recent report. Of the 30 nations studied, only 2 had higher levels of inequality. The main disparity is between those living in the poorer north and the wealthier south of the country.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ctx">To address this, the government has been working on a large infrastructure project, HS2, which will improve transport links between cities in the north and south.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">However, the report warns that this project will only benefit the large cities, as journey times to areas outside those cities will continue to be affected by poor local transport infrastructure.</span><span class="seg-tag">Reason</span> <span class="seg seg-ic">The project will do nothing to benefit those living in smaller towns and villages in the north of the country,</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-conc">and so should be suspended immediately.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -427,10 +466,10 @@ So the principle: <b>if you get something for free, you cannot complain about it
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Find the jump: “does nothing for small towns” → “so suspend it”. What must be true to bridge it?</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q16">← Question 16</a><a href="#questions">All questions</a><a href="#q18">Question 18 →</a></nav></section>
 <section class="q" id="q18">
   <div class="q-head"><span class="qnum">18</span><span class="qorig">(Q34 in the original paper)</span>
-    <span class="chip">Principle</span></div>
+    <span class="chip">Principle</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-conc">A right is not an excuse. The fact that you have a right to do something cannot count as justification for doing it.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">I may have a right to walk along behind someone in the street, mimicking their walk. Does that mean I ought to go around doing this?</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">In fact, when deciding how to act, it isn’t really rights we should be turning to in order to guide our decisions, but morals. You should not be asking: do I have a right to do this? Instead you should be asking: is it right that I should do this?</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best illustrates the principle used in the above argument?</p>
@@ -448,10 +487,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
 </div>
 <div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Look for the option where a <b>right</b> (here free speech) is used as the defence.</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q17">← Question 17</a><a href="#questions">All questions</a><a href="#q19">Question 19 →</a></nav></section>
 <section class="q" id="q19">
   <div class="q-head"><span class="qnum">19</span><span class="qorig">(Q35 in the original paper)</span>
-    <span class="chip">Draw a conclusion</span></div>
+    <span class="chip">Draw a conclusion</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">It is no surprise to hear that we are more likely to help someone we like than someone we don’t.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">But another factor that influences our behaviour towards others is a sense of reciprocity – the sense that you ought to do something good for someone if they have done something good for you.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Psychologists have measured the effect of how much someone (Person 1) likes another person (Person 2) on the extent to which Person 1 will help Person 2 out. While there is a clear correlation here, it fades away in situations where Person 2 had previously done Person 1 a favour. In these cases, Person 1 consistently helps Person 2 out equally, regardless of how much they like them.</span><span class="seg-tag">Evidence / example</span> </div>
     <p class="stem">Which one of the following can be drawn as a conclusion from the above passage?</p>
@@ -460,10 +499,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Pick the option that follows from the evidence without adding “always”, “most” or a new comparison.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q18">← Question 18</a><a href="#questions">All questions</a><a href="#q20">Question 20 →</a></nav></section>
 <section class="q" id="q20">
   <div class="q-head"><span class="qnum">20</span><span class="qorig">(Q39 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-evid">If someone tries to rescue someone from a burning roof, slips, drops them, and they die, we don’t class them as a murderer.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-counter">This is because we believe that judgements should be based on the intention behind an action, not the outcome.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-conc">Whether or not we like to admit it, however, our moral judgements are sometimes shaped by mere luck.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-evid">Imagine someone gets into a car while drunk and drives home. We all agree that’s bad. Now imagine another person who does the same, but this person kills a pedestrian. We naturally think that this action is worse.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-ic">But surely the only difference is that the first driver got lucky, while the second driver was unlucky.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">The second driver did not intend to kill a pedestrian any more than the first did.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -472,10 +511,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> “Whether or not we like to admit it, however,…” turns from what we believe to what the author claims.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q19">← Question 19</a><a href="#questions">All questions</a><a href="#q21">Question 21 →</a></nav></section>
 <section class="q" id="q21">
   <div class="q-head"><span class="qnum">21</span><span class="qorig">(Q40 in the original paper)</span>
-    <span class="chip">Flaw</span></div>
+    <span class="chip">Flaw</span><span class="anschip">Answer <b>D</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">Should we be worried about Artificial Intelligence (AI)?</span><span class="seg-tag">Context</span> <span class="seg seg-counter">On the one hand, there are big names that have expressed major concern. Elon Musk, Bill Gates and Stephen Hawking have all argued that AI poses the single biggest threat to mankind’s existence. At the same time there are people such as Mark Zuckerberg (Facebook CEO) and leading AI researcher Andrew Ng, who reject this view as scaremongering, and insist that the risks behind AI can be eliminated by following a few simple rules.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-prem">Clearly they cannot both be right,</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">meaning that the truth must lie somewhere in the middle: AI cannot be without risks, but nor can it be the apocalyptic threat some say it is.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following best illustrates the flaw in the above argument?</p>
@@ -484,10 +523,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> False compromise: two opposite views don’t mean the truth must lie between them.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q20">← Question 20</a><a href="#questions">All questions</a><a href="#q22">Question 22 →</a></nav></section>
 <section class="q" id="q22">
   <div class="q-head"><span class="qnum">22</span><span class="qorig">(Q41 in the original paper)</span>
-    <span class="chip">Assumption</span></div>
+    <span class="chip">Assumption</span><span class="anschip">Answer <b>C</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">In recent years, televised debates between political candidates have taken on increasing significance in the elections held in various countries. Meant to encourage public participation in elections and help voters evaluate the candidates seeking their support,</span><span class="seg-tag">Context</span> <span class="seg seg-conc">these events are not much more than noisy distractions.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-prem">Rather than revealing more about positions and policies on important political issues, the debates put the spotlight squarely on candidates’ social skills.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">Accordingly, media coverage of the debates tends to focus on how well candidates engage with one another, those asking the questions, and any audience members in attendance.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-prem">But showcasing the ability – or inability – of candidates to demonstrate a desirable balance between being assertive and cooperative does little to help voters understand the leadership potential of those taking part.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following is an underlying assumption of the above argument?</p>
@@ -496,10 +535,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Negation test: “social skills ARE a good indicator of leadership”. Then the debates help voters after all.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q21">← Question 21</a><a href="#questions">All questions</a><a href="#q23">Question 23 →</a></nav></section>
 <section class="q" id="q23">
   <div class="q-head"><span class="qnum">23</span><span class="qorig">(Q45 in the original paper)</span>
-    <span class="chip">Parallel reasoning</span></div>
+    <span class="chip">Parallel reasoning</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-prem">If he was telling the truth about the incident, then we would not expect him to look so nervous talking to the police.</span><span class="seg-tag">Reason</span> <span class="seg seg-evid">The fact that he looks so nervous</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">suggests he is probably lying.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following most closely parallels the reasoning used in the above argument?</p>
@@ -516,10 +555,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
 </div>
 <div class="sticky sticky-trap"><span class="sticky-label">Trap!</span> D copies the wording (“we would expect… the fact that… suggests”). Ignore the wording: does the expected thing fail to happen (original) or happen (D)?</div></div>
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q22">← Question 22</a><a href="#questions">All questions</a><a href="#q24">Question 24 →</a></nav></section>
 <section class="q" id="q24">
   <div class="q-head"><span class="qnum">24</span><span class="qorig">(Q47 in the original paper)</span>
-    <span class="chip">Main conclusion</span></div>
+    <span class="chip">Main conclusion</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">One vision dominating much of urban planning worldwide is that of the ‘smart city’, whereby urban areas are pre-planned and designed to be managed via digital technology with efficiency prioritised as the top objective.</span><span class="seg-tag">Context</span> <span class="seg seg-prem">But planners cannot foresee how cities will need to develop depending on cultural trends, changes in economic sectors, and other factors.</span><span class="seg-tag">Reason</span> <span class="seg seg-conc">We lose something important if we over-plan and over-manage our cities.</span><span class="seg-tag">Main conclusion</span> <span class="seg seg-ic">The concept of the city as a pre-engineered machine works against critically important quality-of-life considerations.</span><span class="seg-tag">Intermediate conclusion</span> <span class="seg seg-prem">Once basic services, like transport, are in place, urban dwellers value community cohesion, opportunities for self-expression, and other quality-of-life features as much as or even more than efficiency. Such elements require openness, freedom of choice, and the opposite of central control in order to blossom.</span><span class="seg-tag">Reason</span> </div>
     <p class="stem">Which one of the following best expresses the main conclusion of the above argument?</p>
@@ -528,10 +567,10 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> Every option is copied from the passage. Pick the one the others give reasons for.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q23">← Question 23</a><a href="#questions">All questions</a><a href="#q25">Question 25 →</a></nav></section>
 <section class="q" id="q25">
   <div class="q-head"><span class="qnum">25</span><span class="qorig">(Q49 in the original paper)</span>
-    <span class="chip">Weaken</span></div>
+    <span class="chip">Weaken</span><span class="anschip">Answer <b>B</b></span></div>
   <div class="slip ct-tag-wrap">
     <div class="passage"><span class="seg seg-ctx">The government has recently announced that the method by which the British Broadcasting Corporation (BBC) is funded will be changed, leading to speculation that public funding for the organisation could soon be withdrawn.</span><span class="seg-tag">Context</span> <span class="seg seg-counter">One of the complaints is that BBC TV and radio presenters “make their profile at public expense”, but then earn income on top of their salaries by charging to speak at events to which they are invited purely due to their association with the BBC.</span><span class="seg-tag">Opposing view</span> <span class="seg seg-evid">However, figures show that, over the last five years, Members of Parliament (MPs) received £8.4m on top of their salaries through similar activities.</span><span class="seg-tag">Evidence / example</span> <span class="seg seg-conc">Until MPs can behave in a way that is consistent with their criticisms of others, this policy to change the funding of the BBC should be scrapped.</span><span class="seg-tag">Main conclusion</span> </div>
     <p class="stem">Which one of the following, if true, most weakens the above argument?</p>
@@ -540,7 +579,7 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   <div class="gapnote"><div class="sticky sticky-tip"><span class="sticky-label">Tip</span> The argument is “you do it too”. Weaken it by showing the two cases are not really alike.</div></div>
   
   <button class="btn reveal" type="button">Show working</button>
-</section></main>
+<nav class="qfoot" aria-label="Move between questions"><a href="#q24">← Question 24</a><a href="#questions">All questions</a><span></span></nav></section></main>
   <p class="foot">Questions © Cambridge University Press &amp; Assessment 2022, reproduced from the TSA Oxford 2022 Section 1 paper for practice.
     Answers match the official answer key.</p>
 </div>
@@ -553,6 +592,11 @@ So the principle: <b>having a right to do something is no excuse for doing somet
   var saved=false;try{saved=localStorage.getItem(KEY)==='1'}catch(e){}
   set(saved);
   btn.addEventListener('click',function(){set(!root.classList.contains('practice'))});
+  var wm=document.getElementById('wm-toggle'), WKEY='tsa-ws-methods';
+  function setWm(on){root.classList.toggle('no-wm',!on);wm.setAttribute('aria-pressed',on?'true':'false');
+    wm.textContent=on?'Written methods: shown':'Written methods: hidden';try{localStorage.setItem(WKEY,on?'1':'0')}catch(e){}}
+  if(wm){var wsaved=true;try{wsaved=localStorage.getItem(WKEY)!=='0'}catch(e){}
+    setWm(wsaved);wm.addEventListener('click',function(){setWm(root.classList.contains('no-wm'))});}
   document.querySelectorAll('.reveal').forEach(function(b){b.addEventListener('click',function(){
     var q=b.closest('.q'), on=!q.classList.contains('shown');
     q.classList.toggle('shown',on); b.textContent=on?'Hide working':'Show working';});});
