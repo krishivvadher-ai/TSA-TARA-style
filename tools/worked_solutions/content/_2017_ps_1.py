@@ -146,30 +146,23 @@ the picture and the frame. This mount will be {hl('6 cm wide at the top and side
 
 # ---------------------------------------------------------------- 3 (Q7)
 def _sales():
-    v = [123, 106, 87, 114, 90, 106, 124, 113, 131, 77, 92, 75]
-    m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    X = lambda i: 70 + i * 48
-    Yv = lambda val: 262 - (val - 70) * 3
-    parts = [line(50, 262, 610, 262, k='ink', w=1.6), line(50, 262, 50, 40, k='ink', w=1.6)]
-    lab = []
-    for t in (80, 100, 120):
-        parts.append(line(46, Yv(t), 610, Yv(t), k='muted', w=0.8, dash=True))
-        lab.append(text(42, Yv(t) + 5, t, k='muted', size=13, anchor='end'))
-    parts.append(poly([(X(i), Yv(val)) for i, val in enumerate(v)], k='ink', sw=1.8, closed=False))
-    for i, val in enumerate(v):
-        parts.append(circle(X(i), Yv(val), 4, k='ink', fill='paper', sw=1.6))
-        lab.append(text(X(i), 284, m[i], k='ink', size=15))
-    jumps = {3: ('+27', 'red'), 5: ('+16', 'pen'), 6: ('+18', 'pen'), 8: ('+18', 'pen'), 10: ('+15', 'pen')}
-    for i, (t, k) in jumps.items():
-        y0, y1 = Yv(v[i - 1]), Yv(v[i])
-        parts.append(line(X(i - 1), y0, X(i) - 10, y0, k='muted', w=1.2, dash=True))
-        parts.append(line(X(i) - 10, y0, X(i) - 10, y1 + 4, k=k, w=3, head=True))
-        lab.append(text(X(i) - 16, (y0 + y1) / 2 + 6, t, k=k, size=19 if k == 'red' else 16, anchor='end',
-                        font='scrawl' if k == 'red' else 'hand'))
-    parts.append(circle(X(3) - 22, (Yv(87) + Yv(114)) / 2, 24, k='red', sw=2))
-    lab.append(text(330, 30, '2013 sales, with the jump into each option month', k='ink', size=17))
+    rows = [('April', 'Mar 87 → Apr 114', 27), ('June', 'May 90 → Jun 106', 16), ('July', 'Jun 106 → Jul 124', 18),
+            ('September', 'Aug 113 → Sep 131', 18), ('November', 'Oct 77 → Nov 92', 15)]
+    parts, lab = [], []
+    x0, s = 130, 11
+    for i, (m, how, d) in enumerate(rows):
+        y = 40 + i * 50
+        best = d == 27
+        parts.append(rect(x0, y, d * s, 32, k='red' if best else 'ink', fill='p' if best else 'b', sw=2.2 if best else 1.6))
+        lab.append(text(x0 - 10, y + 23, m, k='ink', size=18, anchor='end'))
+        lab.append(text(x0 + d * s + 10, y + 23, f'+{d}', k='red' if best else 'pen', size=24 if best else 19,
+                        anchor='start', font='scrawl'))
+        lab.append(text(x0 + 10, y + 22, how, k='ink', size=15, anchor='start'))
+    parts.append(line(x0, 30, x0, 290, k='ink', w=1.6))
+    lab.append(text(x0 + 200, 22, 'rise from the month before (2013)', k='muted', size=16))
+    lab.append(text(x0 + 27 * s + 60, 62, '← biggest!', k='red', size=22, anchor='start', font='scrawl'))
     return svg(640, 300, rough(*parts) + ''.join(lab),
-               'Line graph of 2013 monthly car sales with the rise into each option month marked: April +27, June +16, July +18, September +18, November +15')
+               'Bars showing the rise into each option month: April +27, June +16, July +18, September +18, November +15')
 
 
 Q.append(dict(
@@ -180,7 +173,7 @@ Q.append(dict(
        head=['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])}
 <p class="stem">Which month of 2013 saw the {hl('<b>biggest increase</b>', 'b', 3)} in sales compared with the {hl('previous month', 'p', 4)}?</p>""",
     options={'A': 'April', 'B': 'June', 'C': 'July', 'D': 'September', 'E': 'November'},
-    notes=[(1, 'y', 'Only the 2013 row matters. The 2012 row is a distraction (except December 2012, which nobody needs here).'),
+    notes=[(1, 'y', 'All five options are 2013 months, so work in the 2013 row. The 2012 row is a distraction.'),
            (2, 'g', 'Example: April is compared with <b>March</b> of the same year: 87 → 114.'),
            (3, 'b', 'Biggest jump <b>up</b>. Falls don’t count, and the highest month isn’t automatically the biggest jump.'),
            (4, 'p', 'Previous <b>month</b>, not the same month the year before.')],
@@ -188,7 +181,7 @@ Q.append(dict(
         f"""<p>Only check the five option months. For each, take away the month just before it (2013 row):</p>
 {calc(f'April: 114 − 87 = <b>+27</b>', 'June: 106 − 90 = +16', 'July: 124 − 106 = +18',
       'September: 131 − 113 = +18', 'November: 92 − 77 = +15')}""",
-        f"""<p>See it on a sketch of 2013: April’s jump is clearly the tallest.</p>{_sales()}
+        f"""<p>Line the jumps up side by side: April’s is clearly the biggest.</p>{_sales()}
 {calc(f'biggest increase = +27 in {boxed("April")}')}
 {note('Even as a percentage, April wins: 27 on 87 is about 31%, the next best is November (15 on 77, about 19%).', 'check')}""",
     ],
@@ -206,15 +199,12 @@ def _lawn():
     s = 18
     x0, y0 = 70, 40
     parts = [rect(x0, y0, 25 * s, 10 * s, k='green', fill='g', sw=2.4)]
-    for i in range(1, 9):
-        parts.append(line(x0 + 4, y0 + i * 20, x0 + 25 * s - 4 - (3 * s if i <= 1 else 0), y0 + i * 20, k='green', w=1, dash=True))
     parts.append(rect(x0 + 22 * s, y0, 3 * s, 2 * s, k='orange', fill='o', sw=2.2))
     parts.append(line(x0, y0 + 10 * s + 18, x0 + 25 * s, y0 + 10 * s + 18, k='ink', w=1.6, head=True, tail=True))
     parts.append(line(x0 - 18, y0, x0 - 18, y0 + 10 * s, k='ink', w=1.6, head=True, tail=True))
     lab = [text(x0 + 12.5 * s, y0 + 10 * s + 40, '25 m', k='ink', size=19),
            text(x0 - 26, y0 + 5 * s + 6, '10 m', k='ink', size=19, anchor='end'),
-           text(x0 + 23.5 * s, y0 + 2 * s + 20, 'patio 3 × 2', k='orange', size=15),
-           text(x0 + 23.5 * s, y0 + 2 * s + 38, '= 6 m²', k='orange', size=15),
+           text(x0 + 25 * s - 6, y0 + 2 * s + 22, 'patio 3 × 2 = 6 m²', k='orange', size=16, anchor='end'),
            text(x0 + 11 * s, y0 + 5 * s - 4, 'grass: 250 − 6 = 244 m²', k='ink', size=22, font='scrawl'),
            text(x0 + 11 * s, y0 + 5 * s + 26, 'old 1 m²/min → 244 min', k='pen', size=18),
            text(x0 + 11 * s, y0 + 5 * s + 50, 'new 2 m²/min → 122 min', k='pen', size=18)]
