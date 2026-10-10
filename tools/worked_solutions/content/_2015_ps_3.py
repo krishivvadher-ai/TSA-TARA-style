@@ -110,7 +110,8 @@ def _clocks():
         parts += p1 + p2
         lab += t1 + t2
         lab.append(text(320, y - 22, name, k='red', size=20, font='scrawl'))
-    parts.append(line(318, 20, 318, 300, k='violet', w=2.4, dash=True))
+    parts.append(line(318, 26, 318, 120, k='violet', w=2.4, dash=True))
+    parts.append(line(318, 176, 318, 296, k='violet', w=2.4, dash=True))
     parts += [arrow(238, 75, 392, 75, k='violet', bend=-0.12), arrow(392, 225, 238, 225, k='violet', bend=-0.12)]
     lab += [text(318, 318, 'mirror: reverse the order AND flip each digit (2 ↔ 5, 0 and 8 stay)', k='violet', size=15)]
     return svg(620, 330, rough(*parts) + ''.join(lab),
@@ -132,7 +133,7 @@ def _street():
            text(105, 52, 'my hotel', k='ink', size=17),
            text(530, 30, 'glass building', k='pen', size=17),
            text(530, 300, '= a mirror', k='pen', size=17, font='scrawl'),
-           text(217, 248, 'clock', k='ink', size=14),
+           text(224, 252, 'clock', k='ink', size=14, anchor='start'),
            text(325, 300, 'road', k='muted', size=16),
            text(217, 192, 'faces the road', k='ink', size=14),
            text(330, 120, 'I only see its reflection', k='orange', size=17)]

@@ -395,8 +395,8 @@ def _salt():
             parts.append(rect(x0 + pitch * j + 2, y + 2, pitch - 4, 30, k='ink', fill=f, sw=1.4, rx=4))
         same = total == '£9.00'
         lab.append(text(x0 + 372, y + 24, total, k='red' if same else 'ink', size=21, anchor='start', font='scrawl' if same else 'hand'))
-    parts += [arrow(x0 + 500, 132, x0 + 446, 30 + 50 + 18, k='red', bend=0.2), arrow(x0 + 500, 150, x0 + 446, 30 + 150 + 18, k='red', bend=-0.2)]
-    lab.append(text(x0 + 504, 148, 'same!', k='red', size=22, anchor='start', font='scrawl'))
+    parts += [arrow(x0 + 478, 134, x0 + 440, 100, k='red', bend=0.15), arrow(x0 + 478, 166, x0 + 440, 196, k='red', bend=-0.15)]
+    lab.append(text(x0 + 462, 157, 'same!', k='red', size=22, anchor='start', font='scrawl'))
     ly = 246
     for j, (f, t) in enumerate((('b', '£1 (full price)'), ('y', '50p (half price)'), ('g', 'free'), ('o', '70p (30% off)'))):
         parts.append(rect(20 + 150 * j, ly - 14, 18, 18, k='ink', fill=f, sw=1.2, rx=3))
