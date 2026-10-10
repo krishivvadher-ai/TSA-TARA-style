@@ -138,13 +138,13 @@ button{font-family:inherit}
 .crumbs a{color:var(--pen);text-decoration:none}
 .crumbs a:hover{text-decoration:underline}
 .pagetabs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
-.seg{display:inline-flex;gap:2px;padding:3px;border-radius:11px;background:var(--surface-2);max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:none}
-.seg .s{display:none}
-@media (max-width:520px){.seg .l{display:none}.seg .s{display:inline}.seg a{padding:6px 11px}}
-.seg::-webkit-scrollbar{display:none}
-.seg a{padding:6px 13px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;white-space:nowrap}
-.seg a:hover{background:var(--surface)}
-.seg a[aria-current="page"]{background:var(--surface);box-shadow:0 1px 3px var(--shadow);font-weight:600}
+.tabset{display:inline-flex;gap:2px;padding:3px;border-radius:11px;background:var(--surface-2);max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tabset .s{display:none}
+@media (max-width:520px){.tabset .l{display:none}.tabset .s{display:inline}.tabset a{padding:6px 11px}}
+.tabset::-webkit-scrollbar{display:none}
+.tabset a{padding:6px 13px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;white-space:nowrap}
+.tabset a:hover{background:var(--surface)}
+.tabset a[aria-current="page"]{background:var(--surface);box-shadow:0 1px 3px var(--shadow);font-weight:600}
 .switch{font-size:.9rem;color:var(--pen);text-decoration:none;white-space:nowrap}
 .switch:hover{text-decoration:underline}
 .pagebar + .wrap,.pagebar + .ws .wrap{padding-top:20px}
@@ -458,7 +458,7 @@ class Site:
                           f'<span class="l">{label}</span><span class="s">{short[w]}</span></a>'
                           for w, label in WHAT if self.has(year, kind, w))
             other = next(k for k, _, _ in SETS if k != kind)
-            tabs = (f'<div class="pagetabs"><nav class="seg" aria-label="{build.KINDS[kind]["name"]} pages">{seg}</nav>'
+            tabs = (f'<div class="pagetabs"><nav class="tabset" aria-label="{build.KINDS[kind]["name"]} pages">{seg}</nav>'
                     f'<a class="switch" href="{self.same_page(year, other, what)}">Switch to {build.KINDS[other]["name"]} →</a></div>')
         return f'<div class="pagebar">{crumbs}{tabs}</div>'
 
@@ -633,8 +633,7 @@ class Site:
     def solutions_page(self, year, kind):
         qs = self.content[(year, kind)]
         name = build.KINDS[kind]['name']
-        body = (self.pagebar(year, kind, 'sol') + f'<div class="ws">{build.render_main(year, kind, qs)}</div>'
-                + '<a class="to-q" href="#questions">↑ All questions</a>')
+        body = self.pagebar(year, kind, 'sol') + f'<div class="ws">{build.render_main(year, kind, qs)}</div>'
         return (f'TSA {year} {name} Solutions',
                 self.frame('solutions', f'TSA {year} · {name} worked solutions', body, year, kind, 'sol'))
 

@@ -302,13 +302,13 @@ button{font-family:inherit}
 .crumbs a{color:var(--pen);text-decoration:none}
 .crumbs a:hover{text-decoration:underline}
 .pagetabs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
-.seg{display:inline-flex;gap:2px;padding:3px;border-radius:11px;background:var(--surface-2);max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:none}
-.seg .s{display:none}
-@media (max-width:520px){.seg .l{display:none}.seg .s{display:inline}.seg a{padding:6px 11px}}
-.seg::-webkit-scrollbar{display:none}
-.seg a{padding:6px 13px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;white-space:nowrap}
-.seg a:hover{background:var(--surface)}
-.seg a[aria-current="page"]{background:var(--surface);box-shadow:0 1px 3px var(--shadow);font-weight:600}
+.tabset{display:inline-flex;gap:2px;padding:3px;border-radius:11px;background:var(--surface-2);max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tabset .s{display:none}
+@media (max-width:520px){.tabset .l{display:none}.tabset .s{display:inline}.tabset a{padding:6px 11px}}
+.tabset::-webkit-scrollbar{display:none}
+.tabset a{padding:6px 13px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:.92rem;white-space:nowrap}
+.tabset a:hover{background:var(--surface)}
+.tabset a[aria-current="page"]{background:var(--surface);box-shadow:0 1px 3px var(--shadow);font-weight:600}
 .switch{font-size:.9rem;color:var(--pen);text-decoration:none;white-space:nowrap}
 .switch:hover{text-decoration:underline}
 .pagebar + .wrap,.pagebar + .ws .wrap{padding-top:20px}
