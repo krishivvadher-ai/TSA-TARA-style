@@ -326,8 +326,7 @@ def _boats():
         parts.append(line(X(h), H + 4, X(h), H + 14, k='ink', w=1.6))
         lab.append(text(X(h), H + 32, f'{h:02d}:00', k='muted', size=14))
     parts += [line(150, 290, 190, 290, k='pen', w=3.2), line(330, 290, 370, 290, k='orange', w=2.6)]
-    lab += [text(196, 295, 'ferry', k='pen', size=16, anchor='start'), text(376, 295, 'hovercraft', k='orange', size=16, anchor='start'),
-            text(X(11.25), H + 18, 'ferry in Harport, hovercraft at sea', k='muted', size=12)]
+    lab += [text(196, 295, 'ferry', k='pen', size=16, anchor='start'), text(376, 295, 'hovercraft', k='orange', size=16, anchor='start')]
     return svg(660, 306, rough(*parts) + ''.join(lab),
                'Journey graph from 08:00: flat parts are time in port. The ferry and hovercraft are first in the same port together at Selmer at 12:45')
 

@@ -69,7 +69,7 @@ def _taxi():
         parts.append(rect(x, base - v * s, 54, v * s, k='ink', fill='b', sw=1.8))
         lab.append(text(x + 27, base - v * s - 8, f'£{v}', k='pen', size=18))
         lab.append(text(x + 27, base + 20, i + 1, k='ink', size=16))
-        lab.append(text(x + 27, base + 42, f'{70 + 10 * i} ÷ {i + 1}', k='muted', size=13))
+        lab.append(text(x + 27, base + 42, f'{70 + 10 * i} ÷ {i + 1}', k='muted', size=14))
     lab += [text(275, base + 66, 'people sharing (total ÷ people)', k='ink', size=15),
             text(570, 120, 'matches', k='green', size=20, font='scrawl'),
             text(570, 150, 'graph D', k='green', size=26, font='scrawl')]
@@ -113,7 +113,7 @@ def _letters():
         for i in range(3):
             parts.append(rect(x0 + 90 * i, 48, 64, 36, k='ink', fill='y', sw=1.8))
             parts.append(path(f'M{x0 + 90 * i} 48 L{x0 + 90 * i + 32} 68 L{x0 + 90 * i + 64} 48', k='ink', sw=1.4))
-            lab.append(text(x0 + 90 * i + 32, 102, f'letter for {names[i]}', k='muted', size=13))
+            lab.append(text(x0 + 90 * i + 32, 102, f'letter for {names[i]}', k='muted', size=14))
             lab.append(stick_person(x0 + 90 * i + 32, 214, k='pen'))
             lab.append(text(x0 + 90 * i + 32, 236, names[i], k='pen', size=18))
         for i, j in enumerate(mapping):

@@ -235,7 +235,7 @@ Q.append(dict(
     why={'A': 'Ending in 1 means the second square is 81, but “eight” is first in the alphabet list, so no digit can come before it.',
          'B': 'Ending in 4 means 64, but “six” comes after “four” in the alphabet.',
          'C': 'Ending in 5 means 25, but “two” comes after “five”.',
-         'E': 'Ending in 9 means 49 goes last, and 1649 fails because “six” comes after “four”.'},
+         'E': 'Ending in 9 means 49 goes last, but 1649 fails (“six” comes after “four”) and so does 8149 (“one” comes after “four”).'},
     fast='Squares whose two words are in order: 16, 49, 81. Only 49 + 16 works: four, nine, one, six. Last digit 6.',
 ))
 
@@ -330,11 +330,17 @@ def _suzy():
         lab.append(text(x + bw / 2, base + 18, m, k='muted', size=14))
     parts.append(line(x0, base, x0 + 6 * bw, base, k='ink', w=1.6))
     lab.append(text(x0 + 3 * bw, 22, 'km run each month', k='ink', size=16))
-    slices = [(30, 'y', ['Mar', '30°']), (31, 'y', ['Apr', '31°']), (32, 'y', ['May', '32°']), (53, 'paper', ['Jun 53°']),
+    slices = [(30, 'y', []), (31, 'y', []), (32, 'y', []), (53, 'paper', ['Jun 53°']),
               (93, 'b', ['Jul', '93°']), (121, 'o', ['Aug', '120°'])]
-    p2, l2 = _pie(480, 130, 104, slices, label_r=0.66, size=13)
-    lab.append(text(480, 262, 'what the pie must look like', k='ink', size=16, font='scrawl'))
-    return svg(660, 274, rough(*parts, *p2) + ''.join(lab + l2),
+    cx, cy, r = 470, 146, 100
+    p2, l2 = _pie(cx, cy, r, slices, label_r=0.62, size=15)
+    a0 = -90
+    for name, deg in (('Mar 30°', 30), ('Apr 31°', 31), ('May 32°', 32)):
+        am = math.radians(a0 + deg / 2)
+        lab.append(text(cx + 116 * math.cos(am), cy + 116 * math.sin(am) + 5, name, k='ink', size=15, anchor='start'))
+        a0 += deg
+    lab.append(text(cx, 274, 'what the pie must look like', k='ink', size=16, font='scrawl'))
+    return svg(660, 284, rough(*parts, *p2) + ''.join(lab + l2),
                'Monthly distances 60, 62, 64, 106, 186, 240 as bars, and the matching pie: three equal 30 degree slices, then 53, 93 and 120 degrees')
 
 Q.append(dict(
@@ -519,8 +525,8 @@ on which I have been paid (in order) have been:</p>
 Now follow the months:</p>{_paydays()}
 {calc('Mar 24 − 3 = 21, too early, + 7 = 28 (Apr) → paid 26th ' + tick(), 'Apr 28 − 2 = 26 (May) → paid 26th ' + tick(),
       'May 26 − 3 = 23 (Jun) → paid 23rd ' + tick(), 'Jun 23 − 2 = 21, + 7 = 28 (Jul) → paid 26th ' + tick(),
-      'Jul 28 − 3 = 25 (Aug) → paid 25th ' + tick(), f'Aug 25 − 3 = {boxed("22nd")} in September')}""",
-        f"""{note('Real calendar check: in 2022 the 4th Thursdays were 24 Feb, 24 Mar, 28 Apr, 26 May, 23 Jun, 28 Jul, 25 Aug and 22 Sep.', 'check')}""",
+      'Jul 28 − 3 = 25 (Aug) → paid 25th ' + tick(), f'Aug 25 − 3 = {boxed("22nd")} in September')}
+{note('It matches a real year: in 2022 the 4th Thursdays were 24 Feb, 24 Mar, 28 Apr, 26 May, 23 Jun, 28 Jul, 25 Aug and 22 Sep.', 'check')}""",
     ],
     answer_text='The 22nd: last month was August (31 days), so the 4th Thursday moves back 3 days from the 25th.',
     why={'B': '23rd moves back only 2 days, as if last month had 30 days. It was August, with 31.',

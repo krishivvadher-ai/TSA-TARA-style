@@ -316,7 +316,7 @@ def _roll_path():
 
 
 def _flip():
-    parts, lab = [line(10, 120, 570, 120, k='muted', w=1.4)]
+    parts, lab = [line(10, 120, 570, 120, k='muted', w=1.4)], []
     s = 76
     specs = [('top', 'bottom', 'start: ▲ on top'), ('right', 'left', '1 roll: ▲ on the side'), ('bottom', 'top', '2 rolls: bar on top')]
     for i, (tri, bar, cap) in enumerate(specs):

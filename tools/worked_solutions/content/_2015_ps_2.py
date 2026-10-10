@@ -95,7 +95,7 @@ and Jen's reception?</p>""",
 
 # ---------------------------------------------------------------- 10 (Q20)
 def _sorted_bars():
-    X = lambda v: 110 + v * 4.6
+    X = lambda v: 70 + v * 3.4
     data = [('7MO', 20), ('7EV', 36), ('7SP', 49), ('7BR', 57), ('7RA', 71), ('7LE', 82)]
     parts, lab = [], []
     for g in range(0, 101, 20):
@@ -110,7 +110,7 @@ def _sorted_bars():
     for v, i, t in notes_:
         y = 38 + i * 35 + 12
         lab.append(text(X(100) + 10, y + 5, t, k='red', size=16, anchor='start'))
-        parts.append(line(X(v) + 34, y, X(100) + 6, y, k='red', w=1.4, dash=True))
+        parts.append(line(X(v) + 32, y, X(100) + 4, y, k='red', w=1.4, dash=True))
     return svg(660, 284, rough(*parts) + ''.join(lab),
                'Correct bar chart: bars 20, 36, 49, 57, 71 and 82 against gridlines every 20; the shortest ends on the first line and the longest just past 80')
 
@@ -159,7 +159,7 @@ def _income():
            text(X(0), 56, 'Mary earns £5,585', k='ink', size=17, anchor='start'),
            text(X(5905) + 6, 34, '10% band', k='red', size=15, anchor='end'),
            text(X(5905) + 6, 160, 'ends at 4,385 + 1,520', k='red', size=15, anchor='end'),
-           text(X(4985), 196, 'all £1,200 is in the 10% band: 10% of 1,200 = £120', k='green', size=19, font='scrawl')]
+           text(300, 196, 'all £1,200 is in the 10% band: 10% of 1,200 = £120', k='green', size=20, font='scrawl')]
     parts.append(brace(X(4385), X(5585), 122, '', k='orange'))
     return svg(620, 210, rough(*parts) + ''.join(lab),
                'Income bar: 4,385 pounds tax-free, then 1,200 pounds taxed at 10 percent, all inside the 10 percent band')
