@@ -370,7 +370,7 @@ Q.append(dict(
     n=22, orig=44, answer='C', topic='Tiling & ratio',
     question=f"""<p>The pattern below shows part of the tiling of a large floor in a community centre. It is
 made up of two types of tile: a hexagon and a triangle.</p>
-{fig(Y, 'ps_q22_tiles', 'A patch of triangular tiles with six dark hexagons arranged in two staggered columns', 200)}
+{fig(Y, 'ps_q22_tiles', 'A patch of triangular tiles with six dark hexagons arranged in two staggered columns', 240)}
 <p class="stem">For a {hl('sufficiently large expanse of flooring', 'p', 1)}, approximately what {hl('proportion of the two types of tile', 'b', 2)} will be required?</p>""",
     options={'A': '1 hexagon to 6 triangles', 'B': '1 hexagon to 9 triangles', 'C': '1 hexagon to 12 triangles',
              'D': '1 hexagon to 15 triangles', 'E': '1 hexagon to 18 triangles'},
@@ -590,7 +590,7 @@ Q.append(dict(
 {fig(Y, 'ps_q25_net', 'Net: a large triangle split into four; G at the top, R in the middle, B bottom left, Y bottom right. G = Green, R = Red, B = Blue, Y = Yellow', 380)}
 <p>The joined triangles are then {hl('folded and joined to make a pyramid', 'y', 2)}.</p>
 <p class="stem">Which of the following {hl('could <b>not</b> be a view from above', 'b', 3)}?</p>
-{fig(Y, 'ps_q25_opts', 'Five views A to E, each a triangle split into three faces meeting at a centre point', 470)}""",
+{fig(Y, 'ps_q25_opts', 'Five views A to E, each a triangle split into three faces meeting at a centre point', 520)}""",
     options={'A': 'view A', 'B': 'view B', 'C': 'view C', 'D': 'view D', 'E': 'view E'},
     notes=[(1, 'y', 'The coloured side ends up outside, so you see the colours the right way round, never a mirror image.'),
            (2, 'y', 'Four triangles make a triangular pyramid: every corner has three faces meeting at it.'),
