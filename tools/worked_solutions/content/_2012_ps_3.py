@@ -40,7 +40,7 @@ def _catchup():
         best = david + 10 * left
         ok = best > damon
         lab += [text(200 + david * s / 2, y + 21, f'{david}', k='ink', size=15),
-                text(200 + david * s + left * 5 * s, y + 21, f'+{10 * left} max', k='pen', size=15),
+                text(200 + max(david + 10 * left, damon) * s + 10, y + 21, f'+{10 * left} if he wins the rest', k='pen', size=15, anchor='start'),
                 text(200 + damon * s, y + 60, f'Damon {damon}', k='red', size=15),
                 text(30, y + 44, f'David best {best}', k='green' if ok else 'red', size=16, anchor='start'),
                 text(30, y + 64, 'can still win' if ok else 'CANNOT win', k='green' if ok else 'red', size=16, anchor='start', weight='700' if not ok else None)]
@@ -135,7 +135,7 @@ a strip at least <b>1.8 m wide</b> and 2.2 m long.</p>{_offcuts()}""",
 
 # ---------------------------------------------------------------- 20 (Q42)
 def _clock():
-    cx, cy, r = 170, 150, 105
+    cx, cy, r = 235, 150, 105
     parts, lab = [], []
     parts.append(circle(cx, cy, r, k='ink', fill='paper', sw=2.4))
     # right half (12 -> 6), fast
@@ -156,7 +156,7 @@ def _clock():
             text(cx + r + 30, cy + 30, 'shows quarter to (at 9):', k='red', size=16, anchor='start'),
             text(cx + r + 30, cy + 52, '15 + 22.5 = 37.5 min past', k='red', size=16, anchor='start'),
             text(cx + r + 30, cy + 74, '= 22.5 minutes to', k='red', size=20, anchor='start', font='scrawl')]
-    return svg(560, 300, rough(*parts) + ''.join(lab),
+    return svg(600, 300, rough(*parts) + ''.join(lab),
                'Clock face: the minute hand takes 15 minutes from 12 down to 6 and 45 minutes from 6 back up to 12; at 9 it is 37.5 minutes past')
 
 
@@ -282,7 +282,7 @@ Q.append(dict(
     n=22, orig=44, answer='C', topic='3D shapes & mirror images',
     question=f"""<p>Five pictures of solids made by {hl('sticking cubes together', 'y', 1)} are shown below.</p>
 <p class="stem">Which one of the following (A-E) is a different shape from {hl('<b>all</b> the others', 'b', 2)}?</p>
-{fig(Y, 'ps_q22_solids', 'Five solids A to E made of cubes, drawn from different angles', 470)}""",
+{fig(Y, 'ps_q22_solids', 'Five solids A to E made of cubes, drawn from different angles', 640)}""",
     options={'A': 'solid A', 'B': 'solid B', 'C': 'solid C', 'D': 'solid D', 'E': 'solid E'},
     notes=[(1, 'y', 'Each solid can be turned any way, so describe it by its structure, not by how it is drawn.'),
            (2, 'b', '“All” is the key word: the shapes come in matching <b>pairs</b>, and one is left without a partner.')],
@@ -442,10 +442,10 @@ def _tiles():
 Q.append(dict(
     n=25, orig=50, answer='E', topic='Shapes & tiling',
     question=f"""<p>In the committee room of my cricket club there are {hl('four tables, all identical', 'y', 1)} to the one shown below.</p>
-{fig(Y, 'ps_q25_table', 'An L-shaped table made of three equal squares', 80)}
+{fig(Y, 'ps_q25_table', 'An L-shaped table made of three equal squares', 93)}
 <p class="stem">Which of the following arrangements is it {hl('<b>not</b>', 'b', 2)} possible to make by putting four of these tables
 together?</p>
-{fig(Y, 'ps_q25_opts', 'Five outlines: A an H shape, B a wide shape with a notch, C a T shape, D a plus sign, E a pinwheel', 420)}""",
+{fig(Y, 'ps_q25_opts', 'Five outlines: A an H shape, B a wide shape with a notch, C a T shape, D a plus sign, E a pinwheel', 446)}""",
     options={'A': 'arrangement A', 'B': 'arrangement B', 'C': 'arrangement C', 'D': 'arrangement D', 'E': 'arrangement E'},
     notes=[(1, 'y', 'Each table is an L of <b>3 squares</b>, so four tables cover exactly <b>12 squares</b>.'),
            (2, 'b', 'Find the outline that can’t be split into four Ls.')],

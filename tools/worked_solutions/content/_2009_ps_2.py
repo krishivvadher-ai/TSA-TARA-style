@@ -30,6 +30,7 @@ def _april():
 
 
 def _hols(cells):
+    cells = [c.replace(',', ',<wbr>') for c in cells]
     return [hl(c, 'g') if c and i == 4 else c for i, c in enumerate(cells)]
 
 

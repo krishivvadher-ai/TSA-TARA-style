@@ -52,7 +52,7 @@ def _quadrant():
     lab += [text(X(6.9) + 12, Yf(1.6) + 6, 'Canada ✓', k='green', size=18, font='scrawl', anchor='start'),
             text(X(4.2) - 12, Yf(1.2) - 10, 'UK', k='red', size=18, anchor='end'),
             text(X(6.75), Yf(2.2) - 8, 'beats the UK on both', k='green', size=16),
-            text(X(-2), Yf(-2) + 4, 'below 0 = unemployment rose', k='muted', size=15),
+            text(135, Yf(-1.6), 'below 0 =', k='muted', size=15), text(135, Yf(-1.6) + 18, 'unemployment rose', k='muted', size=15),
             text(330, 372, 'industrial production change, latest (%) →', k='ink', size=16),
             text(26, 200, 'fall in unemployment →', k='ink', size=16, rotate=-90)]
     return svg(640, 384, rough(*parts) + ''.join(lab),
@@ -232,7 +232,6 @@ def _workers():
         x = 44 + i * 118
         parts.append(rect(x, 14, 16, 16, k='ink', fill=f, sw=1.2))
         lab.append(text(x + 22, 28, name, k='ink', size=15, anchor='start'))
-    parts.append(circle(X(12.5) + 9, base - 4 * u - 16, 3, k='red', fill='p'))
     lab += [text(X(12.5) + 9, base - 4 * u - 26, '4 men on days 12 and 13', k='red', size=17, font='scrawl'),
             text(330, base + 44, 'days of April', k='muted', size=14),
             text(330, base + 72, 'squares: 6 + 18 + 16 + 10 + 8 = 58', k='green', size=19)]
@@ -407,12 +406,12 @@ def _compost():
         parts.append(rect(x0 + i * u, 50, u, 40, k='ink', fill=f, sw=1.6))
     for i, f in enumerate(row2):
         parts.append(rect(x0 + i * u, 150, u, 40, k='ink', fill=f, sw=1.6))
-    lab += [text(x0 + u, 76, 'sand 5', k='ink', size=16), text(x0 + 4 * u, 76, 'coir 10', k='ink', size=16),
-            text(x0 + u, 176, 'sand 5', k='ink', size=16), text(x0 + 4 * u, 176, '+ 10 kg sand', k='ink', size=16),
-            text(x0 + 8 * u, 176, 'coir 10', k='ink', size=16),
+    lab += [text(x0 + u, 42, 'sand 5 kg', k='ink', size=16), text(x0 + 4 * u, 42, 'coir 10 kg', k='ink', size=16),
+            text(x0 + u, 142, 'sand 5', k='ink', size=16), text(x0 + 4 * u, 142, 'add 10 kg of sand', k='orange', size=16),
+            text(x0 + 8 * u, 142, 'coir 10', k='ink', size=16),
             text(x0 - 12, 66, 'now', k='ink', size=17, anchor='end'), text(x0 - 12, 86, '15 kg', k='pen', size=17, anchor='end'),
             text(x0 - 12, 166, 'conifers', k='ink', size=17, anchor='end'), text(x0 - 12, 186, '25 kg', k='pen', size=17, anchor='end'),
-            text(x0 + 5 * u, 30, 'each block = 2.5 kg', k='muted', size=15)]
+            text(x0 + 6 * u + 14, 76, 'each block = 2.5 kg', k='muted', size=15, anchor='start')]
     extra = brace(x0, x0 + 6 * u, 196, 'sand 15 kg = 60%', k='orange') + brace(x0 + 6 * u, x0 + 10 * u, 196, 'coir 10 kg = 40%', k='green')
     return svg(640, 250, rough(*parts) + ''.join(lab) + extra,
                'Blocks of 2.5 kg: now 2 sand and 4 coir; for conifers 6 sand and the same 4 coir, so 4 blocks (10 kg) of sand are added')
@@ -433,7 +432,7 @@ for conifers?</p>""",
 {calc(f'40% = 10 kg {ar()} 10% = 2.5 kg {ar()} 100% = 25 kg', f'sand needed = 60% = 6 × 2.5 = <b>15 kg</b>')}""",
         f"""{_compost()}
 {calc(f'add 15 − 5 = {boxed("10 kg")}')}
-{note('Check: 15 kg sand out of 25 kg = 15/25 = 60%.', 'check')}""",
+{note('15 kg of sand out of 25 kg = 15/25 = 60%. It works.', 'check')}""",
     ],
     answer_text='10 kg: the 10 kg of coir must be 40%, so the mix is 25 kg with 15 kg of sand; he already has 5 kg.',
     why={'A': '5 kg is the sand he <b>already</b> has.',
@@ -546,7 +545,7 @@ at Dubai with a {hl('wait of 5 hours 15 minutes', 'p', 1)}. {hl('All times are l
       f'land in Kampala 20:45 + 1 h {ar()} <b>21:45 Sat</b>')}""",
         f"""{_flights()}
 {calc('flight 1: 02:30 → 09:15 = 6 h 45', 'flight 2: 14:30 → 21:45 = 7 h 15', f'total = 6 h 45 + 7 h 15 = {boxed("14 h 00")}')}""",
-        f"""{note('Check: the whole trip is 02:30 → 21:45 = 19 h 15. Take off the 5 h 15 wait: 14 h. Same answer.', 'check')}""",
+        f"""{note('The whole trip is 02:30 → 21:45 = 19 h 15. Take off the 5 h 15 wait: 14 h. Same answer.', 'check')}""",
     ],
     answer_text='14 hours: flights of 6 h 45 and 7 h 15.',
     why={'A': '12 h 30 is too short. The two flights alone take 6 h 45 and 7 h 15.',

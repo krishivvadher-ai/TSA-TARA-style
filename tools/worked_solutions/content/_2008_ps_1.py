@@ -15,7 +15,7 @@ def _fares():
            text(x0 + 67.5 * k, 68, 'child 35p', k='ink', size=17),
            text(x0 + 102.5 * k, 68, 'child 35p', k='ink', size=17)]
     extra = brace(x0, x0 + 120 * k, 88, '1 adult + 2 children = 120p', k='red')
-    X = lambda p: 40 + p * 9
+    X = lambda p: 40 + p * 8.5
     parts.append(rect(X(25), 186, X(50) - X(25), 28, k='green', fill='g', sw=1.6))
     parts.append(line(X(0), 200, X(60), 200, k='ink', w=2))
     for p in range(0, 61, 10):
@@ -27,7 +27,7 @@ def _fares():
             text(X(50), 176, 'adult = 50', k='red', size=15),
             text(X(37.5), 154, 'the child fare must land in the green zone', k='green', size=16),
             text(X(35), 250, 'child 35 ✓', k='orange', size=18, font='scrawl'),
-            text(X(62), 205, 'pence', k='muted', size=14, anchor='start')]
+            text(X(60) + 12, 205, 'pence', k='muted', size=14, anchor='start')]
     return svg(620, 262, rough(*parts) + ''.join(lab) + extra,
                'Bar of 50p plus two 35p bars making 120p; number line with the child fare 35 between 25 and 50')
 
@@ -73,7 +73,7 @@ def _wheels():
            text(310, 92, 'front wheel: 2 m per turn', k='pen', size=18, anchor='start'),
            text(310, 124, 'red dots = valves, both at the bottom', k='red', size=15, anchor='start')]
     X = lambda d: 40 + d * 46
-    parts.append(line(X(0), 200, X(12.3), 200, k='ink', w=2, head=True))
+    parts.append(line(X(0), 200, X(12.7), 200, k='ink', w=2, head=True))
     for d in (2, 4, 6, 8, 10, 12):
         parts.append(circle(X(d), 200, 6, k='pen', fill='b', sw=2))
         lab.append(text(X(d), 182, d, k='pen', size=16))
@@ -84,7 +84,7 @@ def _wheels():
     lab += [text(X(0), 182, 'front', k='pen', size=15, anchor='start'),
             text(X(0), 238, 'rear', k='orange', size=15, anchor='start'),
             text(X(10), 268, 'both valves at the bottom: 10 m', k='green', size=18, font='scrawl'),
-            text(X(12.3) + 4, 205, 'm', k='muted', size=15, anchor='start')]
+            text(X(12.7) + 4, 205, 'm', k='muted', size=15, anchor='start')]
     return svg(640, 280, rough(*parts) + ''.join(lab),
                'A motorbike with valves at the bottom; a number line marking every 2 m for the front wheel and every 2.5 m for the rear, meeting first at 10 m')
 
@@ -167,7 +167,7 @@ particular code is of: C is for credit card; F is for phone card; {hl('B is for 
       'G J A C | <b>D</b> = Denton', f'D F G C | <b>B</b> = bicycle lock {tick()}')}""",
         f"""<p>Decode D F G C, then undo the backwards writing:</p>{_pin()}
 {calc(f'D F G C {ar()} 4 6 7 3 {ar()} reversed {ar()} {boxed("3764")}')}""",
-        f"""{note('Check with their own example: 1234 is written DCBA. Decoding DCBA gives 4321, and reversing gives 1234 back. Same method.', 'check')}""",
+        f"""{note('Test the method on their own example: 1234 is written DCBA. Decoding DCBA gives 4321, and reversing gives 1234 back. Same method.', 'check')}""",
     ],
     answer_text='3764: the line ending in B is DFGC, which decodes to 4673, and reversed that is 3764.',
     why={'A': '4673 decodes D F G C but forgets to turn it back round.',

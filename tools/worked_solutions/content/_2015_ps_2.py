@@ -184,7 +184,7 @@ allowances for four tax years are shown below. {hl('The tax year runs from 6 Apr
         ['65 and over but under 75', '5125', '5185', '5365', '5465'],
         ['75 and over', '5195', '5255', '5435', '5535']],
        head=['<i>TAX RATES</i>', '1999-2000', hl('2000-01', 'g', 2), '2001-02', '2002-03'])}
-<p>Mary is 52 and her husband is 58. Her only earnings each year are from a summer job.
+<p>{hl('Mary is 52 and her husband is 58', 'p', 4)}. Her only earnings each year are from a summer job.
 {hl('Between 6 April 2000 and 5 April 2001', 'g', 2)} she earned {hl('£5,585', 'g', 3)}.</p>
 <p class="stem">How much tax did she pay?</p>""",
     options={'A': 'None', 'B': '£120', 'C': '£125', 'D': '£152', 'E': '£1,200'},

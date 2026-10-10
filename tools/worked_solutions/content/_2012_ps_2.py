@@ -16,7 +16,7 @@ def _salt():
         lab += [text(x0 - 10, y + 26, who, k=k, size=18, anchor='end'),
                 text(x0 + low * s / 2, y + 26, f'{low}%', k='muted', size=15),
                 text(x0 + low * s + (100 - low) * s / 2, y + 26, f'above 6 g: {100 - low}%', k='ink', size=17)]
-    lab += [text(x0 + 11 * s / 2, 30, '6 g or less', k='muted', size=13),
+    lab += [text(x0 + 4, 30, '6 g or less', k='muted', size=14, anchor='start'),
             text(x0 + 50 * s, 200, 'equal numbers, so average: (89 + 70) ÷ 2 = 79.5 → 80%', k='red', size=17)]
     return svg(540, 214, rough(*parts) + ''.join(lab),
                'Bars to 100 percent: men 11 percent at or below 6 g and 89 percent above; women 30 percent at or below and 70 percent above; average 79.5 percent')
@@ -107,7 +107,7 @@ Q.append(dict(
     why={'A': 'A looks for combinations that add up to exactly 12 feet first. That is a different plan, and nothing is sorted.',
          'C': 'C keeps the list order instead of sorting biggest first.',
          'D': 'D alternates longest and shortest pieces, which is not decreasing order.',
-         'E': 'E sorts the right way round for the wrong job: ascending is smallest first.'},
+         'E': 'E sorts the wrong way round: ascending order puts the smallest length first.'},
     fast='Two rules: biggest first + first container with room. Every option has the second rule; only B has “descending order”.',
 ))
 
@@ -262,10 +262,10 @@ Q.append(dict(
     n=13, orig=26, answer='A', topic='Folding & symmetry',
     question=f"""<p>A sheet of paper has {hl('two holes', 'y', 1)} cut from it. When it is {hl('folded in half', 'y', 2)} the hole shown in the diagram
 below is seen.</p>
-{fig(Y, 'ps_q13_folded', 'The folded sheet with one regular octagon-shaped hole', 130)}
+{fig(Y, 'ps_q13_folded', 'The folded sheet with one regular octagon-shaped hole', 141)}
 <p class="stem">Which one of the following could {hl('<b>not</b>', 'b', 3)} be the unfolded sheet of paper? (The dotted line indicates
 where it was folded.)</p>
-{fig(Y, 'ps_q13_opts', 'Five unfolded sheets A to E, each with a dashed fold line and one shape either side', 480)}""",
+{fig(Y, 'ps_q13_opts', 'Five unfolded sheets A to E, each with a dashed fold line and one shape either side', 513)}""",
     options={'A': 'sheet A', 'B': 'sheet B', 'C': 'sheet C', 'D': 'sheet D', 'E': 'sheet E'},
     notes=[(1, 'y', 'One hole in each half of the sheet.'),
            (2, 'y', 'Folding flips one half over onto the other: the left hole becomes its <b>mirror image</b>.'),
@@ -406,10 +406,10 @@ def _trap():
 Q.append(dict(
     n=16, orig=32, answer='A', topic='Shapes & tiling',
     question=f"""<p>The trapezium below may be cut into {hl('four identical pieces', 'y', 1)}.</p>
-{fig(Y, 'ps_q16_trap', 'A trapezium whose bottom edge is twice as long as its top edge', 240)}
+{fig(Y, 'ps_q16_trap', 'A trapezium whose bottom edge is twice as long as its top edge', 221)}
 <p class="stem">Which of the following pieces can be used four times ({hl('flips and rotations are allowed', 'p', 2)}) to make up
 the trapezium?</p>
-{fig(Y, 'ps_q16_opts', 'Pieces: A a tall right-angled trapezium, B a scalene triangle, C an isosceles triangle, D a five-sided piece, E a parallelogram', 420)}""",
+{fig(Y, 'ps_q16_opts', 'Pieces: A a tall right-angled trapezium, B a scalene triangle, C an isosceles triangle, D a five-sided piece, E a parallelogram', 451)}""",
     options={'A': 'piece A', 'B': 'piece B', 'C': 'piece C', 'D': 'piece D', 'E': 'piece E'},
     notes=[(1, 'y', 'Each piece must be exactly a <b>quarter</b> of the trapezium’s area, and the four must fit with no gaps.'),
            (2, 'p', 'You may turn pieces over, so mirror images are fine.')],
@@ -420,9 +420,9 @@ the trapezium?</p>
 {calc('A: (1 + 5) ÷ 2 × 8 = 24 squares ✓')}
 <p>Now fit four of them in:</p>{_trap()}""",
         f"""<p>Quick checks on the others:</p>
-<ul><li><b>C</b> is half of a 8 × 8 square, 32 squares: too big. (Three C’s make the trapezium, not four.)</li>
+<ul><li><b>C</b> is half of an 8 × 8 square, 32 squares: too big. (Three C’s make the trapezium, not four.)</li>
 <li><b>D</b> is about 29 squares: too big.</li>
-<li><b>E</b> is 6 × 4 = 24 squares, the right size, but its sides are 6 and about 4½ long. The trapezium’s top edge is 8, and no mix of 6s and 4½s makes exactly 8, so there would be a gap.</li>
+<li><b>E</b> is 6 × 4 = 24 squares, the right size, but its sides are 6 and about 4.5 long. The trapezium’s top edge is 8, and no mix of 6s and 4.5s makes exactly 8, so there would be a gap.</li>
 <li><b>B</b> has sides of about 5, 9 and 9: again nothing adds up to the top edge of 8.</li></ul>
 {calc(f'answer = {boxed("A")}')}""",
     ],
@@ -430,7 +430,7 @@ the trapezium?</p>
     why={'B': 'B’s sides (about 5, 9 and 9) can’t add up to the top edge of 8, so four B’s leave gaps. It is also a little too small.',
          'C': 'C has area 32, a third of the trapezium: three C’s make it, not four.',
          'D': 'D is too big (about 29 squares instead of 24).',
-         'E': 'E is the right size, but its sides (6 and about 4½) can’t make the top edge of 8 exactly.'},
+         'E': 'E is the right size, but its sides (6 and about 4.5) can’t make the top edge of 8 exactly.'},
     fast='Try A first: two in the corners, the middle is a rectangle that two A’s (one upside down) fill. Done.',
 ))
 
@@ -475,5 +475,5 @@ Q.append(dict(
          'B': '£58,500 is the salary after only 7 rises.',
          'D': '£67,000 is too high: after exactly eight rounded-up rises the salary is £64,500.',
          'E': '£71,000 is one rise too many: a 9th rise (6,450 → 6,500) on top of £64,500.'},
-    fast='Rises 3000, 3500, 4000, 4000, 4500, 5000, 5500, 6000 add to 35 500. 29 000 + 35 500 = 64 500.',
+    fast='Rises 3,000 + 3,500 + 4,000 + 4,000 + 4,500 + 5,000 + 5,500 + 6,000 = 35,500. 29,000 + 35,500 = 64,500.',
 ))

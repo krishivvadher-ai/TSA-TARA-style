@@ -62,7 +62,7 @@ woman puts {hl('£8.50', 'g', 2)} into the phone to make a long-distance call wi
 
 # ---------------------------------------------------------------- 2 (Q6)
 def _roast():
-    X = lambda t: 40 + t * 7.6
+    X = lambda t: 30 + t * 7.3
     parts, lab = [line(X(0), 160, X(72), 160, k='ink', head=True)], []
     for t in range(0, 71, 10):
         parts.append(line(X(t), 154, X(t), 166, k='ink', w=1.5))

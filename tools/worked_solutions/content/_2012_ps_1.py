@@ -103,7 +103,7 @@ from her gap year to live at home, {hl('the weekly food bill increases by 20%', 
     answer_text='£138.00: the food bill rises by £16.80 and household goods by £1.20, so £18 more than £120.',
     why={'A': '£136.80 adds the food rise (£16.80) but forgets the 5% on household goods.',
          'C': '£144 adds 20% to the <b>whole</b> £120. Only the food bill goes up by 20%.',
-         'D': '£145 needs a rise of £25, but the real rise is only £18. It comes from taking 20% of the whole £120 (£24) and then adding about £1 more.',
+         'D': '£145 needs a rise of £25, but the real rise is only £18. It comes from taking 20% of the whole £120 (£24) plus the £1.20 household rise: £145.20.',
          'E': '£150 adds 20% and 5% of the whole £120 (24 + 6 = 30). The percentages belong to the separate parts.'},
     fast='Rises only: 20% of £84 = £16.80, 5% of £24 = £1.20. Total rise £18, so £138.',
 ))
@@ -207,7 +207,7 @@ Q.append(dict(
 {fig(Y, 'ps_q04_cylinders', 'A tall cylinder, a medium cylinder about as wide as it is tall, and a short flat cylinder', 300)}
 <p class="stem">If a cylinder is cut into two {hl('equal halves', 'y', 1)} with {hl('one straight cut', 'y', 2)}, which one of the following could {hl('<b>not</b>', 'b', 3)}
 be a view of one of the halves {hl('from any direction', 'p', 4)}?</p>
-{fig(Y, 'ps_q04_opts', 'Option shapes: A rectangle, B circle, C triangle with a point at the top in the middle, D semicircle, E right-angled triangle', 430)}""",
+{fig(Y, 'ps_q04_opts', 'Option shapes: A rectangle, B circle, C triangle with a point at the top in the middle, D semicircle, E right-angled triangle', 476)}""",
     options={'A': 'rectangle', 'B': 'circle', 'C': 'triangle', 'D': 'semicircle', 'E': 'thin triangle'},
     notes=[(1, 'y', 'Two equal halves: the cut has to pass through the <b>centre</b> of the cylinder.'),
            (2, 'y', 'One flat cut: across, lengthways or slanting.'),
@@ -218,9 +218,9 @@ be a view of one of the halves {hl('from any direction', 'p', 4)}?</p>
         f"""{calc(f'cut across {ar()} a shorter cylinder: rectangle (A) from the side, circle (B) from the top',
                   f'cut lengthways {ar()} half a cylinder: semicircle (D) from the end',
                   f'slanting cut, corner to corner {ar()} right-angled triangle (E) from the side')}""",
-        f"""<p>From the side, a cylinder is a rectangle and the cut is a straight line through its middle. The half you see is the rectangle on one side of that line,
-so it always keeps some of the rectangle’s <b>right-angled corners</b>. From the top or end you see curves.</p>
-<p>A triangle with no right angle and a point in the middle of the top (C) can never appear {ar()} {boxed('C')}</p>""",
+        f"""<p>Seen from the side with the cut edge-on, the cylinder is a rectangle and the cut is a straight line through its centre. The half you see is the part of
+the rectangle on one side of that line, so it always keeps some of the rectangle’s <b>right-angled corners</b> (A or E). Seen from the top or the end you get curves (B or D).</p>
+<p>A triangle with no right angle and its point in the middle of the top (C) never appears {ar()} {boxed('C')}</p>""",
     ],
     answer_text='C: every possible half shows right-angled corners or curves, never a pointed triangle like C.',
     why={'A': 'A is possible: cut across, then look at either half from the side (a squat cylinder looks like a rectangle).',
@@ -375,9 +375,9 @@ Q.append(dict(
     n=7, orig=14, answer='B', topic='Rotations & grids',
     question=f"""<p>In a game, circular counters are moved around a board which is a 4 x 4 grid. There are symbols on
 some of the squares on the board. At one point in the game, the board looks like this ({hl('all the circles represent counters which completely cover any symbol on the square that they occupy', 'y', 1)}):</p>
-{fig(Y, 'ps_q07_board', 'The board: six counters; a small bar in row 2 column 1 and a flat hexagon in the bottom-right square are visible', 160)}
+{fig(Y, 'ps_q07_board', 'The board: six counters; a small bar in row 2 column 1 and a flat hexagon in the bottom-right square are visible', 128)}
 <p class="stem">Which one of the following diagrams {hl('could', 'b', 2)} show the layout of the board ({hl('not necessarily viewed in the same direction as above', 'p', 3)})?</p>
-{fig(Y, 'ps_q07_opts', 'Five 4 by 4 grids A to E showing hexagons, bars and triangles in different squares', 470)}""",
+{fig(Y, 'ps_q07_opts', 'Five 4 by 4 grids A to E showing hexagons, bars and triangles in different squares', 474)}""",
     options={'A': 'grid A', 'B': 'grid B', 'C': 'grid C', 'D': 'grid D', 'E': 'grid E'},
     notes=[(1, 'y', 'A counter can hide anything. But a square you <b>can</b> see that is empty must be empty, and the two symbols you can see must be there.'),
            (2, 'b', 'Find the only option that agrees with every visible square.'),
@@ -411,7 +411,7 @@ so the option must be either the right way up or turned upside down (half turn).
 def _map():
     u = 82  # px per km
     X = lambda e: 70 + (e - 20.5) * u
-    Yn = lambda n: 340 - (n - 4.6) * u
+    Yn = lambda n: 362 - (n - 4.6) * u
     parts, lab = [], []
     ix, iy = X(23), Yn(8)
     r1, r2 = 1.8 * u, 1.1 * u
@@ -435,7 +435,7 @@ def _map():
             text(X(24.6), Yn(6.3) + 20, 'band, 1100 m to 1800 m', k='orange', size=16, anchor='start'),
             text(X(24.6), Yn(5.0), '1 square = 1 km', k='ink', size=16, anchor='start'),
             text(X(24.6), Yn(5.0) + 20, 'diagonal ≈ 1.41 km', k='ink', size=16, anchor='start')]
-    return svg(600, 370, rough(*parts) + ''.join(lab),
+    return svg(600, 392, rough(*parts) + ''.join(lab),
                'Map grid with Gordon at 22,06, Helen at 23,06 and Ingrid at 23,08, the five option points, and the ring of distances 1100 to 1800 m around Ingrid')
 
 
