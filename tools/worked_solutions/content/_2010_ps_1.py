@@ -335,10 +335,10 @@ def _window():
     for i in range(4):
         t, a, b = tips[i], inner[i - 1], inner[i]
         for j, (p, q) in enumerate(((a, t), (t, b))):
-            f = 'o' if (i, j) == (0, 1) else ('b' if k % 2 == 0 else 'paper')
+            f = 'o' if (i, j) == (2, 0) else ('b' if k % 2 == 0 else 'paper')
             parts.append(poly([(cx, cy), p, q], k='ink', fill=f, sw=1.8))
             k += 1
-    lab.append(text(cx + 8, cy - 50, 'A', k='ink', size=20, font='print', weight='700'))
+    lab.append(text(cx + 30, cy + 76, 'A', k='orange', size=22, font='print', weight='700'))
     lab.append(text(cx, 296, '8 identical slivers', k='green', size=19, font='scrawl'))
     cx2 = 470
     tips2, inner2 = _star(cx2, cy)
@@ -346,7 +346,7 @@ def _window():
         parts.append(poly([inner2[i - 1], tips2[i], inner2[i]], k='ink', fill='g', sw=1.8))
     parts.append(rect(cx2 - 25, cy - 25, 50, 50, k='red', fill='p', sw=2.2))
     lab += [text(cx2, cy + 6, 'hole', k='red', size=16, font='scrawl'),
-            text(cx2 + 18, cy - 58, 'D', k='ink', size=18, font='print', weight='700'),
+            text(cx2 + 36, cy - 66, 'D', k='green', size=20, font='print', weight='700'),
             text(cx2, 296, 'D (or C) leaves a square hole', k='red', size=19, font='scrawl')]
     return svg(640, 310, rough(*parts) + ''.join(lab),
                'Left: the star cut into 8 identical thin triangles from the centre, one marked A. Right: four D triangles fill the points but leave a square hole in the middle')
@@ -366,7 +366,7 @@ number of panes of glass, {hl('all of the same size and shape', 'y', 1)}.</p>
 It splits into <b>8 identical thin triangles</b> (each point cut in half down its middle):</p>
 {_window()}""",
         f"""<p>Each sliver has a long side (centre to tip), a short side (centre to an inner corner) and a slanting side
-along the outline. That is shape A turned upside down {ar()} {boxed('A')}</p>
+along the outline. The orange one is <b>exactly</b> shape A {ar()} {boxed('A')}</p>
 {note('Half of the slivers are mirror images of the others. Glass can be flipped over, so they are all the same pane.', 'check')}""",
         f"""<p>Why the others fail:</p>
 <ul><li>D is a whole point cut off at the inner corners. Four of them leave a <b>square hole</b> in the middle.</li>

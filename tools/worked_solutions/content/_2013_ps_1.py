@@ -93,7 +93,7 @@ DD/MM/YYYY using {hl('eight different digits', 'y', 1)}. One example was 28th Ju
 <p>So his birthday is 25/06 (or 26/05), and the leftover digits make his age:</p>{_dates()}""",
         f"""{calc(f'1974: 3 and 8 {ar()} 38 (83 is silly: then 1983 would make him 92)', f'1983: 4 and 7 {ar()} 47 {tick()} exactly 9 years older',
       f'born 1974 − 38 = {boxed("1936")}')}
-{note('Check: years using two of 3, 4, 7, 8 after 1936 are 1937, 38, 43, 47, 48, 73, 74, 78, 83, 84, 87. That is eleven birthdays ✓. And 25/06/1936 repeats the 6, so his date of birth doesn’t count ✓.', 'check')}""",
+{note('Years using two of 3, 4, 7, 8 after 1936 are 1937, 38, 43, 47, 48, 73, 74, 78, 83, 84, 87. That is eleven birthdays ✓. And 25/06/1936 repeats the 6, so his date of birth doesn’t count ✓.', 'check')}""",
     ],
     answer_text='1936: his birthday is 25/06 (or 26/05), and he was 38 in 1974 and 47 in 1983.',
     why={'A': '1909 makes him 65 then 74. In 1974 the date would need 3 and 8, in 1983 it would need 5 and 6: two different birthdays.',
@@ -170,8 +170,8 @@ Q.append(dict(
 
 # ---------------------------------------------------------------- 4 (Q8)
 def _map():
-    A, D, C = (470, 120), (470, 250), (150, 250)
-    EN, EW, ES = (150, 50), (150, 120), (150, 190)
+    A, D, C = (470, 110), (470, 270), (150, 270)
+    EN, EW, ES = (150, 40), (150, 110), (150, 200)
     parts = [circle(*A, 9, k='ink', fill='y', sw=2.2), circle(*D, 7, k='ink', fill='paper'), circle(*C, 7, k='ink', fill='paper'),
              line(A[0], A[1] + 10, D[0], D[1] - 10, k='pen', head=True, w=2.6),
              line(D[0] - 10, D[1], C[0] + 10, C[1], k='pen', head=True, w=2.6),
@@ -180,22 +180,22 @@ def _map():
              line(A[0] - 12, A[1] - 4, EN[0] + 12, EN[1] + 3, k='green', head=True, w=1.8, dash=True),
              line(A[0] - 12, A[1], EW[0] + 12, EW[1], k='green', head=True, w=1.8, dash=True),
              line(A[0] - 12, A[1] + 4, ES[0] + 12, ES[1] - 3, k='green', head=True, w=1.8, dash=True),
-             circle(330, 120, 6, k='muted', fill='paper'),
+             circle(260, 110, 6, k='muted', fill='paper'),
              line(590, 92, 590, 32, k='ink', head=True, w=2)]
     lab = [text(A[0] + 16, A[1] + 6, 'Akeland (you)', k='ink', size=18, anchor='start'),
            text(D[0] + 14, D[1] + 6, 'Ducton', k='ink', size=17, anchor='start'),
            text(C[0] - 14, C[1] + 6, 'Cranton', k='ink', size=17, anchor='end'),
-           text(A[0] + 10, 190, 'south', k='pen', size=16, anchor='start'),
-           text(310, 274, 'west', k='pen', size=16),
+           text(A[0] + 10, 196, 'south', k='pen', size=16, anchor='start'),
+           text(310, 294, 'west', k='pen', size=16),
            text(EN[0] - 14, EN[1] + 6, 'Eksberg?', k='orange', size=17, anchor='end'),
            text(EW[0] - 14, EW[1] + 6, 'Eksberg?', k='orange', size=17, anchor='end'),
            text(ES[0] - 14, ES[1] + 6, 'Eksberg?', k='orange', size=17, anchor='end'),
-           text(250, 62, 'NW', k='green', size=18, font='scrawl'), text(260, 112, 'W', k='green', size=18, font='scrawl'),
-           text(250, 178, 'SW', k='green', size=18, font='scrawl'),
-           text(330, 146, 'Benford', k='muted', size=14), text(330, 162, '(red herring)', k='muted', size=13),
+           text(215, 44, 'NW', k='green', size=18, font='scrawl'), text(205, 100, 'W', k='green', size=18, font='scrawl'),
+           text(215, 206, 'SW', k='green', size=18, font='scrawl'),
+           text(260, 134, 'Benford', k='muted', size=14), text(260, 150, '(red herring)', k='muted', size=13),
            text(590, 26, 'N', k='ink', size=18, font='print'),
-           text(150, 300, 'north of Cranton by an unknown amount', k='orange', size=16)]
-    return svg(640, 312, rough(*parts) + ''.join(lab),
+           text(160, 312, 'north of Cranton by an unknown amount', k='orange', size=16)]
+    return svg(640, 324, rough(*parts) + ''.join(lab),
                'Map: from Akeland go south to Ducton, west to Cranton, then north an unknown distance to Eksberg, which could be north-west, west or south-west of Akeland')
 
 Q.append(dict(
@@ -234,19 +234,19 @@ local was as follows:</p>
 def _savings():
     Yp = lambda p: 270 - p * 0.17
     parts, lab = [], []
-    parts.append(line(40, Yp(0), 610, Yp(0), k='ink', w=2))
-    panels = [(70, 270, 0, 600, 300, 15, 615, 'Year 1'), (340, 540, 615, 1215, 915, 45.75, 1260.75, 'Year 2')]
-    for x0, x1, s, f, avg, inte, end, title in panels:
+    parts.append(line(30, Yp(0), 620, Yp(0), k='ink', w=2))
+    panels = [(50, 250, 0, 600, 300, 15, 615, 'Year 1: £0 → £600', 'average £300 → +£15'),
+              (360, 560, 615, 1215, 915, 45.75, 1260.75, 'Year 2: £615 → £1,215', 'average £915 → +£45.75')]
+    for x0, x1, s, f, avg, inte, end, t1, t2 in panels:
         parts.append(poly([(x0, Yp(0)), (x0, Yp(s)), (x1, Yp(f)), (x1, Yp(0))], k='pen', fill='b', sw=2))
         parts.append(line(x0, Yp(avg), x1, Yp(avg), k='red', w=2.2, dash=True))
-        parts.append(line(x1 + 8, Yp(f), x1 + 8, Yp(end), k='green', w=6))
-        lab += [text((x0 + x1) / 2, 292, title, k='ink', size=18, font='scrawl'),
-                text(x0 - 4, Yp(s) - 8, f'start £{s}', k='pen', size=15, anchor='start'),
-                text(x1, Yp(f) - 26, f'finish £{f}', k='pen', size=15, anchor='end'),
-                text((x0 + x1) / 2, Yp(avg) - 8, f'average £{avg}', k='red', size=16),
-                text(x1 + 18, Yp(end) + 4, f'+£{inte:g}', k='green', size=17, anchor='start', font='scrawl')]
-    lab.append(text(340, 30, '5% of 915 = 45.75 → £1,260.75', k='green', size=19, anchor='start', font='scrawl'))
-    return svg(640, 304, rough(*parts) + ''.join(lab),
+        parts.append(line(x1 + 10, Yp(f), x1 + 10, Yp(end), k='green', w=6))
+        lab += [text((x0 + x1) / 2, 294, t1, k='pen', size=17),
+                text((x0 + x1) / 2, 314, t2, k='red', size=16),
+                text(x0 + 6, Yp(avg) - 7, 'average', k='red', size=15, anchor='start')]
+    lab += [text(268, Yp(615) + 5, '+£15', k='green', size=17, anchor='start', font='scrawl'),
+            text(570, Yp(1260.75) - 12, '+£45.75', k='green', size=17, font='scrawl')]
+    return svg(640, 326, rough(*parts) + ''.join(lab),
                'Two ramps: year 1 from 0 to 600 with average 300 and 15 interest; year 2 from 615 to 1215 with average 915 and 45.75 interest')
 
 Q.append(dict(
@@ -347,9 +347,9 @@ def _wages():
             lab.append(text(x0 + 77 + i * 95, base + 22, op, k='red', size=15))
         lab.append(text(x0 + 125, 22, title, k='pen', size=20, font='scrawl'))
         parts.append(line(x0, base, x0 + 250, base, k='ink', w=2))
-    lab += [text(320, 282, 'Both orders end at £75: below the start', k='red', size=19, font='scrawl'),
-            text(625, base - 100 * s + 5, 'start', k='muted', size=14, anchor='end')]
-    return svg(640, 294, rough(*parts) + ''.join(lab),
+    lab += [text(320, 306, 'Both orders end at £75: below the start', k='red', size=19, font='scrawl'),
+            text(625, base - 100 * s - 6, 'start', k='muted', size=14, anchor='end')]
+    return svg(640, 318, rough(*parts) + ''.join(lab),
                'Exaggerated example with 50 percent: 100 up to 150 then down to 75, or 100 down to 50 then up to 75; both end below 100')
 
 Q.append(dict(
@@ -394,7 +394,7 @@ def _race():
     parts += [rect(cx - 22, 78, 44, 14, k='orange', fill='o', sw=1.8), circle(cx - 12, 94, 4, k='orange', fill='paper'),
               circle(cx + 12, 94, 4, k='orange', fill='paper')]
     lab += [text(R(2 / 3), 118, 'car breaks down', k='red', size=16, font='scrawl'),
-            stick_person(R(5 / 6), 106, k='orange', s=0.8), text(R(5 / 6) + 34, 100, 'walk', k='orange', size=15, anchor='start')]
+            stick_person(R(5 / 6), 106, k='orange', s=0.8), text(R(5 / 6) - 16, 100, 'walk', k='orange', size=15, anchor='end')]
     # time bars
     parts += [rect(X(0), 150, X(30) - X(0), 30, k='ink', fill='b', sw=1.8),
               rect(X(0), 200, X(20 / 3) - X(0), 30, k='ink', fill='o', sw=1.8),
@@ -430,7 +430,7 @@ walk the rest of the way. The car goes at {hl('three times the speed', 'y', 3)} 
         f"""<p>Work in thirds of the road. Sven takes 10 minutes per third.</p>
 {calc(f'Helga by car: 2 thirds = 20 min at Sven’s speed {ar()} ÷ 3 = 6⅔ min', f'Helga on foot: 1 third = 10 min at Sven’s speed {ar()} × 3 = 30 min',
       f'Helga total = 6⅔ + 30 = <b>36⅔ min</b>')}""",
-        f"""{_race()}
+        f"""<p>Draw both journeys against the clock:</p>{_race()}
 {calc(f'36⅔ − 30 = 6⅔ min ≈ 7 min {ar()} {boxed("Sven by 7 minutes")}')}
 {note('“Three times faster” and “three times slower” don’t cancel out. Slow stretches cost far more time than fast ones save.', 'trap')}""",
     ],

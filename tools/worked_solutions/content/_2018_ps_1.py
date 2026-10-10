@@ -133,22 +133,26 @@ then {hl('tops up the remainder with concentrate', 'p', 4)}.</p>
 # ---------------------------------------------------------------- 3 (Q7)
 def _pro_net():
     data = [(2013, 59, 51), (2014, 55, 50), (2015, 44, 68), (2016, 45, 67), (2017, 44, 65)]
-    zero, sc = 150, 4.4
+    zero, sc = 196, 5
     parts = [line(80, zero, 620, zero, k='ink', w=2)]
     lab = [text(72, zero + 5, '0', k='muted', size=15, anchor='end'),
-           text(72, zero - 24 * sc + 5, '24', k='muted', size=15, anchor='end'),
-           text(350, 28, 'professionals out − in (above the line = a loss)', k='ink', size=17)]
+           text(330, 24, 'professionals out − in (a bar above the line = a loss)', k='ink', size=17)]
     for i, (yr, a, b) in enumerate(data):
         x = 110 + i * 102
         v = b - a
         top = zero - v * sc if v > 0 else zero
         f = 'g' if yr == 2015 else ('p' if v > 0 else 'b')
         parts.append(rect(x, top, 64, abs(v) * sc, k='ink', fill=f, sw=1.6))
-        lab.append(text(x + 32, zero + (abs(v) * sc + 24 if v < 0 else 24), yr, k='ink', size=16))
-        lab.append(text(x + 32, (top - 8) if v > 0 else zero + abs(v) * sc + 46,
-                        f'{b} − {a} = {v}', k='green' if yr == 2015 else 'ink', size=15))
-    lab.append(text(110 + 2 * 102 + 32, 30 + 22, 'biggest loss', k='green', size=18, font='scrawl'))
-    return svg(640, 226, rough(*parts) + ''.join(lab),
+        if v > 0:
+            lab.append(text(x + 32, zero + 22, yr, k='ink', size=16))
+            lab.append(text(x + 32, top - 10, f'{b} − {a} = {v}', k='green' if yr == 2015 else 'ink', size=15,
+                            weight='700' if yr == 2015 else None))
+        else:
+            lab.append(text(x + 32, zero - 10, yr, k='ink', size=16))
+            lab.append(text(x + 32, zero + abs(v) * sc + 22, f'{b} − {a} = {v}', k='ink', size=15))
+            lab.append(text(x + 32, zero + abs(v) * sc + 42, '(a gain)', k='muted', size=14))
+    lab.append(text(110 + 2 * 102 + 32, 52, 'biggest loss', k='green', size=19, font='scrawl'))
+    return svg(640, 270, rough(*parts) + ''.join(lab),
                'Bar chart of professionals leaving minus arriving: 2013 minus 8, 2014 minus 5, 2015 plus 24, 2016 plus 22, 2017 plus 21')
 
 
@@ -217,8 +221,7 @@ def _clock_tops():
         top = [s for s in DIG7[dgt] if s in 'abf']
         parts += seg7(x, 46, 26, 56, top, k='ink', sw=4, gap=3)
         parts += seg7(x, 46, 26, 56, [s for s in DIG7[dgt] if s not in 'abf'], k='muted', sw=1.4, gap=3)
-        hit = dgt in '1457'
-        lab.append(text(x + 13, 128, dgt, k='red' if hit else 'muted', size=18, weight='700' if hit else None))
+        lab.append(text(x + 13, 128, dgt, k='ink', size=18))
     parts.append(rect(20, 75, 600, 34, k='orange', fill='o', sw=1.4))
     lab.append(text(600, 98, 'hoarding', k='orange', size=15, anchor='end'))
     # the clock as seen
@@ -228,7 +231,6 @@ def _clock_tops():
         parts += seg7(x, 168, 40, 84, list(segs), k='pen', sw=6, gap=4)
         lab.append(text(x + 20, 284, cand, k='pen', size=17))
     parts.append(rect(60, 210, 560, 46, k='orange', fill='o', sw=1.4))
-    parts += [circle(345, 186, 3.5, k='pen', fill='paper')]
     lab += [text(110, 240, 'hoarding', k='orange', size=15),
             text(20, 160, 'What I could see at Carlisle:', k='ink', size=17, anchor='start'),
             text(350, 316, 'hour 14, minutes 52, 53 or 57 → about 15:00', k='red', size=19, font='scrawl')]
@@ -273,22 +275,22 @@ def _shares():
     pct = ['+40%', '+50%', '+50%', '+60%', '+50%']
     mult = ['×1.4', '×1.5', '×1.5', '×1.6', '×1.5']
     parts, lab = [], []
-    base = 220
+    base = 200
     for i, (yr, v) in enumerate(vals):
-        x = 30 + i * 102
-        h = v * 7.5
-        f = 'g' if yr == '2015' else 'b'
+        x = 40 + i * 104
+        h = v * 7
+        f = 'g' if yr in ('2014', '2015') else 'b'
         parts.append(rect(x, base - h, 56, h, k='ink', fill=f, sw=1.5))
         lab.append(text(x + 28, base + 22, yr, k='ink', size=16))
         lab.append(text(x + 28, base - h - 8, f'£{v:.2f}', k='ink', size=15))
         if i:
-            px = x - 102 + 56
-            ph = vals[i - 1][1] * 7.5
-            parts.append(arrow(px + 6, base - ph - 22, x - 4, base - h - 26, k='green' if i == 4 else 'red', bend=-0.25))
-            lab.append(text(x - 23, base - max(h, ph) - 52 + (0 if i < 5 else 26), pct[i - 1],
-                            k='green' if i == 4 else 'red', size=17, weight='700' if i == 4 else None))
-            lab.append(text(x - 23, base - max(h, ph) - 34 + (0 if i < 5 else 26), mult[i - 1], k='muted', size=14))
-    return svg(640, 252, rough(*parts) + ''.join(lab),
+            mx = x - 24
+            hot = i == 4
+            parts.append(arrow(mx - 34, base + 40, mx + 34, base + 40, k='green' if hot else 'red', bend=-0.2))
+            lab.append(text(mx, base + 70, pct[i - 1], k='green' if hot else 'red', size=18, weight='700' if hot else None))
+            lab.append(text(mx, base + 90, mult[i - 1], k='muted', size=14))
+    lab.append(text(40 + 4 * 104 - 24, 24, 'biggest jump: 2014 → 2015', k='green', size=18, font='scrawl'))
+    return svg(660, 300, rough(*parts) + ''.join(lab),
                'Share values each year with the growth between: plus 40, 50, 50, 60 and 50 percent; the 60 percent jump is 2014 to 2015')
 
 Q.append(dict(
@@ -376,12 +378,14 @@ def _book():
     # one block of 8 folded sheets seen from the top
     cx, top = 150, 40
     for i in range(8):
-        w = 18 + i * 13
+        w = 22 + i * 13
         parts.append(path(f'M{cx - w} 230 C{cx - w} {120 - i * 4}, {cx - 4} {top + 30}, {cx} {top + 22} '
                           f'C{cx + 4} {top + 30}, {cx + w} {120 - i * 4}, {cx + w} 230', k='ink', sw=1.6))
     parts.append(line(cx, top, cx, top + 30, k='red', w=5))
     lab += [text(cx, top - 10, 'stitching', k='red', size=16),
-            text(cx - 14, 222, '16', k='pen', size=18, anchor='end'), text(cx + 14, 222, '17', k='pen', size=18, anchor='start'),
+            text(cx - 4, 214, '16', k='red', size=17, anchor='end', weight='700'), text(cx + 4, 214, '17', k='red', size=17, anchor='start', weight='700'),
+            text(cx + 116, 120, 'innermost sheet', k='red', size=15, anchor='start'),
+            text(cx + 116, 138, '= pages 16 and 17', k='red', size=15, anchor='start'),
             text(cx, 258, '1 block: 8 sheets', k='ink', size=16), text(cx, 278, '= 16 leaves = 32 pages', k='ink', size=16)]
     # number line of the three blocks
     X = lambda p: 320 + p * 3.3
@@ -428,20 +432,21 @@ the stitching would be visible)?</p>""",
 def _buckets():
     parts, lab = [], []
 
-    def bucket(x, before, after, col, name):
-        parts.append(path(f'M{x} 60 L{x + 12} 170 L{x + 68} 170 L{x + 80} 60', k='ink', sw=2))
-        parts.append(path(f'M{x} 60 Q{x + 40} 30 {x + 80} 60', k='muted', sw=1.4))
-        lab.append(text(x + 40, 110, before, k=col, size=22, font='scrawl'))
-        lab.append(text(x + 40, 140, after, k='green', size=20, font='scrawl'))
-        lab.append(text(x + 40, 194, name, k='ink', size=15))
+    def bucket(x, before, change, after, col, name):
+        parts.append(path(f'M{x} 96 L{x + 12} 200 L{x + 68} 200 L{x + 80} 96', k='ink', sw=2))
+        parts.append(path(f'M{x} 96 Q{x + 40} 70 {x + 80} 96', k='muted', sw=1.4))
+        lab.append(text(x + 40, 128, before, k=col, size=22, font='scrawl'))
+        lab.append(text(x + 40, 154, change, k='red', size=18))
+        lab.append(text(x + 40, 186, after, k='green', size=22, font='scrawl'))
+        lab.append(text(x + 40, 224, name, k='ink', size=15))
 
     for i in range(4):
-        bucket(20 + i * 110, '22', '→ 19', 'pen', f'girl {i + 1}')
-        parts.append(arrow(60 + i * 110, 210, 520, 214, k='red', bend=0.08 + i * 0.03))
-    bucket(480, '?', '+12 → 19', 'red', 'youngest')
-    lab += [text(240, 248, 'each gives 3: 4 × 3 = 12 shells', k='red', size=17),
-            text(560, 248, '? = 19 − 12 = 7', k='green', size=19, font='scrawl')]
-    return svg(640, 262, rough(*parts) + ''.join(lab),
+        bucket(20 + i * 110, '22', '− 3', '= 19', 'pen', f'girl {i + 1}')
+        parts.append(arrow(60 + i * 110, 80, 515, 78, k='red', bend=-0.32 + i * 0.07))
+    bucket(480, '?', '+ 12', '= 19', 'red', 'youngest')
+    lab += [text(20, 26, 'each of the 4 gives her 3 shells: 4 × 3 = 12', k='red', size=17, anchor='start'),
+            text(320, 262, 'everyone ends equal on 19, so ? = 19 − 12 = 7', k='green', size=19, font='scrawl')]
+    return svg(640, 276, rough(*parts) + ''.join(lab),
                'Four buckets of 22 shells each give 3 to the youngest and end on 19; the youngest gets 12 and also ends on 19, so she had 7')
 
 Q.append(dict(

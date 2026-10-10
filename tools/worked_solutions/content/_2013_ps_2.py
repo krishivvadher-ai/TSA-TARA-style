@@ -64,10 +64,12 @@ def _booked():
         x = 70 + i * 110
         f = 'p' if d == 'Mon' else 'g' if d == 'Fri' else 'paper'
         parts.append(rect(x, base - v * s, 64, v * s, k='ink', fill=f, sw=1.8))
-        lab += [text(x + 32, base - v * s - 10, v, k='ink', size=19), text(x + 32, base + 22, d, k='ink', size=17)]
+        ly = base - v * s + 28 if d == 'Mon' else base - v * s - 10
+        lab += [text(x + 32, ly, v, k='ink', size=19), text(x + 32, base + 22, d, k='ink', size=17)]
     parts += [line(40, base - 30 * s, 625, base - 30 * s, k='red', w=2.2, dash=True), line(40, base, 625, base, k='ink', w=2)]
     lab += [text(320, 24, 'already booked each morning = 100 − spaces', k='pen', size=18),
-            text(625, base - 30 * s - 8, '30 or fewer → small room', k='red', size=15, anchor='end'),
+            text(44, base - 30 * s - 8, '30 or fewer:', k='red', size=15, anchor='start'),
+            text(44, base - 30 * s + 18, 'small room', k='red', size=15, anchor='start'),
             text(102, base + 46, '26 with him ✗', k='red', size=17, font='scrawl'),
             text(542, base + 46, '38 with him ✓', k='green', size=17, font='scrawl'),
             text(542, base + 66, 'fewest others', k='green', size=15)]
@@ -311,7 +313,7 @@ fermentation. A car converted to run on {hl('E75 (a 75% ethanol, 25% petrol mixt
 # ---------------------------------------------------------------- 15 (Q31)
 def _range():
     rows = [('Clipper', 60, 12), ('Ghia', 70, 11), ('Sedan', 75, 10), ('Estate', 80, 8), ('Saloon', 82, 5)]
-    X = lambda v: 110 + v * 0.62
+    X = lambda v: 110 + v * 0.56
     parts, lab = [], []
     for i, (name, t, e) in enumerate(rows):
         y = 34 + i * 38
@@ -372,8 +374,8 @@ def _teeth():
     lab += [text(600, Yp(50) - 6, 'half', k='muted', size=14, anchor='end'), text(50, Yp(0) + 5, '0%', k='muted', size=14, anchor='end'),
             text(50, Yp(50) + 5, '50%', k='muted', size=14, anchor='end'), text(50, Yp(100) + 5, '100%', k='muted', size=14, anchor='end'),
             text(X(1) - 30, Yp(40), 'semi/unskilled manual', k='orange', size=17, anchor='start'),
-            text(X(3) + 10, Yp(10), 'professionals', k='pen', size=17, anchor='start'),
-            text(X(3) + 10, Yp(10) + 20, 'lower at every age', k='pen', size=15, anchor='start'),
+            text(X(4) + 4, Yp(30), 'professionals:', k='pen', size=17, anchor='start'),
+            text(X(4) + 4, Yp(30) + 20, 'lower at every age', k='pen', size=15, anchor='start'),
             text(320, 296, 'age group (grey lines: the two middle groups)', k='muted', size=14)]
     return svg(640, 306, rough(*parts) + ''.join(lab),
                'Line chart of percentage with no natural teeth by age: the professionals line is below the semi-skilled and unskilled line at every age')
@@ -414,27 +416,25 @@ def _catchup():
     X = lambda d: 60 + (d - 15) * 38
     Ya = lambda a: 150 - a * 5.5
     parts, lab = [], []
-    pts1 = [(15, 15), (16, 16)]
     pts2 = [(16, 16)] + [(16 + i, 16 - 3 * i) for i in range(1, 10)]
     pts3 = [(25, -11)] + [(25 + i, -11 + 3 * i) for i in range(1, 5)]
     parts += [line(40, Ya(0), 625, Ya(0), k='ink', w=2),
-              poly([(X(d), Ya(a)) for d, a in pts1], k='pen', sw=3, closed=False),
               poly([(X(d), Ya(a)) for d, a in pts2], k='red', sw=3, closed=False),
               poly([(X(d), Ya(a)) for d, a in pts3], k='green', sw=3, closed=False)]
-    for d, a in pts2[1:] + pts3[1:]:
+    for d, a in pts2 + pts3[1:]:
         parts.append(circle(X(d), Ya(a), 4, k='ink', fill='paper', sw=1.5))
     parts.append(circle(X(25), Ya(-11), 7, k='red', fill='p', sw=2))
     parts.append(circle(X(29), Ya(1), 7, k='green', fill='g', sw=2))
-    lab += [text(625, Ya(0) - 8, 'on target (average 5)', k='ink', size=15, anchor='end'),
-            text(X(16) + 6, Ya(16) - 8, 'day 16: just over 16 ahead', k='pen', size=16, anchor='start'),
+    lab += [text(44, Ya(0) - 8, 'on target (average 5)', k='ink', size=15, anchor='start'),
+            text(X(16) + 10, Ya(16) - 6, 'day 16: just over 16 miles ahead', k='pen', size=16, anchor='start'),
             text(X(20.5) + 10, Ya(2.5) - 4, '2 miles a day: −3 each day', k='red', size=16, anchor='start'),
             text(X(25), Ya(-11) + 30, 'today (day 25): about 11 behind', k='red', size=16),
-            text(X(27) + 8, Ya(-3) + 4, '+3', k='green', size=16, anchor='start'),
-            text(X(29) - 10, Ya(1) - 16, '8 miles a day:', k='green', size=15, anchor='end'),
-            text(X(29) + 6, Ya(1) - 16, '4 days', k='green', size=20, anchor='start', font='scrawl')]
-    for d in (15, 16, 25, 29):
-        lab.append(text(X(d), 262, f'day {d}', k='muted', size=14))
-    return svg(640, 274, rough(*parts) + ''.join(lab),
+            text(625, Ya(-6) + 8, '8 miles a day:', k='green', size=15, anchor='end'),
+            text(625, Ya(-6) + 26, '+3 each day', k='green', size=15, anchor='end'),
+            text(625, Ya(1) - 16, '4 days ✓', k='green', size=20, anchor='end', font='scrawl')]
+    for d in (16, 25, 29):
+        lab.append(text(X(d), 266, f'day {d}', k='muted', size=14))
+    return svg(640, 276, rough(*parts) + ''.join(lab),
                'Graph of miles ahead of the 5-a-day target: about 16 ahead on day 16, falling 3 a day to about 11 behind on day 25, then climbing 3 a day to above zero on day 29')
 
 Q.append(dict(
@@ -458,7 +458,7 @@ day?</p>""",
       f'behind by just under <b>11 miles</b>')}""",
         f"""<p>Each new day the target goes up by 5. Running 8 gains 8 − 5 = <b>3 miles</b> a day on it.</p>{_catchup()}
 {calc(f'3 days: 3 × 3 = 9 {ar()} still about 2 short {cross()}', f'4 days: 4 × 3 = 12 {ar()} back above target {tick()}', f'answer = {boxed("4 days")}')}""",
-        f"""{note('Check with totals: after 4 more days, just over 114 + 32 = just over 146, and 29 × 5 = 145 ✓. After 3: just over 138, but 28 × 5 = 140 ✗.', 'check')}""",
+        f"""{note('With totals: after 4 more days, just over 114 + 32 = just over 146, and 29 × 5 = 145 ✓. After 3: just over 138, but 28 × 5 = 140 ✗.', 'check')}""",
     ],
     answer_text='4 days of 8 miles: each gains 3 miles on the target, and he is about 11 behind.',
     why={'A': 'Two 8-mile days win back only 6 miles; he is about 11 behind.',

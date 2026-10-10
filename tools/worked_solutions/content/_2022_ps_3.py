@@ -259,7 +259,7 @@ The grey squares make an X (the corners, the middle and the 4 in between), so th
     answer_text='14: on the 0 square (row 2), next to 5 (white), 2, 4 and 2 (grey).',
     why={'A': '10 is the score in the very centre (0 + 1 + 3 + 2 = 6 tokens + 4 white). Lots of white bonus, but too few tokens nearby.',
          'B': '11 is what several edge squares score, such as the 1 at the top next to 3, 5 and 2.',
-         'C': '12 is what you get on the top-row 1 next to 5, 4 and 2, or on the 0 square if you forget the white bonus and miscount.',
+         'C': '12 is what you get on the 1 in the top row next to 5, 2 and 4 (11 tokens + 1 white). Good, but not the best.',
          'D': '13 is the next best (for example the grey 4 in row 2: 1 + 0 + 5 + 3 = 9, + 4 white). Or the 0 square without its white bonus.'},
     fast='Look for big numbers around one square: the 0 square has 5, 2, 4, 2 = 13, plus 1 for the white 5 above. 14.',
 ))
@@ -309,7 +309,7 @@ progressed so far as follows:</p>
         ['me', 'cards 5 &amp; 11', 'cat and mouse pair', '1 point'], ['sister', hl('cards 10 &amp; 12', 'g'), hl('cards replaced', 'g'), ''],
         [hl('me', 'g', 4), hl('cards 3 &amp; 8', 'g'), hl('two mice; cards replaced', 'g'), ''], ['sister', 'cards 7 &amp; 14', 'cat and mouse pair', '1 point'],
         ['me', 'cards 1 &amp; 15', 'cat and mouse pair', '1 point'], ['sister', hl('cards 8 &amp; 10', 'g'), hl('cat and mouse pair', 'g'), '1 point']])}
-<p class="stem">It is my turn again and {hl('I know for certain', 'b', 5)} that the two cards I am going to pick up will be a cat
+<p>It is my turn again and {hl('I know for certain', 'b', 5)} that the two cards I am going to pick up will be a cat
 and mouse pair.</p>
 <p class="stem">Which two cards am I going to pick up?</p>""",
     options={'A': '3 &amp; 4', 'B': '3 &amp; 6', 'C': '3 &amp; 9', 'D': '3 &amp; 12', 'E': '3 &amp; 16'},
@@ -457,7 +457,7 @@ def _ring():
     parts.append(rect(L, T, R - L, B - T, k='ink', sw=3.2, rx=rad))
     towns = [('Portville', 250, T, 250, T - 14, 'middle'), ('Queensgate', 535, 75, 560, 62, 'start'),
              ('Radcliffe', 450, B, 450, B + 26, 'middle'), ('Southtown', 220, B, 220, B + 26, 'middle'),
-             ('Tunborough', L, 170, L - 12, 176, 'end')]
+             ('Tunborough', L, 170, L + 16, 176, 'start')]
     for nm, x, y, tx, ty, anc in towns:
         parts.append(circle(x, y, 8, k='ink', fill='ink', sw=1))
         lab.append(text(tx, ty, nm, k='ink', size=17, anchor=anc))
@@ -465,12 +465,12 @@ def _ring():
             ('15', 130, B + 26, 'middle'), ('24', L - 12, 100, 'end')]
     for g, x, y, anc in gaps:
         lab.append(text(x, y, g + ' km', k='green', size=19, anchor=anc, weight=700))
-    for nm, x, y in (('s1', 395, T), ('s2', R, 140), ('s3', 285, B), ('s4', 85, 245), ('s5', 85, 95)):
+    for nm, x, y in (('s1', 395, T), ('s2', R, 140), ('s3', 285, B), ('s4', 85, 265), ('s5', 85, 75)):
         parts.append(line(x - 7, y - 7, x + 7, y + 7, k='red' if nm == 's4' else 'muted', w=2.4))
         parts.append(line(x - 7, y + 7, x + 7, y - 7, k='red' if nm == 's4' else 'muted', w=2.4))
     lab += [text(395, T + 26, 'sign 1', k='muted', size=14), text(R - 12, 145, 'sign 2', k='muted', size=14, anchor='end'),
-            text(285, B - 14, 'sign 3', k='muted', size=14), text(100, 236, 'sign 4', k='red', size=15, anchor='start'),
-            text(100, 102, 'sign 5', k='muted', size=14, anchor='start')]
+            text(285, B - 14, 'sign 3', k='muted', size=14), text(104, 258, 'sign 4', k='red', size=15, anchor='start'),
+            text(104, 90, 'sign 5', k='muted', size=14, anchor='start')]
     parts.append(arrow(260, 120, 360, 120, k='pen', bend=-0.25))
     lab += [text(310, 92, 'clockwise', k='pen', size=16),
             text(310, 160, 'round the whole ring = 97 km', k='ink', size=17),

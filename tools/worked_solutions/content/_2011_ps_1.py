@@ -174,24 +174,25 @@ reigns.</p>
 # ---------------------------------------------------------------- 4 (Q8)
 def _journey():
     O = (60, 232)
-    P = [(60, 232), (150, 207), (255, 97), (350, 72), (430, 72), (500, 232)]
-    parts = [line(O[0], O[1], 600, O[1], k='ink', head=True), line(O[0], O[1], O[0], 24, k='ink', head=True),
+    P = [(60, 232), (130, 210), (210, 110), (290, 88), (350, 88), (405, 232)]
+    parts = [line(O[0], O[1], 430, O[1], k='ink', head=True), line(O[0], O[1], O[0], 24, k='ink', head=True),
              poly(P, k='pen', sw=3.2, closed=False)]
     for (x, y) in P[1:-1]:
         parts.append(circle(x, y, 4, k='pen', fill='paper', sw=2))
-    lab = [text(105, 210, '1', k='red', size=20, font='scrawl'),
-           text(190, 150, '2', k='red', size=20, font='scrawl'),
-           text(300, 75, '3', k='red', size=20, font='scrawl'),
-           text(390, 62, '4', k='red', size=20, font='scrawl'),
-           text(476, 140, '5', k='red', size=20, font='scrawl'),
+    lab = [text(92, 210, '1', k='red', size=20, font='scrawl'),
+           text(160, 152, '2', k='red', size=20, font='scrawl'),
+           text(250, 86, '3', k='red', size=20, font='scrawl'),
+           text(320, 78, '4', k='red', size=20, font='scrawl'),
+           text(390, 150, '5', k='red', size=20, font='scrawl'),
            text(36, 128, 'distance from home', k='muted', size=15, rotate=-90),
-           text(590, 254, 'time', k='muted', size=15, anchor='end'),
+           text(430, 254, 'time', k='muted', size=15, anchor='end'),
            text(60, 254, 'home = 0', k='muted', size=14, anchor='start')]
-    key = ['1  village: steady, gentle slope', '2  open road: faster, so steeper', '3  hill: slower, so gentler',
-           '4  stops to admire the view: flat', '5  rushes home: steep, down to 0']
-    for i, s in enumerate(key):
-        lab.append(text(318, 116 + i * 22, s, k='ink', size=15, anchor='start'))
-    return svg(620, 266, rough(*parts) + ''.join(lab),
+    key = [('1', 'village: steady, gentle slope'), ('2', 'open road: faster, so steeper'), ('3', 'hill: slower, so gentler'),
+           ('4', 'stops for the view: flat'), ('5', 'rushes home: steep, down to 0')]
+    for i, (n, s_) in enumerate(key):
+        lab.append(text(452, 70 + i * 34, n, k='red', size=20, font='scrawl', anchor='start'))
+        lab.append(text(472, 70 + i * 34, s_, k='ink', size=15, anchor='start'))
+    return svg(680, 266, rough(*parts) + ''.join(lab),
                'Sketch of the correct graph: gentle rise, steeper rise, gentler rise, flat, then a steep fall back to zero')
 
 
@@ -236,22 +237,22 @@ def _coffee():
     def jar(x, y, h, f):
         return [rect(x, y + 10, 70, h, k='ink', fill=f, sw=2, rx=8), rect(x + 8, y, 54, 12, k='ink', fill='paper', sw=2, rx=3)]
     parts, lab = [], []
-    parts += jar(40, 30, 64, 'o')
-    lab += [text(75, 70, '200 g', k='ink', size=17), text(75, 128, 'Kostless', k='ink', size=16),
-            text(75, 22, '£1.70', k='red', size=18, font='scrawl')]
-    parts.append(arrow(130, 66, 260, 66, k='pen', bend=-0.12))
-    lab += [text(195, 48, '× 5', k='pen', size=22, font='scrawl'),
-            text(280, 72, '1 kg = 5 × £1.70 = £8.50', k='ink', size=19, anchor='start')]
-    parts += jar(40, 160, 80, 'b')
-    lab += [text(75, 210, '250 g', k='ink', size=17), text(75, 274, 'Savemore', k='ink', size=16),
-            text(75, 152, '£2.50', k='red', size=18, font='scrawl')]
-    parts.append(arrow(130, 206, 260, 206, k='pen', bend=-0.12))
-    lab += [text(195, 188, '× 4', k='pen', size=22, font='scrawl'),
-            text(280, 212, '1 kg = 4 × £2.50 = £10.00', k='ink', size=19, anchor='start')]
-    parts.append(line(520, 70, 520, 206, k='red', w=2.2, tail=True, head=True))
-    lab += [text(530, 132, '£1.50', k='red', size=22, font='scrawl', anchor='start'),
-            text(530, 156, 'per kg', k='red', size=17, anchor='start')]
-    return svg(620, 290, rough(*parts) + ''.join(lab),
+    parts += jar(40, 34, 64, 'o')
+    lab += [text(75, 74, '200 g', k='ink', size=17), text(75, 132, 'Kostless', k='ink', size=16),
+            text(75, 24, '£1.70', k='red', size=18, font='scrawl')]
+    parts.append(arrow(130, 70, 260, 70, k='pen', bend=-0.12))
+    lab += [text(195, 52, '× 5', k='pen', size=22, font='scrawl'),
+            text(280, 76, '1 kg = 5 × £1.70 = £8.50', k='ink', size=19, anchor='start')]
+    parts += jar(40, 184, 80, 'b')
+    lab += [text(75, 234, '250 g', k='ink', size=17), text(75, 298, 'Savemore', k='ink', size=16),
+            text(75, 174, '£2.50', k='red', size=18, font='scrawl')]
+    parts.append(arrow(130, 230, 260, 230, k='pen', bend=-0.12))
+    lab += [text(195, 212, '× 4', k='pen', size=22, font='scrawl'),
+            text(280, 236, '1 kg = 4 × £2.50 = £10.00', k='ink', size=19, anchor='start')]
+    parts.append(line(530, 74, 530, 230, k='red', w=2.2, tail=True, head=True))
+    lab += [text(540, 148, '£1.50', k='red', size=22, font='scrawl', anchor='start'),
+            text(540, 172, 'per kg', k='red', size=17, anchor='start')]
+    return svg(630, 312, rough(*parts) + ''.join(lab),
                'Kostless: 200 g for 1.70, times 5 gives 8.50 per kilogram. Savemore: 250 g for 2.50, times 4 gives 10.00 per kilogram. Difference 1.50')
 
 
@@ -285,26 +286,28 @@ both supermarkets have a special offer this week:</p>
 
 # ---------------------------------------------------------------- 6 (Q13)
 def _eu_bar():
-    X = lambda p: 40 + p * 5.4
-    segs = [('France', 14.6, 'b', 30), ('Spain', 11.4, 'g', 50), ('Sweden', 10.2, 'o', 30), ('Germany', 8.1, 'v', 50), ('Finland', 7.6, 'y', 30)]
+    X = lambda p: 30 + p * 9.6
+    segs = [('France', 14.6, 'b'), ('Spain', 11.4, 'g'), ('Sweden', 10.2, 'o'), ('Germany', 8.1, 'v'), ('Finland', 7.6, 'y')]
     parts, lab, run = [], [], 0
     totals = []
-    for name, p, f, ty in segs:
-        parts.append(rect(X(run), 62, X(run + p) - X(run), 36, k='ink', fill=f, sw=1.6))
-        lab.append(text((X(run) + X(run + p)) / 2, 86, p, k='ink', size=15))
-        lab.append(text((X(run) + X(run + p)) / 2, ty, name, k='ink', size=15))
+    for name, p, f in segs:
+        parts.append(rect(X(run), 50, X(run + p) - X(run), 40, k='ink', fill=f, sw=1.6))
+        lab.append(text((X(run) + X(run + p)) / 2, 76, p, k='ink', size=16))
+        lab.append(text((X(run) + X(run + p)) / 2, 38, name, k='ink', size=15))
         run += p
         totals.append(round(run, 1))
-    parts.append(rect(X(run), 62, X(100) - X(run), 36, k='muted', fill='paper', sw=1.6))
-    lab.append(text((X(run) + X(100)) / 2, 86, 'the other 22 countries: 48.1', k='muted', size=15))
+    parts.append(rect(X(run), 50, 640 - X(run), 40, k='muted', fill='paper', sw=1.6))
+    lab.append(text((X(run) + 640) / 2, 76, '22 more…', k='muted', size=15))
     for t in totals[1:]:
-        lab.append(text(X(t), 122, f'{t:g}', k='green' if t > 50 else 'pen', size=15))
-        parts.append(line(X(t), 100, X(t), 108, k='pen', w=1.5))
-    parts.append(line(X(50), 52, X(50), 140, k='red', w=2.4, dash=True))
-    lab.append(text(X(50) + 6, 150, '50%', k='red', size=18, font='scrawl', anchor='start'))
-    lab.append(text(X(26) - 30, 150, 'running totals ↑', k='pen', size=15))
-    return svg(600, 162, rough(*parts) + ''.join(lab),
-               'A 100 percent bar filled with France, Spain, Sweden, Germany and Finland; the running total passes 50 at 51.9')
+        col = 'green' if t > 50 else 'pen'
+        lab.append(text(X(t) + (8 if t > 50 else 0), 118, f'{t:g}' + (' ✓' if t > 50 else ''), k=col, size=16,
+                        anchor='start' if t > 50 else 'middle'))
+        parts.append(line(X(t), 92, X(t), 102, k=col, w=1.8))
+    parts.append(line(X(50), 46, X(50), 150, k='red', w=2.4, dash=True))
+    lab.append(text(X(50) - 6, 146, '50%', k='red', size=18, font='scrawl', anchor='end'))
+    lab.append(text(X(13), 146, 'running totals ↑', k='pen', size=15))
+    return svg(650, 162, rough(*parts) + ''.join(lab),
+               'Bar of the five biggest countries: France, Spain, Sweden, Germany and Finland; the running total passes 50 at 51.9')
 
 
 Q.append(dict(
@@ -353,7 +356,7 @@ BOOK_U = ['3', '4', '5', '3½', '5', '6', '4']
 
 
 def _shelf():
-    s, x0, base = 1.25, 240, 200
+    s, x0, base = 1.6, 200, 228
     parts, lab = [], []
     x = x0
     for i, (w, h) in enumerate(zip(BOOK_W, BOOK_H)):
@@ -363,15 +366,15 @@ def _shelf():
         lab.append(text(x + w * s / 2, base - h * s - 8, BOOK_U[i], k='pen', size=17, font='scrawl'))
         x += w * s
     parts.append(line(x0 - 10, base, x + 10, base, k='ink', w=2.4))
-    parts.append(arrow(150, 150, 222, 150, k='red'))
-    lab += [eye(130, 150, facing='right'),
-            text(130, 124, 'look from', k='red', size=16), text(130, 106, 'this end', k='red', size=16),
-            text(x + 30, 70, 'book numbers at the bottom,', k='ink', size=15, anchor='start'),
-            text(x + 30, 92, 'heights (in squares) on top', k='pen', size=15, anchor='start'),
-            text(x + 30, 130, 'book 1 is nearest the eye', k='ink', size=15, anchor='start'),
-            text(x + 30, 152, 'book 2 has only book 1', k='ink', size=15, anchor='start'),
-            text(x + 30, 174, 'in front of it', k='ink', size=15, anchor='start')]
-    return svg(660, 222, rough(*parts) + ''.join(lab),
+    parts.append(arrow(120, 170, 186, 170, k='red'))
+    lab += [eye(100, 170, facing='right'),
+            text(100, 126, 'look from', k='red', size=16), text(100, 146, 'this end', k='red', size=16),
+            text(x + 30, 80, 'book numbers at the bottom,', k='ink', size=15, anchor='start'),
+            text(x + 30, 102, 'heights (in squares) on top', k='pen', size=15, anchor='start'),
+            text(x + 30, 140, 'book 1 is nearest the eye', k='ink', size=15, anchor='start'),
+            text(x + 30, 162, 'book 2 has only book 1', k='ink', size=15, anchor='start'),
+            text(x + 30, 184, 'in front of it', k='ink', size=15, anchor='start')]
+    return svg(660, 246, rough(*parts) + ''.join(lab),
                'The seven books redrawn with heights 3, 4, 5, 3 and a half, 5, 6 and 4 squares, looked at from the left end')
 
 
@@ -387,16 +390,17 @@ def _left_views():
         l.append(text(ox + 66, base + 30, title, k=col, size=20, font='scrawl'))
         return p, l
 
-    pD, lD = panel(70, 222, [(0, 85.8, 115.3), (0, 49, 89.9), (0, 36.1, 57.7), (49, 20.5, 69.3)], [(0, 49, 78.2)], 'D: possible ✓', 'green')
-    pC, lC = panel(380, 222, [(0, 85.7, 114.5), (0, 41.2, 88.7), (41.2, 16.5, 77.8)], [(0, 41.2, 57.4)], 'C: impossible ✗', 'red')
-    extra = [line(70, 222 - 78.2 * s, 70 + 49 * s, 222 - 78.2 * s, k='green', w=3.2),
-             line(380, 222 - 77 * s, 380 + 41.2 * s, 222 - 77 * s, k='red', w=3, dash=True)]
-    lab = [text(62, 222 - 78.2 * s + 5, 'book 2’s top', k='green', size=15, anchor='end'),
-           text(372, 222 - 77 * s - 4, 'book 2’s top', k='red', size=15, anchor='end'),
-           text(372, 222 - 77 * s + 15, 'should be here!', k='red', size=15, anchor='end'),
-           text(62, 222 - 57.7 * s + 5, 'book 1', k='muted', size=14, anchor='end'),
-           text(372, 222 - 57.4 * s + 12, 'book 1', k='muted', size=14, anchor='end')]
-    return svg(620, 272, rough(*pD, *pC, *extra) + ''.join(lD + lC + lab),
+    a, b = 110, 420
+    pD, lD = panel(a, 222, [(0, 85.8, 115.3), (0, 49, 89.9), (0, 36.1, 57.7), (49, 20.5, 69.3)], [(0, 49, 78.2)], 'D: possible ✓', 'green')
+    pC, lC = panel(b, 222, [(0, 85.7, 114.5), (0, 41.2, 88.7), (41.2, 16.5, 77.8)], [(0, 41.2, 57.4)], 'C: impossible ✗', 'red')
+    extra = [line(a, 222 - 78.2 * s, a + 49 * s, 222 - 78.2 * s, k='green', w=3.2),
+             line(b, 222 - 77 * s, b + 41.2 * s, 222 - 77 * s, k='red', w=3, dash=True)]
+    lab = [text(a - 8, 222 - 78.2 * s + 5, 'book 2’s top', k='green', size=15, anchor='end'),
+           text(b - 8, 222 - 77 * s - 4, 'book 2’s top', k='red', size=15, anchor='end'),
+           text(b - 8, 222 - 77 * s + 15, 'should be here!', k='red', size=15, anchor='end'),
+           text(a - 8, 222 - 57.7 * s + 5, 'book 1', k='muted', size=14, anchor='end'),
+           text(b - 8, 222 - 57.4 * s + 12, 'book 1', k='muted', size=14, anchor='end')]
+    return svg(640, 272, rough(*pD, *pC, *extra) + ''.join(lD + lC + lab),
                'Option D redrawn with book 2’s top edge showing from the left side; option C redrawn with that edge missing')
 
 
@@ -426,9 +430,9 @@ further back, which would mean book 2 is hidden at the front. Impossible.</p>
     ],
     answer_text='View C: book 2’s top edge (height 4) must show from the left edge, and C has no such line.',
     why={'A': 'Possible: books 1 and 2 are equally deep, book 3 is deep enough to hide books 4, 5 and 7, and tall book 6 pokes up above.',
-         'B': 'Possible: each book is a little deeper than the one before, so you see a staircase of edges, with tall book 6 deepest.',
+         'B': 'Possible: books 1, 2, 3, 4 and 6 each reach further back than the books in front of them, so you see a staircase of edges; books 5 and 7 are hidden.',
          'D': 'Possible: like B, but books 2 and 3 are equally deep (so book 2’s top is a line inside book 3) and book 4 peeks out behind book 3.',
-         'E': 'Possible: nearly every book is a bit deeper than the one before, so almost all seven show, and book 7 peeks out behind book 6.'},
+         'E': 'Possible: the books get deeper and deeper towards the far end, so all seven show, and book 7 peeks out behind book 6.'},
     fast='Book 2 is taller than book 1 and nothing else is in front of it, so its top must show as a line from the left edge at height 4. Only C misses it.',
 ))
 

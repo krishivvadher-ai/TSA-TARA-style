@@ -118,22 +118,23 @@ def _profit():
     vals = [0, -500, 500, 1000, 500, 0, -800]
     nets = [-500, 1000, 500, -500, -500, -800]
     X = lambda n: 60 + n * 82
-    Z, s = 160, 0.1
+    Z, s = 170, 0.1
     parts, lab = [], []
     for n, v in enumerate(vals):
         if v:
             top = Z - v * s if v > 0 else Z
-            parts.append(rect(X(n), top, 50, abs(v) * s, k='ink', fill='g' if v > 0 else 'p', sw=1.6))
+            parts.append(rect(X(n), top, 50, abs(v) * s, k='green' if n == 3 else 'ink', fill='g' if v > 0 else 'p', sw=2.6 if n == 3 else 1.6))
         ly = Z - v * s - 8 if v >= 0 else Z - v * s + 20
         lab.append(text(X(n) + 25, ly, f'£{v:,}'.replace('£-', '−£'), k='green' if v > 0 else 'red' if v < 0 else 'ink', size=16))
-        lab.append(text(X(n) + 25, 284, n, k='ink', size=16))
+        lab.append(text(X(n) + 25, 290, n, k='ink', size=16))
     for n, d in enumerate(nets, 1):
-        lab.append(text(X(n) - 4, 34, f'{d:+,}'.replace('-', '−'), k='green' if d > 0 else 'red', size=15))
-    parts += [line(40, Z, 630, Z, k='ink', w=2), circle(X(3) + 25, Z - 1000 * s - 30, 22, k='green', sw=2.2)]
-    lab += [text(X(3) + 25, Z - 1000 * s - 24, 'best', k='green', size=16, font='scrawl'),
-            text(330, 304, 'number of applications', k='muted', size=15),
-            text(36, 34, 'each one:', k='muted', size=14, anchor='start')]
-    return svg(640, 316, rough(*parts) + ''.join(lab),
+        lab.append(text(X(n) + 25, 26, f'{d:+,}'.replace('-', '−'), k='green' if d > 0 else 'red', size=15))
+    parts.append(line(40, Z, 630, Z, k='ink', w=2))
+    lab += [text(X(3) + 25, Z - 40, 'best', k='green', size=19, font='scrawl'),
+            text(330, 312, 'number of applications', k='muted', size=15),
+            text(X(0) + 25, 26, 'change:', k='muted', size=14),
+            text(X(0) + 25, 46, '(bar − 1000)', k='muted', size=12)]
+    return svg(640, 322, rough(*parts) + ''.join(lab),
                'Running profit after 0 to 6 applications: 0, minus 500, 500, 1000, 500, 0, minus 800; the peak is at 3 applications')
 
 Q.append(dict(
@@ -193,7 +194,7 @@ Q.append(dict(
 Leaving Erd at 10 and 40 minutes past each hour, trains stop at Aregon, Lowley, Ergen, Uble and
 Gidion before arriving at Teovil {hl('51 minutes after departure', 'g', 1)} from Erd. In the opposite direction, trains
 leave Teovil at 20 and 50 minutes past each hour, arriving at Erd 51 minutes later.</p>
-{fig(Y, 'ps_q21_chart', 'Distances chart in km: Erd to Aregon 6, Aregon to Lowley 5, Lowley to Ergen 6, Ergen to Uble 7, Uble to Gidion 5, Gidion to Teovil 7; Erd to Teovil 36, Erd to Uble 24', 260)}
+{fig(Y, 'ps_q21_chart', 'Distances chart in km: Erd to Aregon 6, Aregon to Lowley 5, Lowley to Ergen 6, Ergen to Uble 7, Uble to Gidion 5, Gidion to Teovil 7; Erd to Teovil 36, Erd to Uble 24', 300)}
 <p>The trains {hl('normally average a speed of 60 km/h, but this rises to 80 km/h if they are running late', 'y', 2)}.
 They {hl('stop for three minutes at each station en route, but this is reduced to two minutes when running late', 'y', 3)}.</p>
 <p>Yesterday the 10.20 am train from Teovil {hl('arrived at Uble on time', 'p', 4)}, but because of a technical fault,
@@ -235,18 +236,18 @@ def _church():
              rect(cx + s / 2, cy - s / 2, 62, s, k='ink', fill='o', sw=2),
              line(80, 70, 30, 70, k='ink', head=True, w=2), line(80, 70, 130, 70, k='ink', w=2),
              line(80, 40, 80, 100, k='ink', w=2),
-             arrow(150, 240, 236, 208, k='green', bend=-0.15), arrow(490, 240, 404, 208, k='orange', bend=0.15)]
+             line(186, 150, 222, 150, k='green', head=True, w=2.2), line(454, 150, 418, 150, k='orange', head=True, w=2.2)]
     lab = [text(20, 75, 'N', k='ink', size=16, anchor='end', font='print'), text(140, 75, 'S', k='ink', size=16, anchor='start', font='print'),
            text(80, 34, 'E', k='ink', size=16, font='print'), text(80, 118, 'W', k='ink', size=16, font='print'),
            text(cx, cy - s / 2 - 62, 'EAST end: stained glass', k='ink', size=16),
            text(cx, cy + s / 2 + 160, 'WEST end: door', k='ink', size=16),
            text(cx, cy + s / 2 + 70, 'long', k='pen', size=15), text(cx, cy + s / 2 + 88, 'nave', k='pen', size=15),
            text(cx - s / 2 - 31, cy - s / 2 - 8, 'north', k='green', size=14), text(cx + s / 2 + 31, cy - s / 2 - 8, 'south', k='orange', size=14),
-           eye(130, 262, k='green', facing='right'), eye(510, 262, k='orange', facing='left'),
-           text(110, 296, 'from the NORTH:', k='green', size=16), text(110, 316, 'east end on your left,', k='green', size=15),
-           text(110, 334, 'long nave on your right', k='green', size=15),
-           text(530, 296, 'from the SOUTH:', k='orange', size=16), text(530, 316, 'long nave on your left,', k='orange', size=15),
-           text(530, 334, 'east end on your right', k='orange', size=15)]
+           eye(166, 150, k='green', facing='right'), eye(474, 150, k='orange', facing='left'),
+           text(130, 196, 'from the NORTH:', k='green', size=16), text(130, 216, 'east end on your left,', k='green', size=15),
+           text(130, 234, 'long nave on your right', k='green', size=15),
+           text(520, 196, 'from the SOUTH:', k='orange', size=16), text(520, 216, 'long nave on your left,', k='orange', size=15),
+           text(520, 234, 'east end on your right', k='orange', size=15)]
     return svg(640, 348, rough(*parts) + ''.join(lab),
                'The church plan labelled: east end at the top, long nave to the west at the bottom, north transept left, south transept right; a viewer from the north sees the nave on the right, from the south on the left')
 
@@ -340,7 +341,7 @@ marked {hl("'33K', I offered a handful of coins and the vendor took four green a
 # ---------------------------------------------------------------- 24 (Q49)
 def _votes():
     parts, lab = [], []
-    rows = [(70, 5, 8, 'before: 5 for, 8 against → defeated', 'red'), (184, 7, 6, 'after 2 switch: 7 for, 6 against → carried ✓', 'green')]
+    rows = [(70, 5, 8, 'before: 5 – 8, defeated', 'red'), (184, 7, 6, '2 switch: 7 – 6, carried ✓', 'green')]
     for y, nf, na, cap, kc in rows:
         for i in range(nf):
             moved = y == 184 and i >= 5
