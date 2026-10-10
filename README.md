@@ -10,6 +10,7 @@ time limit and mark scheme.
 | --- | --- |
 | `TSA_Papers/` | `TSA_<year>_Critical_Thinking.pdf` and `TSA_<year>_Problem_Solving.pdf` |
 | `TSA_Answers/` | `TSA_<year>_Critical_Thinking_Mark_Scheme.pdf` and `TSA_<year>_Problem_Solving_Mark_Scheme.pdf` |
+| `TSA_Worked_Solutions/` | `TSA_<year>_Problem_Solving_Worked_Solutions.html` and `TSA_<year>_Critical_Thinking_Worked_Solutions.html` |
 
 Each year therefore has four documents: two papers and their two mark schemes.
 
@@ -24,6 +25,21 @@ Each year therefore has four documents: two papers and their two mark schemes.
 
 Every set has 25 questions, so each paper is worth **25 marks** (one mark per
 question, with no penalty for incorrect answers).
+
+## Worked solutions
+
+The pages in `TSA_Worked_Solutions/` open in any web browser and work offline (fonts and pictures are
+built in).
+
+- **Problem Solving:** every question in full with the key words highlighted and explained, then
+  step-by-step working using GCSE methods only, hand-drawn sketches, the answer, why each other
+  option is wrong, and a quick exam route.
+- **Critical Thinking:** each passage colour-coded by the job each sentence does (reason, evidence,
+  conclusion…), the answer highlighted with a short reason, a short note on every wrong option, and
+  full working for parallel reasoning and principle questions.
+- **Practice mode** hides the working until you press *Show working* on a question.
+
+They are built from `tools/worked_solutions/` (see `SCHEMA.md` there).
 
 ## Time limits
 
