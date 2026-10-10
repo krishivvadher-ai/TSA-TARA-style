@@ -11,7 +11,7 @@ def _cells(cells, x0, y0, c, fill, k='ink', sw=1.4):
 
 # ---------------------------------------------------------------- 1 (Q2)
 def _cafe():
-    s = 10
+    s = 9
     x0 = 100
     parts, lab = [], []
 
@@ -47,8 +47,7 @@ Q.append(dict(
     n=1, orig=2, answer='A', topic='Money & profit',
     question=f"""<p>A café owner makes {hl('50 mini pizzas and 50 flapjacks', 'g', 1)} for sale during the day. The pizzas are
 sold for $2.00 each and the flapjacks are sold for $1.00 each. However, by the end of
-lunchtime there are {hl('10 mini pizzas still unsold and 15 flapjacks unsold', 'y', 2)}, so the {hl('price of each is halved', 'y', 3)} for the afternoon. At the end of the day there are still {hl('2 mini pizzas and 1 flapjack left
-which are given away free', 'p', 4)} to the last customer.</p>
+lunchtime there are {hl('10 mini pizzas still unsold and 15 flapjacks unsold', 'y', 2)}, so the {hl('price of each is halved', 'y', 3)} for the afternoon. At the end of the day there are still {hl('2 mini pizzas and 1 flapjack left which are given away free', 'p', 4)} to the last customer.</p>
 <p class="stem">If the original 50 mini pizzas and 50 flapjacks had a combined production cost of $30.00, how
 much {hl('<b>profit</b>', 'b', 5)} is made on the sale of the mini pizzas and flapjacks for the day?</p>""",
     options={'A': '$100.00', 'B': '$102.50', 'C': '$115.00', 'D': '$120.00', 'E': '$130.00'},
@@ -81,7 +80,7 @@ much {hl('<b>profit</b>', 'b', 5)} is made on the sale of the mini pizzas and fl
 
 # ---------------------------------------------------------------- 2 (Q6)
 def _frame():
-    s = 4.4
+    s = 4.8
     X0, Y0 = 70, 30
     fx, fy, fw, fh = X0, Y0, 46 * s, 59 * s
     mx, my = X0 + 2 * s, Y0 + 2 * s
@@ -104,8 +103,8 @@ def _frame():
     for y in ys:
         parts.append(line(sx - 9, y, sx + 9, y, k='ink', w=1.8))
         parts.append(line(fx + fw + 4, y, sx - 12, y, k='muted', w=1, dash=True))
-    labels = [(18, '2 cm wood', 'orange'), (52, '6 cm mount (top)', 'ink'), (160, '40 cm picture', 'pen'),
-              (266, '9 cm mount (bottom)', 'ink'), (306, '2 cm wood', 'orange')]
+    labels = [(18, '2 cm wood', 'orange'), (58, '6 cm mount (top)', 'ink'), (166, '40 cm picture', 'pen'),
+              (282, '9 cm mount (bottom)', 'ink'), (330, '2 cm wood', 'orange')]
     for (ly, t, k), i in zip(labels, range(5)):
         mid = (ys[i] + ys[i + 1]) / 2
         lab.append(text(sx + 40, ly + 5, t, k=k, size=18, anchor='start'))
@@ -113,17 +112,16 @@ def _frame():
     # overall height arrow on the left
     parts.append(line(36, Y0, 36, Y0 + fh, k='red', w=2.4, head=True, tail=True))
     lab.append(text(26, Y0 + fh / 2, 'overall height = 59 cm', k='red', size=20, font='scrawl', rotate=-90))
-    lab.append(text(sx + 40, 230, '2 + 6 + 40 + 9 + 2', k='red', size=20, anchor='start', font='scrawl'))
-    lab.append(text(sx + 40, 252, '= 59 cm', k='red', size=22, anchor='start', font='scrawl'))
-    return svg(620, 330, rough(*parts) + ''.join(lab),
+    lab.append(text(sx + 40, 214, '2 + 6 + 40 + 9 + 2', k='red', size=22, anchor='start', font='scrawl'))
+    lab.append(text(sx + 40, 240, '= 59 cm', k='red', size=24, anchor='start', font='scrawl'))
+    return svg(620, 345, rough(*parts) + ''.join(lab),
                'Framed picture drawn front-on with the heights stacked on the right: 2 cm wood, 6 cm mount, 40 cm picture, 9 cm mount, 2 cm wood, total 59 cm')
 
 
 Q.append(dict(
     n=2, orig=6, answer='D', topic='Measures & diagrams',
     question=f"""<p>A picture {hl('40 cm high', 'g', 1)} by {hl('30 cm wide', 'p', 2)} is to be framed. There will be a mount between the edge of
-the picture and the frame. This mount will be {hl('6 cm wide at the top and sides, and 9 cm wide at
-the bottom', 'y', 3)}. The width of the wood used for the frame is {hl('2 cm', 'p', 4)}.</p>
+the picture and the frame. This mount will be {hl('6 cm wide at the top and sides, and 9 cm wide at the bottom', 'y', 3)}. The width of the wood used for the frame is {hl('2 cm', 'p', 4)}.</p>
 <p class="stem">What is the {hl('<b>overall height</b>', 'b', 5)} of the framed picture?</p>""",
     options={'A': '46 cm', 'B': '49 cm', 'C': '56 cm', 'D': '59 cm', 'E': '62 cm'},
     notes=[(1, 'g', 'The picture’s height: this is the number you build on.'),
@@ -228,8 +226,7 @@ Q.append(dict(
     n=4, orig=8, answer='A', topic='Area & rates',
     question=f"""<p>Rosie needs to mow her lawn. She has just bought a new lawn mower, and believes she can
 mow at a rate of {hl('2 m² a minute', 'g', 1)}. With her old mower, she could only mow the lawn at a rate of
-{hl('1 m² a minute', 'g', 2)}. Her lawn is {hl('10 m by 25 m', 'g', 3)}. There is a {hl('patio in one corner which is 2 m by 3 m and
-which she does not need to mow', 'p', 4)}.</p>
+{hl('1 m² a minute', 'g', 2)}. Her lawn is {hl('10 m by 25 m', 'g', 3)}. There is a {hl('patio in one corner which is 2 m by 3 m and which she does not need to mow', 'p', 4)}.</p>
 <p class="stem">How much {hl('<b>time does she save</b>', 'b', 5)} with her new lawn mower?</p>""",
     options={'A': '122 minutes', 'B': '125 minutes', 'C': '128 minutes', 'D': '244 minutes', 'E': '250 minutes'},
     notes=[(1, 'g', 'New: twice as fast.'),
@@ -461,11 +458,9 @@ Q.append(dict(
 the job. This is indicated by the greyed-out area in the diagram below which shows part of the
 kitchen floor:</p>
 {fig(Y, 'ps_q07_floor', 'A square pillar stands on the floor; the grey area is one square tile with the pillar base taking up its back corner', 300)}
-<p>There are some odd pieces of tile left over that could be used to complete the job. {hl('Three of
-these, if combined, would fit the area exactly', 'g', 2)}.</p>
+<p>There are some odd pieces of tile left over that could be used to complete the job. {hl('Three of these, if combined, would fit the area exactly', 'g', 2)}.</p>
 {fig(Y, 'ps_q07_pieces', 'Five tile pieces numbered 1 to 5, each made of small squares', 480)}
-<p class="stem">Which three pieces of tile could be pieced together to fit into the {hl('<b>remaining corner area</b>', 'b', 3)}? ({hl('The
-tiles are shown face up and cannot be laid face down', 'p', 4)}.)</p>""",
+<p class="stem">Which three pieces of tile could be pieced together to fit into the {hl('<b>remaining corner area</b>', 'b', 3)}? ({hl('The tiles are shown face up and cannot be laid face down', 'p', 4)}.)</p>""",
     options={'A': '1, 2 and 5', 'B': '1, 3 and 5', 'C': '1, 4 and 5', 'D': '2, 3 and 4', 'E': '2, 4 and 5'},
     notes=[(1, 'y', 'The gap is one square tile, minus the bit the pillar stands on.'),
            (2, 'g', '“Exactly” = the areas must add up to the gap’s area. Great for ruling options out fast.'),

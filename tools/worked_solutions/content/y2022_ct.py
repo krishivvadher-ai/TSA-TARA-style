@@ -97,7 +97,7 @@ dict(n=5, orig=9, answer='C', type='Principle',
      why={'A': 'The skier chose to leave the run, and the claim is against the maker, not an owner who failed to maintain.',
           'B': 'The luggage was left by another passenger. Nothing the company owns was badly maintained.',
           'D': 'A scald while pouring is the user’s own accident, and the claim is against the maker.',
-          'E': 'Eating too many biscuits is the person’s own choice. The shop failed to maintain nothing.'},
+          'E': 'Eating too many biscuits is the person’s own choice. Nothing was badly maintained.'},
      working_title='Working: write the principle first',
      working=f"""<p class="skel">Owner has a duty to maintain the bike (for everyone’s safety) {ar('pen')} someone is hurt because it wasn’t maintained {ar('pen')} the owner pays.<br>
 So the principle: <b>if something is not properly maintained and it injures someone, its owner should compensate them</b>.</p>

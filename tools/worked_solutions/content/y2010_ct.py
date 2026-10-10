@@ -3,11 +3,16 @@ from wslib import *
 # roles: ctx (context), prem (reason), evid (evidence/example), analogy (comparison),
 #        counter (opposing view), ic (intermediate conclusion), conc (main conclusion)
 
+# A <table> cannot sit inside the passage <p>, so the cells carry the evidence colour themselves.
+def _ev(s):
+    return f'<span class="seg seg-evid">{s}</span>'
+
+
 _Q15_TABLE = table(
-    [['<i>Don\'t mind</i>', '56 %', '13 %'],
-     ['<i>Rather they didn\'t</i>', '22 %', '15 %'],
-     ['<i>Do not like it</i>', '19 %', '63 %'],
-     ['<i>Don\'t know that they smoke</i>', '3 %', '9 %']],
+    [[_ev("<i>Don't mind</i>"), _ev('56 %'), _ev('13 %')],
+     [_ev("<i>Rather they didn't</i>"), _ev('22 %'), _ev('15 %')],
+     [_ev('<i>Do not like it</i>'), _ev('19 %'), _ev('63 %')],
+     [_ev("<i>Don't know that they smoke</i>"), _ev('3 %'), _ev('9 %')]],
     head=['<i>Statement</i>',
           "<i>Young smokers' perceptions of parents' attitudes to their smoking</i>",
           "<i>Parents' actual attitude to their children smoking</i>"])

@@ -6,7 +6,8 @@ from wslib import *
 QUESTIONS = [
 dict(n=1, orig=1, answer='D', type='Main conclusion',
      passage=[('conc', 'If people go to a foreign country, they should try to learn at least some of the language of that country'),
-              ('counter', 'because, whilst it is difficult to pick up a good command of a foreign language in a short time,'),
+              ('prem', 'because,'),
+              ('counter', 'whilst it is difficult to pick up a good command of a foreign language in a short time,'),
               ('prem', "learning just a little of a foreign language helps you to find out more about the country itself, its people's customs and mannerisms."),
               ('prem', 'As well as this, it means that you can function more easily by being able to ask for directions or just by being able to order what you want at a restaurant, which is much less embarrassing than pointing and arm-waving.')],
      stem='Which one of the following is an expression of the main conclusion of the above argument?',
