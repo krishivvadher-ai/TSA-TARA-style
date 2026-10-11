@@ -66,21 +66,32 @@ question papers).
 ## Mock papers
 
 Two extra 25-question papers, one Critical Thinking and one Problem Solving, each 45 minutes. Every question
-is a real past TSA question, chosen as the **hardest question of its type** across all 16 papers:
+is a real past TSA question. Each paper has the **hardest question of every question type** across all 16
+papers, and the remaining places go to the **next-hardest questions overall** (at most 4 of any one type, so
+the paper stays balanced):
 
-- **Critical Thinking** has at least one of each of its 10 question types (main conclusion, drawing a
-  conclusion, assumption, flaw, strengthen, weaken, parallel reasoning, identifying a principle, applying a
-  principle, filling the gap), with extra questions of the commonest types.
-- **Problem Solving** has the hardest question of each of its 19 types, plus the second-hardest question of six
-  of those types (3D views, calendars, logic, nets, 2D shapes and best value) to make 25.
-- Each question shows where it came from, e.g. **5 (2014 Q6)**. Its worked solution says why it was chosen.
+- **Critical Thinking** covers all 10 question types (main conclusion, drawing a conclusion, assumption, flaw,
+  strengthen, weaken, parallel reasoning, identifying a principle, applying a principle, filling the gap).
+- **Problem Solving** covers all 19 question types. The six extra places went to the next-hardest questions:
+  two more 3D views, two more nets, one more counting and one more 2D shapes question.
+- Wherever a paper has more than one question of a type, they are the hardest ones of that type, in order.
+- Each question shows where it came from, e.g. **12 (2014 Q6)**. Its worked solution says why it was chosen.
   Questions from the 2014 paper are marked as ones you have met before.
 
-How they were chosen: every one of the 800 past questions was rated for difficulty (1–10) and sorted into a
-type. The top-rated candidates of each type were then compared side by side to pick the hardest. The ratings
-are judgements, not official statistics. Questions whose official answer is disputed or ambiguous were left
-out, so every mock answer is the official one. The order is shuffled so that no two questions next to each
-other are of the same type.
+How they were chosen. There are no official statistics on how often each TSA question is answered correctly,
+so the choice rests on careful judgement, made in rounds:
+
+1. Every one of the 800 past questions was rated for difficulty and sorted into a type.
+2. The leading candidates of each type (about 330 questions, with each rater's scores adjusted for how harshly
+   they marked) were solved and re-ranked side by side by a judge who saw the whole type at once.
+3. The top candidates of each type were then solved and ranked again, blind, by two more independent judges,
+   who also estimated the share of strong candidates who would get each one wrong. The consensus order is the
+   average of the three rankings.
+4. Each type's first question goes in. The other places go to the hardest remaining questions; for Problem
+   Solving the closest contenders were scored once more on a single common scale by two further judges.
+
+Questions whose official answer is debatable, or that repeat another year's question, were left out, so every
+mock answer is the official one. The order is shuffled so that no two neighbouring questions share a type.
 
 The choice is in `tools/mock_selection.json`. Rebuild the papers with
 `python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys>`, and the
