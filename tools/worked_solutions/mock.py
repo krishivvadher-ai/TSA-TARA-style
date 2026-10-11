@@ -33,7 +33,8 @@ def load(kind, load_content):
         q = next(x for x in papers[year] if x['orig'] == it['orig'])
         m = copy.deepcopy(q)
         m.pop('attempt', None)
-        m.update(n=i, src=year, src_n=q['n'], mock_type=it['type'], why_here=it.get('why', ''))
+        m.update(n=i, src=year, src_n=q['n'], mock_type=it['type'], mock_rank=it.get('rank', 1),
+                 why_here=it.get('why', ''))
         out.append(m)
     return out
 

@@ -1,0 +1,407 @@
+{
+ "_about": "Mock papers: real past TSA questions, the hardest of every question type (2008-2023). Chosen by rating every question, then judging the top candidates of each type head to head; questions with a debatable official answer were left out. rank = 1 for the hardest of its type, 2 for the second-hardest, ...",
+ "CT": [
+  {
+   "year": "2014",
+   "orig": 47,
+   "n": 25,
+   "type": "Applying a principle",
+   "rank": 1,
+   "why": "You must first distil the principle (the difference between harm as the aim and harm as an accident), then recognise it in an unexpected setting phrased as a recommendation. The option about spectators enjoying misfortune fits boxing's surface features and is the obvious lure."
+  },
+  {
+   "year": "2018",
+   "orig": 29,
+   "n": 16,
+   "type": "Assumption",
+   "rank": 4,
+   "why": "The gap is an abstract value judgement about what a library is for, not a factual claim, so it is easy to miss. Several options sound like the librarian's thinking but fail the negation test, one because of a single over-strong word."
+  },
+  {
+   "year": "2011",
+   "orig": 34,
+   "n": 18,
+   "type": "Flaw",
+   "rank": 3,
+   "why": "The flaw only appears if you hold the argument to the goal set in its first sentence and check whether the recommended spending meets it. The options are unusual, and two sound like sensible objections but would actually support the conclusion."
+  },
+  {
+   "year": "2018",
+   "orig": 41,
+   "n": 22,
+   "type": "Weaken",
+   "rank": 3,
+   "why": "The weakener looks like a dull neutral fact until you home in on 'for an extended period' in the first reason. Several other options feel like weakeners on first reading but actually make poorer young people's position worse, or help them find placements without helping them afford them."
+  },
+  {
+   "year": "2021",
+   "orig": 23,
+   "n": 13,
+   "type": "Draw a conclusion",
+   "rank": 2,
+   "why": "The supported conclusion is never stated and at first looks like a leap, while the near-misses about public awareness and actual spending priorities sound closer to the text. You must follow the passage's own link between what we can imagine needing, what we care about and what we will back, and notice that each near-miss quietly changes one of those terms."
+  },
+  {
+   "year": "2022",
+   "orig": 45,
+   "n": 23,
+   "type": "Parallel reasoning",
+   "rank": 2,
+   "why": "One option copies the original's wording almost word for word but reasons the opposite way, with the expected thing happening rather than failing to happen. The real match uses different wording and puts its conclusion first, so you must ignore the surface and compare skeletons."
+  },
+  {
+   "year": "2021",
+   "orig": 34,
+   "n": 18,
+   "type": "Flaw",
+   "rank": 1,
+   "why": "The obvious weak step (from 'hard to change' to 'genetic') is a red herring that no option describes accurately. The real flaw is a quiet change of wording between the last two sentences, and two options misdescribe the argument in plausible ways."
+  },
+  {
+   "year": "2022",
+   "orig": 15,
+   "n": 8,
+   "type": "Main conclusion",
+   "rank": 3,
+   "why": "One option is a near-paraphrase of a premise about what environments include and reads like the main point, and another restates the author's concession. You must see what the 'Whilst' clause concedes and which claim the light-and-noise evidence is there to prove."
+  },
+  {
+   "year": "2015",
+   "orig": 28,
+   "n": 15,
+   "type": "Draw a conclusion",
+   "rank": 3,
+   "why": "The passage only condemns a practice, so you must work out what it implies should happen instead. Two descriptive options about why sound bites are used and what politicians prefer sound reasonable, but they claim motives the passage never establishes."
+  },
+  {
+   "year": "2023",
+   "orig": 21,
+   "n": 11,
+   "type": "Strengthen",
+   "rank": 1,
+   "why": "A dense, abstract passage, and the strengthener's relevance is indirect: you have to see why a fact about how the original photo was made becomes something that colourisation erases. One option reads as relevant but actually cuts the other way, and another attacks the people doing the colourising rather than the practice."
+  },
+  {
+   "year": "2017",
+   "orig": 47,
+   "n": 25,
+   "type": "Identifying a principle",
+   "rank": 1,
+   "why": "A short, abstract passage where every option borrows its words. You must separate the rule for choosing what to do from the details of how it is carried out (cost and speed), and recognise the passage's 'greatest good' idea in different wording."
+  },
+  {
+   "year": "2023",
+   "orig": 47,
+   "n": 24,
+   "type": "Assumption",
+   "rank": 2,
+   "why": "The correct assumption looks almost like a restatement of the conclusion, so it is easy to dismiss. Two close-sounding principles about rich and poor are either too strong (one would rule out the author's own proposal) or simply not needed."
+  },
+  {
+   "year": "2014",
+   "orig": 34,
+   "n": 18,
+   "type": "Flaw",
+   "rank": 2,
+   "why": "A dense, opinionated passage with a rhetorical question and a 'not for but against' twist that must be untangled first. The flaw is never stated, and three options echo or paraphrase the passage, one of them picking up its 'not necessarily by violence' aside."
+  },
+  {
+   "year": "2021",
+   "orig": 40,
+   "n": 21,
+   "type": "Parallel reasoning",
+   "rank": 1,
+   "why": "Every option is a long temperature argument, and the most natural-looking match uses a temperature that is enough to cause the result rather than needed for it. You must test needed-versus-enough in every option, and the true match hides behind an aside about unknown ancient furnaces."
+  },
+  {
+   "year": "2017",
+   "orig": 35,
+   "n": 19,
+   "type": "Main conclusion",
+   "rank": 2,
+   "why": "The conclusion is the very first sentence, and the passage ends with two 'So...' sentences that look like the final step but are stepping stones towards it. Another option is a fair inference from the passage that is never the point being argued for."
+  },
+  {
+   "year": "2015",
+   "orig": 41,
+   "n": 22,
+   "type": "Weaken",
+   "rank": 2,
+   "why": "You need base-rate thinking: a share of all pupils is not the same as a share of the pupils actually sitting the relevant exams. The wealth option is a tempting alternative explanation, but it only bites if you add a further link the passage does not give you."
+  },
+  {
+   "year": "2020",
+   "orig": 39,
+   "n": 20,
+   "type": "Applying a principle",
+   "rank": 2,
+   "why": "The principle (privilege brings a higher standard, so more blame) has to be spotted in an indirect example with no mention of sport or punishment. The option about sports stars as role models borrows the passage's setting and the idea of responsibility, but rests on a different reason."
+  },
+  {
+   "year": "2019",
+   "orig": 29,
+   "n": 16,
+   "type": "Assumption",
+   "rank": 3,
+   "why": "The needed assumption is so basic that it is easy to overlook, and it is worded in dry, abstract terms. Meanwhile an option about police motives sounds like what the critics believe but is much stronger than the argument requires."
+  },
+  {
+   "year": "2022",
+   "orig": 49,
+   "n": 25,
+   "type": "Weaken",
+   "rank": 1,
+   "why": "A 'you do it too' argument: the only way to weaken it is to show the two cases are not really alike, and that turns on the easily skimmed phrase about profiles made at public expense. One option strongly backs the complaint about presenters, which feels like it matters but leaves the hypocrisy step untouched."
+  },
+  {
+   "year": "2012",
+   "orig": 40,
+   "n": 21,
+   "type": "Assumption",
+   "rank": 1,
+   "why": "The argument admits mistakes have become less likely, not impossible, and you must work out what it then has to take for granted to claim justice is 'ensured'. A very tempting option is far stronger than anything the argument needs."
+  },
+  {
+   "year": "2018",
+   "orig": 21,
+   "n": 11,
+   "type": "Flaw",
+   "rank": 4,
+   "why": "The correct option is written as a counter-claim rather than in typical 'it assumes...' language, so it does not look like a flaw statement. Meanwhile an option phrased exactly like a stock flaw answer turns out to be irrelevant."
+  },
+  {
+   "year": "2023",
+   "orig": 49,
+   "n": 25,
+   "type": "Parallel reasoning",
+   "rank": 3,
+   "why": "The matching structure (a result needing two things, one present and one absent) is disguised by a reversed mood, a bad outcome rather than a good one, and an 'only way... is if' phrasing. A near-miss shares the 'unlikely' conclusion and topic feel but rests on an 'or' condition with neither met."
+  },
+  {
+   "year": "2022",
+   "orig": 47,
+   "n": 24,
+   "type": "Main conclusion",
+   "rank": 1,
+   "why": "Every option is lifted word for word from the passage and there are no indicator words, so you must work out which claim the others support. One mid-passage claim has two reasons of its own and looks final, but it only spells out what is being lost."
+  },
+  {
+   "year": "2013",
+   "orig": 4,
+   "n": 3,
+   "type": "Draw a conclusion",
+   "rank": 1,
+   "why": "The passage itself calls the system 'flawed', so the options that condemn the whole system or call for new rules feel like faithful paraphrases. You have to judge exactly how far a single awkward horse name can carry you, and it is less far than the passage's own tone suggests."
+  },
+  {
+   "year": "2011",
+   "orig": 46,
+   "n": 24,
+   "type": "Fill the gap",
+   "rank": 1,
+   "why": "The sentence before the gap is an 'if they had... they would have' statement about something that has not happened, so the gap must supply the missing fact. A general 'so'-type connector looks natural but has nothing to build on."
+  }
+ ],
+ "PS": [
+  {
+   "year": "2013",
+   "orig": 6,
+   "n": 2,
+   "type": "Calendars, clocks & digital displays",
+   "rank": 1,
+   "why": "You must first work out the only pattern such a date can follow, then use the spare digits in two different years to pin down the birthday before reading off his age. It is a long chain with little you can test from the options."
+  },
+  {
+   "year": "2010",
+   "orig": 44,
+   "n": 22,
+   "type": "Maps, routes & networks",
+   "rank": 1,
+   "why": "You must turn 'always pass' into a single bottleneck point and the 'pass twice' clue into where the fountain has to be, then decide which of the remaining stars can genuinely be told apart."
+  },
+  {
+   "year": "2018",
+   "orig": 44,
+   "n": 22,
+   "type": "Nets & folding",
+   "rank": 2,
+   "why": "Only the three faces with a single black triangle matter, but you must work out which edge each triangle leans on, including edges that only meet once the net is folded, and match their order around the corner."
+  },
+  {
+   "year": "2012",
+   "orig": 44,
+   "n": 22,
+   "type": "3D views & cubes",
+   "rank": 2,
+   "why": "All five solids are built from the same cubes in the same basic skeleton, so you must mentally rotate each one and compare which way its stubs point. One solid differs from a partner only by being its mirror image, which is very hard to see."
+  },
+  {
+   "year": "2014",
+   "orig": 6,
+   "n": 2,
+   "type": "Speed, distance & time",
+   "rank": 1,
+   "why": "The natural answer assumes the worst possible wait at both sets of lights, but because the lights change together and the ride between them takes a fixed time, both worst cases cannot happen on the same journey."
+  },
+  {
+   "year": "2021",
+   "orig": 25,
+   "n": 12,
+   "type": "Percentages",
+   "rank": 1,
+   "why": "Several chained steps each hide a trap: the loaf is a percentage of the dough (so adding 20% to the loaf is wrong), dough only comes in whole boxes, and the waste must be measured against what you buy, not what you use."
+  },
+  {
+   "year": "2020",
+   "orig": 32,
+   "n": 16,
+   "type": "Money & best value",
+   "rank": 1,
+   "why": "The natural plan of cutting whole decorations from each ribbon wastes too much; you need a lower bound from the total length and price per centimetre, then a cutting plan that actually meets it, and two sensible-looking but wasteful plans are among the options."
+  },
+  {
+   "year": "2012",
+   "orig": 14,
+   "n": 7,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 1,
+   "why": "Each grid has to be tested under quarter and half turns against the visible blanks and symbols, and one option fits every square perfectly after a turn but fails because of which way a visible symbol would then face."
+  },
+  {
+   "year": "2010",
+   "orig": 49,
+   "n": 24,
+   "type": "Counting & combinations",
+   "rank": 1,
+   "why": "The scrap can sit in more than one position in the number, and a torn scrap could also be the other way up; each case you overlook gives one of the wrong options."
+  },
+  {
+   "year": "2023",
+   "orig": 20,
+   "n": 10,
+   "type": "Charts & graphs",
+   "rank": 1,
+   "why": "Counting 35 blocks of three sizes in a dense pattern without missing or double-counting any is error-prone, and two of the pies differ only in how the two smaller slices are split, so a miscount of one or two picks the wrong one."
+  },
+  {
+   "year": "2017",
+   "orig": 36,
+   "n": 17,
+   "type": "Time zones & timetables",
+   "rank": 1,
+   "why": "The obvious round trip (two 40-minute crossings) is wrong: after each 5-minute turnaround a boat must wait for the next timetabled slot, so you have to find the true cycle length before dividing by the 20-minute interval."
+  },
+  {
+   "year": "2021",
+   "orig": 50,
+   "n": 25,
+   "type": "Calendars, clocks & digital displays",
+   "rank": 2,
+   "why": "You must work out how the fourth Thursday moves from one month to the next (it depends on the month's length, with a jump when it falls too early), use a repeated date to identify the month, then track six changes without a slip."
+  },
+  {
+   "year": "2011",
+   "orig": 31,
+   "n": 15,
+   "type": "Logic & deduction",
+   "rank": 2,
+   "why": "In this unfamiliar game either player can use either symbol, so the right move must make every empty square a trap whichever symbol the opponent plays there; each wrong option has one safe reply you have to find."
+  },
+  {
+   "year": "2016",
+   "orig": 48,
+   "n": 23,
+   "type": "Number patterns, cycles & codes",
+   "rank": 1,
+   "why": "The standard lowest-common-multiple method gives a time when the moons are in a line but not in the order shown; you need to think about how fast each moon gains on the next one (or test what fraction of a lap each has done)."
+  },
+  {
+   "year": "2019",
+   "orig": 44,
+   "n": 22,
+   "type": "Nets & folding",
+   "rank": 1,
+   "why": "You must track the order of the six side faces, avoid folding a mirror image, and check which way the numbers and both letters point; one net has every face in the right place and fails only on the direction of a letter."
+  },
+  {
+   "year": "2016",
+   "orig": 50,
+   "n": 25,
+   "type": "Area, perimeter & volume",
+   "rank": 1,
+   "why": "Dividing areas gives a tempting answer, but each drop must start at the same point in the pattern, so every drop uses more roll than its height, and you must round up twice (drops for the wall, then rolls)."
+  },
+  {
+   "year": "2018",
+   "orig": 50,
+   "n": 25,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 2,
+   "why": "Bump charts are unfamiliar: you must reverse one axis and then test mirror symmetry for five charts of six crossing lines, which needs either careful bookkeeping of where each line ends or a neat half-turn insight."
+  },
+  {
+   "year": "2018",
+   "orig": 30,
+   "n": 14,
+   "type": "Algebra & unknowns",
+   "rank": 1,
+   "why": "Several different mixes of 9p, 14p and 20p coupons make exactly £1.50, and every wrong option is the size of one of them. You can only trust a mix once you have checked the order rule (more 14p than 9p, more 9p than 20p) against it."
+  },
+  {
+   "year": "2018",
+   "orig": 25,
+   "n": 12,
+   "type": "Reading tables & data",
+   "rank": 1,
+   "why": "You must total five columns of five-digit numbers, read the cross-table the right way round, and transfer only the eliminated candidates' second choices; the two finalists are separated by a tiny margin at the first stage."
+  },
+  {
+   "year": "2015",
+   "orig": 50,
+   "n": 25,
+   "type": "3D views & cubes",
+   "rank": 1,
+   "why": "You need the insight that the left-to-right order only changes when you cross a straight line through two trees, then you must work out which of those lines actually run into field Y. Intuition alone almost always undercounts."
+  },
+  {
+   "year": "2020",
+   "orig": 46,
+   "n": 23,
+   "type": "Rates, ratio & proportion",
+   "rank": 1,
+   "why": "After the weekly cycle a few tablets are left over, and the word 'maximum' means you must choose which kind of day to spend them on. Spending them the obvious way, or using an average daily dose, lands you on a near-miss option."
+  },
+  {
+   "year": "2011",
+   "orig": 38,
+   "n": 19,
+   "type": "Choosing a method",
+   "rank": 1,
+   "why": "An abstract sufficiency question: you must see that a fixed-charge price line and a flat-rate price line can cross only once, and that a single comparison at one quantity does not settle it."
+  },
+  {
+   "year": "2013",
+   "orig": 50,
+   "n": 25,
+   "type": "Logic & deduction",
+   "rank": 1,
+   "why": "You do not know which numbering system the street uses, so each statement must hold in every case; the clue that Amy is not in an end house quietly rules out one case, and several options fail in just one of them."
+  },
+  {
+   "year": "2014",
+   "orig": 37,
+   "n": 18,
+   "type": "Money & best value",
+   "rank": 2,
+   "why": "The question never tells you what was paid six months ago, so you must deduce it from the wording, then cost every yearly plan with locker fees included; three wrong options each come from a plausible half-finished plan."
+  },
+  {
+   "year": "2013",
+   "orig": 36,
+   "n": 17,
+   "type": "Averages",
+   "rank": 1,
+   "why": "You must squeeze a total out of two 'just under' and 'just over' clues, work out how far behind target you are today, then count the maximum-distance days needed to catch up. The shortfall sits close to a boundary, and using the wrong starting point gives a distractor."
+  }
+ ]
+}

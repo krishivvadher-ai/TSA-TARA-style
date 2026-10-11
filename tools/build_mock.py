@@ -53,7 +53,6 @@ def cover_pdf(kind, items):
     exact, mins = B.time_limit(kind, n)
     tara = B.TARA[kind]
     types = sorted({it['type'] for it in items})
-    years = sorted({it['year'] for it in items})
     buf = io.BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=A4, leftMargin=22 * mm, rightMargin=22 * mm,
                             topMargin=26 * mm, bottomMargin=18 * mm,
@@ -63,7 +62,7 @@ def cover_pdf(kind, items):
         Spacer(1, 4),
         Paragraph(name, st['title']),
         Spacer(1, 8),
-        Paragraph(f'The hardest past TSA {name} question of every type ({years[0]}–{years[-1]})', st['sub']),
+        Paragraph(f'The hardest past TSA {name} question of every type, from all 16 papers (2008–2023)', st['sub']),
         Spacer(1, 22),
         B.summary_table([('Questions', str(n)), ('Total marks', str(n)), ('Time limit', f'{mins} minutes')],
                         [52 * mm, 52 * mm, 52 * mm]),

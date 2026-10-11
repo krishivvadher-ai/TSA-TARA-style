@@ -15,6 +15,9 @@ time limit and mark scheme.
 
 Each year therefore has four documents: two papers and their two mark schemes.
 
+The two **mock papers** sit alongside them: `TSA_Mock_Critical_Thinking.pdf` and `TSA_Mock_Problem_Solving.pdf`,
+with their mark schemes and worked solutions under the same names.
+
 ## The papers
 
 - The cover page gives the title (for example *TSA 2015 Critical Thinking*),
@@ -50,7 +53,7 @@ They are built from `tools/worked_solutions/` (see `SCHEMA.md` there).
 Open `TSA_Website/index.html` in a web browser (it works offline). It holds everything: the answers, the
 worked solutions and the question papers for every year.
 
-- The home page shows every year as a card. Pick one to see its pages: for each set (Critical Thinking and
+- The home page shows every year as a card, and the **mock papers** above them. Pick one to see its pages: for each set (Critical Thinking and
   Problem Solving) the **answers**, the **worked solutions** and the **question paper**.
 - To check a paper, open its *Answers* and tap any question to jump straight to its worked solution. Each
   worked solution also shows the answer at the top.
@@ -59,6 +62,29 @@ worked solutions and the question papers for every year.
 
 Rebuild it with `python tools/worked_solutions/build_site.py` (it needs `pymupdf` and `pillow` to draw the
 question papers).
+
+## Mock papers
+
+Two extra 25-question papers, one Critical Thinking and one Problem Solving, each 45 minutes. Every question
+is a real past TSA question, chosen as the **hardest question of its type** across all 16 papers:
+
+- **Critical Thinking** has at least one of each of its 10 question types (main conclusion, drawing a
+  conclusion, assumption, flaw, strengthen, weaken, parallel reasoning, identifying a principle, applying a
+  principle, filling the gap), with extra questions of the commonest types.
+- **Problem Solving** has the hardest question of each of its 19 types, plus the second-hardest question of six
+  of those types (3D views, calendars, logic, nets, 2D shapes and best value) to make 25.
+- Each question shows where it came from, e.g. **5 (2014 Q6)**. Its worked solution says why it was chosen.
+  Questions from the 2014 paper are marked as ones you have met before.
+
+How they were chosen: every one of the 800 past questions was rated for difficulty (1–10) and sorted into a
+type. The top-rated candidates of each type were then compared side by side to pick the hardest. The ratings
+are judgements, not official statistics. Questions whose official answer is disputed or ambiguous were left
+out, so every mock answer is the official one. The order is shuffled so that no two questions next to each
+other are of the same type.
+
+The choice is in `tools/mock_selection.json`. Rebuild the papers with
+`python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys>`, and the
+worked solutions with `python tools/worked_solutions/build.py Mock`.
 
 ## Time limits
 

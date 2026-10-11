@@ -63,6 +63,9 @@ h1,h2,h3{text-wrap:balance}
   display:inline-flex;align-items:center;gap:8px}
 .anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
   border-radius:50%;background:var(--green);color:var(--paper)}
+.whyhere{margin:-2px 0 14px;padding:8px 14px;border-radius:12px 9px 13px 8px;background:var(--fill-v);color:var(--ink);
+  font-size:1.02rem;max-width:84ch;border-left:5px solid var(--violet)}
+.whyhere b{font-family:var(--scrawl);font-size:1.3rem;color:var(--violet);margin-right:.4em}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -196,7 +199,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip,.practice .q:not(.shown) .whyhere{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -327,6 +330,18 @@ button{font-family:inherit}
 .continue:hover{border-color:var(--pen)}
 .continue small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .continue svg{width:22px;height:22px;stroke:var(--pen);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:auto;flex:none}
+.mockcard{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;align-items:center;margin:0 0 22px;
+  padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--fill-v);border:1px solid var(--line);
+  box-shadow:0 1px 3px var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
+.mockcard:hover,.mockcard:focus-visible{transform:translateY(-2px);box-shadow:0 8px 20px var(--shadow)}
+.mockcard .mock-tag{grid-column:1;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--violet)}
+.mockcard b{grid-column:1;font-family:var(--scrawl);font-size:2rem;line-height:1.05}
+.mockcard .mock-sub{grid-column:1;font-size:.92rem;color:var(--muted);max-width:62ch}
+.mockcard svg{grid-column:2;grid-row:1/4;width:26px;height:26px;stroke:var(--violet);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.side-mock{display:block;margin:0 0 14px;padding:7px 10px;border-radius:8px;background:var(--fill-v);color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
+.side-mock[aria-current="page"]{outline:2px solid var(--violet)}
+.types{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 6px;font-size:.85rem;color:var(--muted)}
+.types .chip{font-size:.78rem}
 .years{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 @media (max-width:640px){.years{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
 .ycard{position:relative;display:grid;gap:2px;height:100%;padding:14px 14px 14px 24px;background:var(--surface);border:1px solid var(--line);

@@ -333,11 +333,17 @@ def orig_label(q):
     return f'(Q{q["orig"]} in the original paper)'
 
 
+RANK_WORD = {1: 'the hardest', 2: 'the second-hardest', 3: 'the third-hardest', 4: 'the fourth-hardest'}
+
+
 def why_here(q):
+    """For a mock question: which type it is, how it ranks, and what makes it hard."""
     if not q.get('mock_type'):
         return ''
-    return (f'<p class="whyhere"><b>Why it\'s here</b>the hardest <i>{q["mock_type"]}</i> question in the past papers. '
-            f'{q.get("why_here", "")}</p>')
+    rank = RANK_WORD.get(q.get('mock_rank', 1), 'one of the hardest')
+    seen = (' You have met this one before: it was in the 2014 paper you sat.' if q.get('src') == '2014' else '')
+    return (f'<p class="whyhere"><b>Why it\'s here</b>{rank} <i>{q["mock_type"]}</i> question in the past papers. '
+            f'{q.get("why_here", "")}{seen}</p>')
 
 
 def answer_chip(q):
