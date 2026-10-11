@@ -545,7 +545,7 @@ class Site:
     def year_page(self, year):
         if year in self.mocks:
             lede = ('Two full papers of real past TSA questions: in each set, the hardest question of every question type '
-                    f'from {self.years[0]}–{self.years[-1]}, plus the next-hardest of the commonest types. Sit each one in '
+                    f'from {self.years[0]}–{self.years[-1]}, with the rest of the 25 places going to the next-hardest questions. Sit each one in '
                     '45 minutes, then check your answers here. Each worked solution says why the question was chosen.')
         else:
             lede = 'Choose a set, then open its answers or its worked solutions.'

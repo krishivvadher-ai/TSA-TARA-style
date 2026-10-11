@@ -2,8 +2,8 @@
 
     python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys>
 
-Each mock is 25 real past TSA Section 1 questions: the hardest question of every question type
-(plus the next-hardest of the commonest types). Each question is cut from its original paper exactly
+Each mock is 25 real past TSA Section 1 questions: the hardest question of every question type, with
+the other places going to the next-hardest questions. Each question is cut from its original paper exactly
 as printed, renumbered 1-25 with its source in brackets, e.g. "7 (2019 Q32)". Writes
 TSA_Papers/TSA_Mock_<Set>.pdf and TSA_Answers/TSA_Mock_<Set>_Mark_Scheme.pdf.
 """
