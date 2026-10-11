@@ -163,6 +163,18 @@ button{font-family:inherit}
 .continue:hover{border-color:var(--pen)}
 .continue small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .continue svg{width:22px;height:22px;stroke:var(--pen);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:auto;flex:none}
+.mockcard{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;align-items:center;margin:0 0 22px;
+  padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--fill-v);border:1px solid var(--line);
+  box-shadow:0 1px 3px var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
+.mockcard:hover,.mockcard:focus-visible{transform:translateY(-2px);box-shadow:0 8px 20px var(--shadow)}
+.mockcard .mock-tag{grid-column:1;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--violet)}
+.mockcard b{grid-column:1;font-family:var(--scrawl);font-size:2rem;line-height:1.05}
+.mockcard .mock-sub{grid-column:1;font-size:.92rem;color:var(--muted);max-width:62ch}
+.mockcard svg{grid-column:2;grid-row:1/4;width:26px;height:26px;stroke:var(--violet);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.side-mock{display:block;margin:0 0 14px;padding:7px 10px;border-radius:8px;background:var(--fill-v);color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
+.side-mock[aria-current="page"]{outline:2px solid var(--violet)}
+.types{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 6px;font-size:.85rem;color:var(--muted)}
+.types .chip{font-size:.78rem}
 .years{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 @media (max-width:640px){.years{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
 .ycard{position:relative;display:grid;gap:2px;height:100%;padding:14px 14px 14px 24px;background:var(--surface);border:1px solid var(--line);
@@ -374,10 +386,12 @@ def paper_images(year, kind):
 class Site:
     def __init__(self, keys):
         self.keys = keys
-        self.years = sorted(keys)
+        self.years = sorted(k for k in keys if k.isdigit())
+        self.mocks = [k for k in keys if not k.isdigit()]     # e.g. 'Mock'
+        self.all = self.years + self.mocks
         self.content = {}      # (year, kind) -> questions, only when they pass the checks
         self.problems = []
-        for year in self.years:
+        for year in self.all:
             for kind, _, _ in SETS:
                 qs = build.load_content(year, kind)
                 if qs is None:
@@ -401,6 +415,9 @@ class Site:
     def n_questions(self, year, kind):
         return len(self.keys[year][build.KINDS[kind]['key']])
 
+    def title(self, year):
+        return 'Mock papers' if year in self.mocks else f'TSA {year}'
+
     def same_page(self, y, kind, what):
         """The same kind of page in year y, or that year's menu when there is no such page."""
         return page_name(y, kind, what) if kind and self.has(y, kind, what) else page_name(y)
@@ -410,7 +427,9 @@ class Site:
         menu = (f'<button class="icon-btn menu-btn" id="menu-btn" type="button" aria-controls="side" aria-expanded="false">'
                 f'{ICON_MENU}Menu</button>' if side else '')
         step = ''
-        if year:
+        if year in self.mocks:
+            step = '<div class="yearstep"><span class="now">Mock papers</span></div>'
+        elif year:
             i = self.years.index(year)
 
             def link(y, icon, word):
@@ -435,20 +454,22 @@ class Site:
             sets.append(f'<div class="side-set set-{k}"><h3>{name}</h3>{links}</div>')
         years = ''.join(f'<li><a href="{self.same_page(y, kind, what)}"{CURRENT if y == year else ""}>{y}</a></li>'
                         for y in self.years)
+        mocks = ''.join(f'<a class="side-mock" href="{page_name(m)}"{CURRENT if m == year else ""}>★ Mock papers</a>'
+                        for m in self.mocks)
         hint = (f'<p class="side-hint">Opens {build.KINDS[kind]["name"]} {WHAT_LABEL[what].lower()} for that year.</p>'
                 if kind else '')
         return (f'<nav class="side" id="side" aria-label="Menu">'
                 f'<div class="side-head"><b>Menu</b><button class="icon-btn" type="button" data-close-menu>{ICON_X}Close</button></div>'
-                f'<a class="side-all" href="index.html">{ICON_L}All years</a>'
-                f'<p class="side-title"><a href="{page_name(year)}">TSA {year}</a></p>{"".join(sets)}'
+                f'<a class="side-all" href="index.html">{ICON_L}All years</a>{mocks}'
+                f'<p class="side-title"><a href="{page_name(year)}">{self.title(year)}</a></p>{"".join(sets)}'
                 f'<h2>Other years</h2>{hint}<ul class="side-years">{years}</ul></nav><div class="scrim" id="scrim" hidden></div>')
 
     def pagebar(self, year, kind=None, what=None):
         items = ['<li><a href="index.html">All years</a></li>']
         if kind is None:
-            items.append(f'<li aria-current="page">TSA {year}</li>')
+            items.append(f'<li aria-current="page">{self.title(year)}</li>')
         else:
-            items.append(f'<li><a href="{page_name(year)}">TSA {year}</a></li>')
+            items.append(f'<li><a href="{page_name(year)}">{self.title(year)}</a></li>')
             items.append(f'<li aria-current="page">{build.KINDS[kind]["name"]} {WHAT_LABEL[what].lower()}</li>')
         crumbs = f'<nav class="crumbs" aria-label="Breadcrumb"><ol>{"".join(items)}</ol></nav>'
         tabs = ''
@@ -491,6 +512,11 @@ class Site:
             cards.append(f'<li><a class="ycard cv-{i % COVERS + 1}" href="{page_name(y)}">{tag}'
                          f'<span class="ycard-year">{y}</span><span class="ycard-sub">Answers &amp; solutions</span></a></li>')
         n = self.n_questions(self.years[0], 'ct')
+        mock_card = ''.join(
+            f'<a class="mockcard" href="{page_name(m)}"><span class="mock-tag">Mock papers</span>'
+            f'<b>The hardest question of every type</b><span class="mock-sub">Two full mock papers, 25 Critical Thinking and '
+            f'25 Problem Solving questions, picked from every past paper, with worked solutions.</span>{ICON_R}</a>'
+            for m in self.mocks)
         body = f"""<div class="wrap home">
   <header class="home-head">
     <p class="eyebrow">TSA Oxford · Section 1 · {self.years[0]}–{self.years[-1]}</p>
@@ -499,6 +525,7 @@ class Site:
       set has its answers, full worked solutions and the question paper.</p>
   </header>
   <a class="continue" id="continue" href="index.html" hidden><span><small>Continue where you left off</small><b></b></span>{ICON_R}</a>
+  {mock_card}
   <ol class="years" aria-label="Years">{''.join(cards)}</ol>
   <section class="howto" aria-labelledby="howto-h">
     <h2 id="howto-h">Checking a paper</h2>
@@ -516,6 +543,12 @@ class Site:
         return 'TSA Section 1 Solutions', self.frame('home', 'All years', body)
 
     def year_page(self, year):
+        if year in self.mocks:
+            lede = ('Two full papers of real past TSA questions: in each set, the hardest question of every question type '
+                    f'from {self.years[0]}–{self.years[-1]}, plus the next-hardest of the commonest types. Sit each one in '
+                    '45 minutes, then check your answers here. Each worked solution says why the question was chosen.')
+        else:
+            lede = 'Choose a set, then open its answers or its worked solutions.'
         mine = [f'{name} {a[0]}/{a[1]}' for k, name, _ in SETS if (a := self.attempt(year, k))]
         mine_html = (f'<p class="facts"><b>Your attempt</b> is marked on these pages: {" · ".join(mine)}.</p>'
                      if mine else '')
@@ -531,20 +564,25 @@ class Site:
             rows = ''.join(f'<a class="choice" href="{page_name(year, k, w)}">{DOODLES[w]}<span><b>{label}</b>'
                            f'<span class="d">{desc[w]}</span></span>{ICON_GO}</a>'
                            for w, label in WHAT if self.has(year, k, w))
+            types = ''
+            if year in self.mocks and (year, k) in self.content:
+                kinds = sorted({q['mock_type'] for q in self.content[(year, k)]})
+                types = (f'<p class="types"><span>{len(kinds)} question types:</span> '
+                         + ''.join(f'<span class="chip">{t}</span>' for t in kinds) + '</p>')
             sets.append(f'<section class="set set-{k}" aria-labelledby="h-{k}"><h2 id="h-{k}"><span>{name}</span></h2>'
                         f'<p class="meta"><span>{n} questions · {n} marks · {minutes(n)} minutes</span></p>'
-                        f'{rows}</section>')
+                        f'{types}{rows}</section>')
         body = f"""{self.pagebar(year)}
 <div class="wrap">
   <header class="year-head">
     <p class="eyebrow">TSA Oxford · Section 1</p>
-    <h1>TSA {year}</h1>
-    <p class="lede">Choose a set, then open its answers or its worked solutions.</p>
+    <h1>{self.title(year)}</h1>
+    <p class="lede">{lede}</p>
     {mine_html}
   </header>
   <div class="sets">{''.join(sets)}</div>
 </div>"""
-        return f'TSA {year}', self.frame('year', f'TSA {year}', body, year)
+        return self.title(year), self.frame('year', self.title(year), body, year)
 
     def paper_page(self, year, kind):
         meta = build.KINDS[kind]
@@ -576,7 +614,7 @@ class Site:
   </div>
   <div class="pages" id="pages" data-z="1">{pages}</div>
   <p class="foot">Question numbers match the answers and the worked solutions. The number in brackets on the paper is the
-    question number in the original TSA {year} Section 1 paper.</p>
+    {"year and question number in the original TSA paper." if year in self.mocks else f"question number in the original TSA {year} Section 1 paper."}</p>
 </div>"""
         return (f'TSA {year} {meta["name"]} Paper',
                 self.frame('paper', f'TSA {year} · {meta["name"]} question paper', body, year, kind, 'paper'))
@@ -625,7 +663,7 @@ class Site:
     {score}
   </section>
   <nav class="next" aria-label="More for this set">{nxt}</nav>
-  <p class="foot">Answers come from the official TSA Section 1 answer key for {year}.</p>
+  <p class="foot">{"Each answer comes from the official answer key of the question's own paper." if year in self.mocks else f"Answers come from the official TSA Section 1 answer key for {year}."}</p>
 </div>"""
         return (f'TSA {year} {meta["name"]} Answers',
                 self.frame('answers', f'TSA {year} · {meta["name"]} answers', body, year, kind, 'ans'))
@@ -646,7 +684,7 @@ class Site:
         (out / 'assets' / 'tsa.css').write_text(fonts + build.CSS + SITE_CSS, encoding='utf-8')
         (out / 'assets' / 'tsa.js').write_text(build.JS + SITE_JS, encoding='utf-8')
         pages = {'index.html': self.home()}
-        for y in self.years:
+        for y in self.all:
             pages[page_name(y)] = self.year_page(y)
             for k, _, _ in SETS:
                 pages[page_name(y, k, 'paper')] = self.paper_page(y, k)
@@ -671,6 +709,7 @@ def main():
     ap.add_argument('--artifact-dir', type=Path)
     args = ap.parse_args()
     keys = json.loads((HERE / 'keys.json').read_text())
+    keys.update(build.mock.keys(keys))
     site = Site(keys)
     pages = site.write(args.out, args.artifact_dir)
     sols = sorted(f'{y}{k}' for y, k in site.content)

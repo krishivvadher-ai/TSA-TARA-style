@@ -20,6 +20,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE / 'content'))
 import wslib  # noqa: E402
 import written  # noqa: E402
+import mock  # noqa: E402
 
 KINDS = {
     'ps': dict(name='Problem Solving', slug='Problem_Solving', key='PS'),
@@ -105,6 +106,9 @@ h1,h2,h3{text-wrap:balance}
   display:inline-flex;align-items:center;gap:8px}
 .anschip b{font-family:var(--scrawl);font-size:1.4rem;line-height:1;width:1.35em;height:1.35em;display:grid;place-items:center;
   border-radius:50%;background:var(--green);color:var(--paper)}
+.whyhere{margin:-2px 0 14px;padding:8px 14px;border-radius:12px 9px 13px 8px;background:var(--fill-v);color:var(--ink);
+  font-size:1.02rem;max-width:84ch;border-left:5px solid var(--violet)}
+.whyhere b{font-family:var(--scrawl);font-size:1.3rem;color:var(--violet);margin-right:.4em}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -238,7 +242,7 @@ svg.sketch{display:block;width:100%;min-width:320px;height:auto}
 .practice .reveal{display:inline-block}
 .practice .q:not(.shown) .solution,.practice .q:not(.shown) aside,.practice .q:not(.shown) .ct-why,
 .practice .q:not(.shown) .gapnote,.practice .q:not(.shown) .work-box,.practice .q:not(.shown) .seg-tag,
-.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip{display:none}
+.practice .q:not(.shown) sup.pin,.practice .q:not(.shown) .anschip,.practice .q:not(.shown) .whyhere{display:none}
 .practice .q:not(.shown) mark.hl,.practice .q:not(.shown) .seg{background:none}
 .practice .q:not(.shown) .ct-opts li.right{background:none;outline:none}
 .practice .q:not(.shown) .q-grid{grid-template-columns:minmax(0,1fr)}
@@ -277,6 +281,8 @@ JS = r"""
 
 
 def load_content(year, kind):
+    if str(year) == mock.NAME:
+        return mock.load(kind, load_content)
     path = HERE / 'content' / f'y{year}_{kind}.py'
     if not path.exists():
         return None
@@ -321,6 +327,19 @@ def attempt_chip(q):
     return f'<span class="attempt {"good" if ok else "bad"}">Your attempt: {a} {"✓" if ok else "✗"}</span>'
 
 
+def orig_label(q):
+    if q.get('src'):
+        return f'(TSA {q["src"]}, Q{q["orig"]})'
+    return f'(Q{q["orig"]} in the original paper)'
+
+
+def why_here(q):
+    if not q.get('mock_type'):
+        return ''
+    return (f'<p class="whyhere"><b>Why it\'s here</b>the hardest <i>{q["mock_type"]}</i> question in the past papers. '
+            f'{q.get("why_here", "")}</p>')
+
+
 def answer_chip(q):
     return f'<span class="anschip">Answer <b>{q["answer"]}</b></span>'
 
@@ -332,7 +351,7 @@ def render_ps(year, q):
     notes_html = (f'<aside><p class="notes-title">Reading it properly</p><ul class="notes">{notes}</ul></aside>'
                   if notes else '<aside></aside>')
     done = set()
-    key = f'{year}-{q["n"]}'
+    key = f'{q.get("src", year)}-{q.get("src_n", q["n"])}'
     steps = ''.join(f'<li><div>{written.add_methods(s, done, key)}</div></li>' for s in q['steps'])
     others = ''.join(
         f'<li><span class="ol">{k}</span><span class="crossmark">✗</span><span class="why">{wslib.ar()} {q["why"][k]}</span></li>'
@@ -340,8 +359,9 @@ def render_ps(year, q):
     fast = (f'<div class="fast">{wslib.note(q["fast"], "tip")}</div>' if q.get('fast') else '')
     return f"""
 <section class="q" id="q{q['n']}">
-  <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">(Q{q['orig']} in the original paper)</span>
+  <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">{orig_label(q)}</span>
     <span class="chip">{q.get('topic', '')}</span>{attempt_chip(q)}{answer_chip(q)}</div>
+  {why_here(q)}
   <div class="q-grid">
     <div class="slip">{q['question']}{wslib.options(q['options'])}</div>
     {notes_html}
@@ -376,8 +396,9 @@ def render_ct(year, q):
     work = f'<div class="work-box"><h4>{q.get("working_title", "Working")}</h4>{q["working"]}</div>' if q.get('working') else ''
     return f"""
 <section class="q" id="q{q['n']}">
-  <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">(Q{q['orig']} in the original paper)</span>
+  <div class="q-head"><span class="qnum">{q['n']}</span><span class="qorig">{orig_label(q)}</span>
     <span class="chip">{q.get('type', '')}</span>{attempt_chip(q)}{answer_chip(q)}</div>
+  {why_here(q)}
   <div class="slip ct-tag-wrap">
     <div class="passage">{passage}</div>
     <p class="stem">{q['stem']}</p>
@@ -420,7 +441,11 @@ def render_main(year, kind, qs):
         nav = ''.join(f'<a href="#q{q["n"]}"><b>{q["n"]}</b><span>{q.get("type", "")}</span>'
                       f'<i>{nav_mark(q)}</i></a>' for q in qs)
         wm_btn = ''
-    copy = (f'© Cambridge University Press &amp; Assessment {year}' if int(year) >= 2022 else f'© UCLES {year}')
+    if not str(year).isdigit():
+        copy, source = mock.COPYRIGHT, 'the TSA Oxford Section 1 papers'
+    else:
+        copy = (f'© Cambridge University Press &amp; Assessment {year}' if int(year) >= 2022 else f'© UCLES {year}')
+        source = f'the TSA Oxford {year} Section 1 paper'
     return written.clear_division(f"""<div class="wrap">
   <header class="page-head">
     <p class="eyebrow">TSA {year} · worked solutions</p>
@@ -432,7 +457,7 @@ def render_main(year, kind, qs):
     <nav class="nav" id="questions" aria-label="Questions">{nav}</nav>
   </header>
   <main>{body}</main>
-  <p class="foot">Questions {copy}, reproduced from the TSA Oxford {year} Section 1 paper for practice.
+  <p class="foot">Questions {copy}, reproduced from {source} for practice.
     Answers match the official answer key.</p>
 </div>""")
 
@@ -464,6 +489,7 @@ def main():
     ap.add_argument('--kind', choices=list(KINDS), help='build only this set')
     args = ap.parse_args()
     keys = json.loads((HERE / 'keys.json').read_text())
+    keys.update(mock.keys(keys))
     fonts_css = (font_face('Patrick Hand', 'patrick-hand-latin-400-normal.woff2', 400)
                  + font_face('Caveat', 'caveat-latin-400-normal.woff2', 400)
                  + font_face('Caveat', 'caveat-latin-700-normal.woff2', 700))
