@@ -6,8 +6,8 @@ renumbered 1-25, with src (its year), src_n (its set number in that year's paper
 Answers come from the official key of each question's own paper (keys.json).
 
 Mock 1 ("types"): the hardest question of every question type, plus the next-hardest questions.
-Mock 2 ("hardest", Problem Solving only): the hardest questions not in Mock 1, of any type, including some with a
-debatable official answer.
+Mock 2 ("hardest", Problem Solving only): the hardest questions not in Mock 1, whatever their type. A question may
+carry a "debate" note; the worked solution then shows it.
 """
 
 import copy

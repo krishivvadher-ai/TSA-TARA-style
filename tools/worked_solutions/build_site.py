@@ -397,11 +397,11 @@ MOCK_TEXT = {
              'then check your answers here. Each worked solution says why the question was chosen.'),
     'Mock2': dict(
         head='The hardest Problem Solving, any type',
-        sub='25 more Problem Solving questions: the ones judged hardest of all those not in Mock 1, of any type, '
-            'including some with a debatable official answer.',
+        sub='25 more Problem Solving questions: the ones judged hardest of all those not in Mock 1, whatever their '
+            'type, including ones that do not fit neatly into a type.',
         lede='A Problem Solving paper of real past TSA questions: the 25 judged hardest of all those not already in '
-             'Mock 1, from any question type. Some have a debatable official answer; their worked solutions explain the '
-             'debate, and the official answer is the one marked correct. Sit it in 45 minutes, then check your answers here.'),
+             'Mock 1. Type does not matter here, so questions that do not fit neatly into one type are in too. Sit it in '
+             '45 minutes, then check your answers here. Each worked solution says why the question was chosen.'),
 }
 
 

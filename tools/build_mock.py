@@ -5,7 +5,7 @@ tools/mock2_selection.json (Mock 2).
 
 Each mock set is 25 real past TSA Section 1 questions. Mock 1: the hardest question of every question type, with
 the other places going to the next-hardest questions. Mock 2 (Problem Solving only): the hardest questions not in
-Mock 1, of any type, including some with a debatable official answer. Each question is cut from its original paper
+Mock 1, whatever their type. Each question is cut from its original paper
 exactly as printed, renumbered 1-25 with its source in brackets, e.g. "7 (2019 Q32)". Writes
 TSA_Papers/TSA_<Mock>_<Set>.pdf and TSA_Answers/TSA_<Mock>_<Set>_Mark_Scheme.pdf.
 """
@@ -89,9 +89,8 @@ def cover_pdf(kind, items, mock):
         Spacer(1, 4),
         Paragraph(f'At least one question of each of the {len(types)} {name} question types that have come up '
                   f'in past papers, chosen as the hardest of its type: ' + ', '.join(types) + '.' if mock == 'Mock' else
-                  f'The {n} {name} questions judged hardest of all those not already in Mock 1, from any question type. '
-                  'Some have a debatable official answer: the mark scheme uses the official answers, and the worked '
-                  'solutions explain the debate.', st['body']),
+                  f'The {n} {name} questions judged hardest of all those not already in Mock 1. Type does not matter '
+                  'here, so questions that do not fit neatly into one type are included too.', st['body']),
         Spacer(1, 10),
         Paragraph('How the time limit was set', st['h']),
         Spacer(1, 4),
