@@ -338,6 +338,13 @@ def orig_label(q):
 RANK_WORD = {1: 'the hardest', 2: 'the second-hardest', 3: 'the third-hardest', 4: 'the fourth-hardest'}
 
 
+def fmt_minutes(m):
+    """3.5 -> '3½ minutes', 4 -> '4 minutes' (rounded to the nearest half minute)."""
+    half = round(m * 2) / 2
+    whole = int(half)
+    return f'{whole}{"½" if half != whole else ""} minutes'
+
+
 def ordinal(n):
     return f'{n}{"th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")}'
 
@@ -347,7 +354,11 @@ def why_here(q):
     if not q.get('mock_style'):
         return ''
     seen = (' You have met this one before: it was in the 2014 paper you sat.' if q.get('src') == '2014' else '')
-    if q['mock_style'] == 'hardest':
+    if q['mock_style'] == 'longest':
+        r, m = q.get('mock_rank', 1), q.get('mock_minutes')
+        mins = f' A strong candidate needs about {fmt_minutes(m)} on it.' if m else ''
+        lead = f'judged the {"" if r == 1 else ordinal(r) + "-"}longest sustained workout of the 25.{mins} '
+    elif q['mock_style'] == 'hardest':
         r = q.get('mock_rank', 1)
         lead = f'judged the {"" if r == 1 else ordinal(r) + "-"}hardest of the 25. '
     else:

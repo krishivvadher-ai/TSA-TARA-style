@@ -164,7 +164,7 @@ button{font-family:inherit}
 .continue small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .continue svg{width:22px;height:22px;stroke:var(--pen);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:auto;flex:none}
 .mockcards{display:grid;gap:14px;margin:0 0 22px}
-@media (min-width:760px){.mockcards{grid-template-columns:1fr 1fr}}
+@media (min-width:760px){.mockcards{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
 .mockcards .mockcard{margin:0}
 .mockcard{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;align-items:center;margin:0 0 22px;
   padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--fill-v);border:1px solid var(--line);
@@ -402,6 +402,14 @@ MOCK_TEXT = {
         lede='A Problem Solving paper of real past TSA questions: the 25 judged hardest of all those not already in '
              'Mock 1. Type does not matter here, so questions that do not fit neatly into one type are in too. Sit it in '
              '45 minutes, then check your answers here. Each worked solution says why the question was chosen.'),
+    'Mock3': dict(
+        head='The longest Problem Solving workouts',
+        sub='25 Problem Solving questions that keep you thinking hard for several minutes each, none of them in '
+            'Mock 1 or Mock 2. A test of stamina.',
+        lede='A Problem Solving paper of real past TSA questions that keep a strong candidate thinking hard for longest: '
+             'each needs several minutes of sustained reasoning, not just reading or easy arithmetic. None of them is in '
+             'Mock 1 or Mock 2. In 45 minutes you will not finish, so practise choosing which to leave. Each worked '
+             'solution says how long the question takes and why it was chosen.'),
 }
 
 

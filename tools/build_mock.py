@@ -5,7 +5,8 @@ tools/mock2_selection.json (Mock 2).
 
 Each mock set is 25 real past TSA Section 1 questions. Mock 1: the hardest question of every question type, with
 the other places going to the next-hardest questions. Mock 2 (Problem Solving only): the hardest questions not in
-Mock 1, whatever their type. Each question is cut from its original paper
+Mock 1, whatever their type. Mock 3 (Problem Solving only): the questions that keep you thinking hard for longest,
+none of them in Mock 1 or 2. Each question is cut from its original paper
 exactly as printed, renumbered 1-25 with its source in brackets, e.g. "7 (2019 Q32)". Writes
 TSA_Papers/TSA_<Mock>_<Set>.pdf and TSA_Answers/TSA_<Mock>_<Set>_Mark_Scheme.pdf.
 """
@@ -23,7 +24,8 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 import build_tsa_sets as B
 
 HERE = Path(__file__).resolve().parent
-MOCKS = {'Mock': ('mock_selection.json', 'Mock 1'), 'Mock2': ('mock2_selection.json', 'Mock 2')}
+MOCKS = {'Mock': ('mock_selection.json', 'Mock 1'), 'Mock2': ('mock2_selection.json', 'Mock 2'),
+         'Mock3': ('mock3_selection.json', 'Mock 3')}
 COPYRIGHT = '© UCLES 2008–2021 and © Cambridge University Press & Assessment 2022–2023'
 
 
@@ -64,8 +66,10 @@ def cover_pdf(kind, items, mock):
         Spacer(1, 4),
         Paragraph(name, st['title']),
         Spacer(1, 8),
-        Paragraph(f'The hardest past TSA {name} question of every type, from all 16 papers (2008–2023)' if mock == 'Mock' else
-                  f'The hardest past TSA {name} questions not in Mock 1, any type, from all 16 papers (2008–2023)', st['sub']),
+        Paragraph({'Mock': f'The hardest past TSA {name} question of every type, from all 16 papers (2008–2023)',
+                   'Mock2': f'The hardest past TSA {name} questions not in Mock 1, any type, from all 16 papers (2008–2023)',
+                   'Mock3': f'The longest, most sustained past TSA {name} questions, from all 16 papers (2008–2023)'}[mock],
+                  st['sub']),
         Spacer(1, 22),
         B.summary_table([('Questions', str(n)), ('Total marks', str(n)), ('Time limit', f'{mins} minutes')],
                         [52 * mm, 52 * mm, 52 * mm]),
@@ -87,10 +91,14 @@ def cover_pdf(kind, items, mock):
         Spacer(1, 12),
         Paragraph('What is in this paper', st['h']),
         Spacer(1, 4),
-        Paragraph(f'At least one question of each of the {len(types)} {name} question types that have come up '
-                  f'in past papers, chosen as the hardest of its type: ' + ', '.join(types) + '.' if mock == 'Mock' else
-                  f'The {n} {name} questions judged hardest of all those not already in Mock 1. Type does not matter '
-                  'here, so questions that do not fit neatly into one type are included too.', st['body']),
+        Paragraph({'Mock': f'At least one question of each of the {len(types)} {name} question types that have come up '
+                           f'in past papers, chosen as the hardest of its type: ' + ', '.join(types) + '.',
+                   'Mock2': f'The {n} {name} questions judged hardest of all those not already in Mock 1. Type does not '
+                            'matter here, so questions that do not fit neatly into one type are included too.',
+                   'Mock3': f'The {n} {name} questions judged to keep a strong candidate thinking hard for longest, '
+                            'none of them in Mock 1 or Mock 2. Each needs several minutes of sustained reasoning, far more '
+                            'than the 1¾ minutes a question gets on average, so expect not to finish: the paper trains '
+                            'stamina and choosing which questions to leave.'}[mock], st['body']),
         Spacer(1, 10),
         Paragraph('How the time limit was set', st['h']),
         Spacer(1, 4),

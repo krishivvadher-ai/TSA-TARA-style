@@ -8,6 +8,8 @@ Answers come from the official key of each question's own paper (keys.json).
 Mock 1 ("types"): the hardest question of every question type, plus the next-hardest questions.
 Mock 2 ("hardest", Problem Solving only): the hardest questions not in Mock 1, whatever their type. A question may
 carry a "debate" note; the worked solution then shows it.
+Mock 3 ("longest", Problem Solving only): the questions that keep a strong candidate thinking hard for longest, none
+of them in Mock 1 or Mock 2.
 """
 
 import copy
@@ -19,6 +21,7 @@ KEY = {'ct': 'CT', 'ps': 'PS'}
 MOCKS = {
     'Mock': {'file': 'mock_selection.json', 'label': 'Mock 1', 'style': 'types'},
     'Mock2': {'file': 'mock2_selection.json', 'label': 'Mock 2', 'style': 'hardest'},
+    'Mock3': {'file': 'mock3_selection.json', 'label': 'Mock 3', 'style': 'longest'},
 }
 NAME = 'Mock'
 COPYRIGHT = '© UCLES 2008–2021 and © Cambridge University Press &amp; Assessment 2022–2023'
@@ -54,7 +57,8 @@ def load(name, kind, load_content):
         m = copy.deepcopy(q)
         m.pop('attempt', None)
         m.update(n=i, src=year, src_n=q['n'], mock_style=MOCKS[name]['style'], mock_type=it.get('type', ''),
-                 mock_rank=it.get('rank', 1), why_here=it.get('why', ''), debate=it.get('debate'))
+                 mock_rank=it.get('rank', 1), why_here=it.get('why', ''), debate=it.get('debate'),
+                 mock_minutes=it.get('minutes'))
         out.append(m)
     return out
 
