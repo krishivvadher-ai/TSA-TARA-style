@@ -102,17 +102,17 @@ worked solutions with `python tools/worked_solutions/build.py Mock`.
 ### Mock 2 (Problem Solving only)
 
 One more 25-question Problem Solving paper, 45 minutes: the 25 questions judged **hardest of all those not
-already in Mock 1**, from any question type. Unlike Mock 1, it also includes questions whose official answer is
-debatable (7 of them). Each of those has a *Debatable* note in its worked solution explaining the rival reading;
-the mark scheme uses the official answers.
+already in Mock 1**, whatever their type. There is no rule about covering the types, so questions that do not fit
+neatly into one type count as much as any other. As in Mock 1, questions whose official answer is debatable (or
+whose data does not add up) are left out, so every mock answer is the official one.
 
-How they were chosen: 41 candidates were shortlisted, the strongest from the Mock 1 judging plus the questions
-left out of Mock 1 as debatable. Each was given an estimate of the share of strong candidates who miss the
-official answer: the Mock 1 judges' estimates, with each judge's scores shifted to match how the later judges
-marked, and fresh judgements of the questions that had not been scored on that scale. The 25 highest go in;
-a tie for the last place was broken by the first-round ratings. The order is shuffled so that no two
-neighbouring questions share a type. Spatial questions (nets, 3D views, 2D shapes) dominate, because they are
-the ones strong candidates get wrong most often.
+How they were chosen: 40 candidates were shortlisted from the Mock 1 judging, using each earlier judge's
+estimates shifted to match how the later judges marked. Two fresh judges then solved all 40 and scored them on
+one common scale (the share of strong candidates who would get each one wrong). A question's score is the
+average of the two new scores and the earlier estimate, and the 25 highest go in. One of the judges found that
+2015 Q30's league table does not add up (31 wins but 23 losses), so it was left out. The order is shuffled so
+that no two neighbouring questions share a type. Spatial questions (nets, 3D views, 2D shapes) dominate, because
+they are the ones strong candidates get wrong most often.
 
 The choice is in `tools/mock2_selection.json`. Rebuild with `python tools/build_mock.py --mock Mock2 ...` and
 `python tools/worked_solutions/build.py Mock2`.
