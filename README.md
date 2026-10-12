@@ -15,8 +15,8 @@ time limit and mark scheme.
 
 Each year therefore has four documents: two papers and their two mark schemes.
 
-The two **mock papers** sit alongside them: `TSA_Mock_Critical_Thinking.pdf` and `TSA_Mock_Problem_Solving.pdf`,
-with their mark schemes and worked solutions under the same names.
+The **mock papers** sit alongside them: Mock 1 (`TSA_Mock_Critical_Thinking.pdf` and `TSA_Mock_Problem_Solving.pdf`)
+and Mock 2 (`TSA_Mock2_Problem_Solving.pdf`), with their mark schemes and worked solutions under the same names.
 
 ## The papers
 
@@ -65,6 +65,8 @@ question papers).
 
 ## Mock papers
 
+### Mock 1
+
 Two extra 25-question papers, one Critical Thinking and one Problem Solving, each 45 minutes. Every question
 is a real past TSA question. Each paper has the **hardest question of every question type** across all 16
 papers, and the remaining places go to the **next-hardest questions overall** (at most 4 of any one type, so
@@ -96,6 +98,24 @@ mock answer is the official one. The order is shuffled so that no two neighbouri
 The choice is in `tools/mock_selection.json`. Rebuild the papers with
 `python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys>`, and the
 worked solutions with `python tools/worked_solutions/build.py Mock`.
+
+### Mock 2 (Problem Solving only)
+
+One more 25-question Problem Solving paper, 45 minutes: the 25 questions judged **hardest of all those not
+already in Mock 1**, from any question type. Unlike Mock 1, it also includes questions whose official answer is
+debatable (7 of them). Each of those has a *Debatable* note in its worked solution explaining the rival reading;
+the mark scheme uses the official answers.
+
+How they were chosen: 41 candidates were shortlisted, the strongest from the Mock 1 judging plus the questions
+left out of Mock 1 as debatable. Each was given an estimate of the share of strong candidates who miss the
+official answer: the Mock 1 judges' estimates, with each judge's scores shifted to match how the later judges
+marked, and fresh judgements of the questions that had not been scored on that scale. The 25 highest go in;
+a tie for the last place was broken by the first-round ratings. The order is shuffled so that no two
+neighbouring questions share a type. Spatial questions (nets, 3D views, 2D shapes) dominate, because they are
+the ones strong candidates get wrong most often.
+
+The choice is in `tools/mock2_selection.json`. Rebuild with `python tools/build_mock.py --mock Mock2 ...` and
+`python tools/worked_solutions/build.py Mock2`.
 
 ## Time limits
 

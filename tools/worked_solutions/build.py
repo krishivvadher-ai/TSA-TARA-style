@@ -109,6 +109,8 @@ h1,h2,h3{text-wrap:balance}
 .whyhere{margin:-2px 0 14px;padding:8px 14px;border-radius:12px 9px 13px 8px;background:var(--fill-v);color:var(--ink);
   font-size:1.02rem;max-width:84ch;border-left:5px solid var(--violet)}
 .whyhere b{font-family:var(--scrawl);font-size:1.3rem;color:var(--violet);margin-right:.4em}
+.whyhere .debate{display:block;margin-top:6px;padding-top:6px;border-top:1.5px dashed var(--violet)}
+.whyhere .debate b{color:var(--red)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -281,8 +283,8 @@ JS = r"""
 
 
 def load_content(year, kind):
-    if str(year) == mock.NAME:
-        return mock.load(kind, load_content)
+    if mock.is_mock(year):
+        return mock.load(str(year), kind, load_content)
     path = HERE / 'content' / f'y{year}_{kind}.py'
     if not path.exists():
         return None
@@ -336,14 +338,24 @@ def orig_label(q):
 RANK_WORD = {1: 'the hardest', 2: 'the second-hardest', 3: 'the third-hardest', 4: 'the fourth-hardest'}
 
 
+def ordinal(n):
+    return f'{n}{"th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")}'
+
+
 def why_here(q):
-    """For a mock question: which type it is, how it ranks, and what makes it hard."""
-    if not q.get('mock_type'):
+    """For a mock question: why it was chosen, what makes it hard, and any doubt about the official answer."""
+    if not q.get('mock_style'):
         return ''
-    rank = RANK_WORD.get(q.get('mock_rank', 1), 'one of the hardest')
     seen = (' You have met this one before: it was in the 2014 paper you sat.' if q.get('src') == '2014' else '')
-    return (f'<p class="whyhere"><b>Why it\'s here</b>{rank} <i>{q["mock_type"]}</i> question in the past papers. '
-            f'{q.get("why_here", "")}{seen}</p>')
+    if q['mock_style'] == 'hardest':
+        r = q.get('mock_rank', 1)
+        lead = f'judged the {"" if r == 1 else ordinal(r) + "-"}hardest of the 25. '
+    else:
+        rank = RANK_WORD.get(q.get('mock_rank', 1), 'one of the hardest')
+        lead = f'{rank} <i>{q["mock_type"]}</i> question in the past papers. '
+    debate = (f'<span class="debate"><b>Debatable</b>{q["debate"]} This mock marks the official answer as correct.</span>'
+              if q.get('debate') else '')
+    return f'<p class="whyhere"><b>Why it\'s here</b>{lead}{q.get("why_here", "")}{seen}{debate}</p>'
 
 
 def answer_chip(q):
@@ -454,7 +466,7 @@ def render_main(year, kind, qs):
         source = f'the TSA Oxford {year} Section 1 paper'
     return written.clear_division(f"""<div class="wrap">
   <header class="page-head">
-    <p class="eyebrow">TSA {year} · worked solutions</p>
+    <p class="eyebrow">TSA {mock.label(year)} · worked solutions</p>
     <h1>{meta['name']}</h1>
     <p class="lede">{lede}</p>
     <div class="legend">{legend}</div>
@@ -469,7 +481,7 @@ def render_main(year, kind, qs):
 
 
 def render_page(year, kind, qs, fonts_css):
-    title = f'TSA {year} {KINDS[kind]["name"]} Solutions'
+    title = f'TSA {mock.label(year)} {KINDS[kind]["name"]} Solutions'
     return f"""<title>{title}</title>
 <style>{fonts_css}{CSS}</style>
 {DEFS}

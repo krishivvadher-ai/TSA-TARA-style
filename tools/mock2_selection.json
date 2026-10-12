@@ -1,0 +1,230 @@
+{
+ "_about": "Mock 2 (Problem Solving only): the 25 past TSA Problem Solving questions judged hardest of all those not in Mock 1, of any type, including some whose official answer is debatable (\"debate\" says why). Difficulty = estimated share of strong candidates who miss the official answer, from the Mock 1 judging (each judge's scores adjusted to a common scale) plus fresh judgements of the questions not yet scored. rank = 1 for the hardest of the 25.",
+ "PS": [
+  {
+   "year": "2015",
+   "orig": 30,
+   "n": 14,
+   "type": "Logic & deduction",
+   "rank": 14,
+   "why": "First work out how many games each team has left (they all play each other four times), then compare best possible finishes. Be careful with the tie-break: two teams can reach the leader's points total, but with different numbers of wins.",
+   "debate": null
+  },
+  {
+   "year": "2012",
+   "orig": 32,
+   "n": 16,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 20,
+   "why": "One wrong piece passes both the area check and the angle check yet still cannot tile the shape, while the right piece only works in an unexpected arrangement, with the pieces turned and flipped different ways.",
+   "debate": null
+  },
+  {
+   "year": "2015",
+   "orig": 38,
+   "n": 19,
+   "type": "Calendars, clocks & digital displays",
+   "rank": 6,
+   "why": "Last night's clock was a reflection too, so the time you set your watch by was wrong, and mirroring a digital display both reverses the order of the digits and flips each digit (some digits turn into others). Several options differ by a single digit, so every step has to be exact.",
+   "debate": null
+  },
+  {
+   "year": "2013",
+   "orig": 43,
+   "n": 21,
+   "type": "Speed, distance & time",
+   "rank": 23,
+   "why": "You must read the right distance from the triangular chart, separate the normal stop at Uble from the extra delay, and then apply the faster speed and shorter stops for the rest of the journey.",
+   "debate": null
+  },
+  {
+   "year": "2020",
+   "orig": 50,
+   "n": 25,
+   "type": "Charts & graphs",
+   "rank": 24,
+   "why": "You have to turn five rows of medal counts into gold fractions and match them to unlabelled bar heights. Two charts keep the right order, so only careful proportions separate them.",
+   "debate": "No scale is shown. If a chart's axis need not start at zero, the other chart with the right order could also fit; the official answer assumes the bars start from zero."
+  },
+  {
+   "year": "2016",
+   "orig": 8,
+   "n": 4,
+   "type": "Nets & folding",
+   "rank": 17,
+   "why": "Every net gives the right pairs of opposite faces, so only the way the letters are turned decides it. You have to carry each letter's direction from the two views onto each net, where several are printed sideways or upside down.",
+   "debate": null
+  },
+  {
+   "year": "2015",
+   "orig": 44,
+   "n": 22,
+   "type": "3D views & cubes",
+   "rank": 8,
+   "why": "Every option passes the opposite-faces test and has the right handedness, so the only thing that separates them is which way one face's spots run compared with its neighbours. It is easy to reject a correct die because of how a symmetrical face is turned, which the original views never fix.",
+   "debate": null
+  },
+  {
+   "year": "2009",
+   "orig": 50,
+   "n": 25,
+   "type": "Nets & folding",
+   "rank": 25,
+   "why": "Any three faces of a tetrahedron meet at a corner, so only the order of the colours round that corner matters. You have to fold the net in your head to find that order, and two options show the same three colours in opposite orders.",
+   "debate": null
+  },
+  {
+   "year": "2017",
+   "orig": 50,
+   "n": 25,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 10,
+   "why": "Every arrangement can be split into two L-shapes, so matching shapes alone suggests they are all possible. The deciding detail is what kind of object the L-shapes are.",
+   "debate": "It rests on an unstated rule: a table cannot be turned upside down, so a mirror-image L is not allowed. If the L-shapes could be flipped over, every arrangement would be possible."
+  },
+  {
+   "year": "2012",
+   "orig": 26,
+   "n": 13,
+   "type": "Nets & folding",
+   "rank": 7,
+   "why": "You must reflect each hole across the fold before you can see what shape the opened holes make. The option that looks as if it obviously gives the most corners gives fewer, while one that looks impossible works because the holes are offset.",
+   "debate": null
+  },
+  {
+   "year": "2011",
+   "orig": 31,
+   "n": 15,
+   "type": "Logic & deduction",
+   "rank": 16,
+   "why": "Because either player may place either symbol, any line with two matching symbols and a gap is a win for whoever moves next, including your opponent. You need a move after which every reply your opponent could make hands you a win, and checking that takes care.",
+   "debate": null
+  },
+  {
+   "year": "2009",
+   "orig": 48,
+   "n": 23,
+   "type": "Maps, routes & networks",
+   "rank": 1,
+   "why": "Very abstract: you have to picture different layouts of the four towns, including all of them on one straight road, where driving from one town to another passes through the towns in between. Four of the routes are the shortest journey for some layout; finding the one that never is takes careful thought.",
+   "debate": "The official answer relies on reading each route as a list of every town the lorry passes through. If a route only lists the towns where it stops, the 'impossible' route describes the same drive as a possible one, so it could be the shortest journey after all."
+  },
+  {
+   "year": "2023",
+   "orig": 20,
+   "n": 10,
+   "type": "Charts & graphs",
+   "rank": 19,
+   "why": "You have to count 35 interlocking blocks of three sizes without missing or double-counting any, then tell apart two pie charts that agree on the largest slice and differ only in how the other two are split.",
+   "debate": null
+  },
+  {
+   "year": "2021",
+   "orig": 43,
+   "n": 21,
+   "type": "Time zones & timetables",
+   "rank": 9,
+   "why": "Two timetables with '(h+1)' entries, a ten-minute walk at each end of both journeys and a deadline to work back from: every time has to be read exactly, and the two ends of the visit are fixed by different trains.",
+   "debate": "The official answer takes the shortest stay as exactly 1 hour, which means Jun may wait at the station afterwards. If he only leaves Aki's in time to catch a train, his shortest stay is 1 hour 13 minutes, which gives a different answer."
+  },
+  {
+   "year": "2021",
+   "orig": 31,
+   "n": 15,
+   "type": "Reading tables & data",
+   "rank": 15,
+   "why": "A busy price table, supplements charged per person per night, and a discount rule to apply: each step has a trap, and the most natural reading of the discount gives a total that is not among the options.",
+   "debate": "The discount wording is unclear. '5% up to a total of £2500, and 10% on any total above £2500' most naturally means 5% on the first £2500 and 10% on the rest, but that total is not an option; others apply the rate to each person's bill. The official answer takes 10% off the whole bill once it passes £2500."
+  },
+  {
+   "year": "2009",
+   "orig": 44,
+   "n": 22,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 22,
+   "why": "The picture shows only part of the floor, so counting the tiles you can see gives a misleading ratio, and counting the ring of triangles round one hexagon overcounts because those triangles are shared. You need to find the repeating unit of the pattern and count the tiles in it.",
+   "debate": null
+  },
+  {
+   "year": "2011",
+   "orig": 42,
+   "n": 20,
+   "type": "Nets & folding",
+   "rank": 12,
+   "why": "You must match the grey strip on each end triangle to the face next to it, then use the way the triangle is turned to tell the ridge from the base. The wrong net differs from a right one only in which way round two lengthwise strips lie.",
+   "debate": null
+  },
+  {
+   "year": "2017",
+   "orig": 14,
+   "n": 7,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 4,
+   "why": "The area check (counting small squares) leaves two options, and the diagram is not to scale, so you have to picture the L-shaped gap and actually fit the pieces in, turning them but never flipping them.",
+   "debate": "The other combination that passes the area check can also be fitted into the gap if every piece is turned half a turn, so strictly two options work. The official answer is the fit the question was built around."
+  },
+  {
+   "year": "2022",
+   "orig": 38,
+   "n": 19,
+   "type": "Charts & graphs",
+   "rank": 18,
+   "why": "The two pies stand for very different totals, so a slice that looks bigger at the end of the day may mean fewer vehicles; you must turn each slice into an actual number before subtracting, and three of the bars are very similar.",
+   "debate": null
+  },
+  {
+   "year": "2018",
+   "orig": 20,
+   "n": 10,
+   "type": "Nets & folding",
+   "rank": 3,
+   "why": "All five views show three faces meeting at a corner, so the positions of the faces never settle it: everything depends on which way each letter is turned after folding. Several letters look much the same when turned or reflected, and two of the views differ only in how two letters are turned.",
+   "debate": null
+  },
+  {
+   "year": "2014",
+   "orig": 36,
+   "n": 17,
+   "type": "Calendars, clocks & digital displays",
+   "rank": 2,
+   "why": "Three clocks are in play (real time, Lucy's watch and the room clock), and the 'ten minutes fast' detail tempts you to convert everything to real time. The clean route is to measure every delay and the room clock against her watch.",
+   "debate": "The question never says whether Lucy planned her hour by her watch or by real time. The official answer assumes her watch; if she planned by real time, the room clock shows her ten minutes late instead."
+  },
+  {
+   "year": "2014",
+   "orig": 32,
+   "n": 16,
+   "type": "Nets & folding",
+   "rank": 21,
+   "why": "Some nets can be ruled out by spotting too many triangles meeting at one corner, but that needs careful counting. The plain strip then looks perfectly plausible, and you have to see where its last triangle lands when it is folded.",
+   "debate": null
+  },
+  {
+   "year": "2010",
+   "orig": 44,
+   "n": 22,
+   "type": "Maps, routes & networks",
+   "rank": 13,
+   "why": "You have to translate two clues, one with an awkward 'never ... unless ... twice', into facts about where routes are forced through a single point, then judge carefully which stars are pinned down and which could be swapped.",
+   "debate": null
+  },
+  {
+   "year": "2018",
+   "orig": 44,
+   "n": 22,
+   "type": "Nets & folding",
+   "rank": 5,
+   "why": "All five nets look almost the same, so you must work out exactly which edge each lone black triangle sits against once folded, and check they lean on each other in the same order and turning sense as in the picture.",
+   "debate": null
+  },
+  {
+   "year": "2010",
+   "orig": 38,
+   "n": 19,
+   "type": "3D views & cubes",
+   "rank": 11,
+   "why": "First you must realise that two of the drawings show the same face from different angles; then you work out the opposite pairs and the handedness. The impossible die differs from a possible one only by one symbol being turned a quarter turn, which is very easy to overlook.",
+   "debate": null
+  }
+ ]
+}

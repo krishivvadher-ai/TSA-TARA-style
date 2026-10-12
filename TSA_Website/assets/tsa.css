@@ -66,6 +66,8 @@ h1,h2,h3{text-wrap:balance}
 .whyhere{margin:-2px 0 14px;padding:8px 14px;border-radius:12px 9px 13px 8px;background:var(--fill-v);color:var(--ink);
   font-size:1.02rem;max-width:84ch;border-left:5px solid var(--violet)}
 .whyhere b{font-family:var(--scrawl);font-size:1.3rem;color:var(--violet);margin-right:.4em}
+.whyhere .debate{display:block;margin-top:6px;padding-top:6px;border-top:1.5px dashed var(--violet)}
+.whyhere .debate b{color:var(--red)}
 .attempt.good{color:var(--green)}.attempt.bad{color:var(--red)}.attempt.blank{color:var(--muted)}
 .q-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:18px;align-items:start}
 @media (max-width:860px){.q-grid{grid-template-columns:minmax(0,1fr)}}
@@ -330,6 +332,9 @@ button{font-family:inherit}
 .continue:hover{border-color:var(--pen)}
 .continue small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .continue svg{width:22px;height:22px;stroke:var(--pen);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:auto;flex:none}
+.mockcards{display:grid;gap:14px;margin:0 0 22px}
+@media (min-width:760px){.mockcards{grid-template-columns:1fr 1fr}}
+.mockcards .mockcard{margin:0}
 .mockcard{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;align-items:center;margin:0 0 22px;
   padding:16px 18px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--fill-v);border:1px solid var(--line);
   box-shadow:0 1px 3px var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
@@ -340,6 +345,7 @@ button{font-family:inherit}
 .mockcard svg{grid-column:2;grid-row:1/4;width:26px;height:26px;stroke:var(--violet);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .side-mock{display:block;margin:0 0 14px;padding:7px 10px;border-radius:8px;background:var(--fill-v);color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
 .side-mock[aria-current="page"]{outline:2px solid var(--violet)}
+.side-mock + .side-mock{margin-top:-8px}
 .types{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 6px;font-size:.85rem;color:var(--muted)}
 .types .chip{font-size:.78rem}
 .years{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}

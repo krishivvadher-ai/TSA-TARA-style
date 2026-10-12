@@ -1,11 +1,13 @@
-"""Build the mock TSA papers from the questions chosen in tools/mock_selection.json.
+"""Build the mock TSA papers from the questions chosen in tools/mock_selection.json (Mock 1) and
+tools/mock2_selection.json (Mock 2).
 
-    python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys>
+    python tools/build_mock.py --papers <folder of question papers> --answers <folder of answer keys> [--mock Mock2]
 
-Each mock is 25 real past TSA Section 1 questions: the hardest question of every question type, with
-the other places going to the next-hardest questions. Each question is cut from its original paper exactly
-as printed, renumbered 1-25 with its source in brackets, e.g. "7 (2019 Q32)". Writes
-TSA_Papers/TSA_Mock_<Set>.pdf and TSA_Answers/TSA_Mock_<Set>_Mark_Scheme.pdf.
+Each mock set is 25 real past TSA Section 1 questions. Mock 1: the hardest question of every question type, with
+the other places going to the next-hardest questions. Mock 2 (Problem Solving only): the hardest questions not in
+Mock 1, of any type, including some with a debatable official answer. Each question is cut from its original paper
+exactly as printed, renumbered 1-25 with its source in brackets, e.g. "7 (2019 Q32)". Writes
+TSA_Papers/TSA_<Mock>_<Set>.pdf and TSA_Answers/TSA_<Mock>_<Set>_Mark_Scheme.pdf.
 """
 
 import argparse
@@ -21,7 +23,7 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 import build_tsa_sets as B
 
 HERE = Path(__file__).resolve().parent
-SELECTION = HERE / 'mock_selection.json'
+MOCKS = {'Mock': ('mock_selection.json', 'Mock 1'), 'Mock2': ('mock2_selection.json', 'Mock 2')}
 COPYRIGHT = '© UCLES 2008–2021 and © Cambridge University Press & Assessment 2022–2023'
 
 
@@ -46,7 +48,7 @@ class Source:
             p.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE, graphics=fitz.PDF_REDACT_LINE_ART_NONE)
 
 
-def cover_pdf(kind, items):
+def cover_pdf(kind, items, mock):
     st = B.styles()
     name = B.SETS[kind]['name']
     n = len(items)
@@ -56,13 +58,14 @@ def cover_pdf(kind, items):
     buf = io.BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=A4, leftMargin=22 * mm, rightMargin=22 * mm,
                             topMargin=26 * mm, bottomMargin=18 * mm,
-                            title=f'TSA Mock {name}', author='TSA practice set')
+                            title=f'TSA {MOCKS[mock][1]} {name}', author='TSA practice set')
     story = [
-        Paragraph('TSA Mock', st['year']),
+        Paragraph(f'TSA {MOCKS[mock][1]}', st['year']),
         Spacer(1, 4),
         Paragraph(name, st['title']),
         Spacer(1, 8),
-        Paragraph(f'The hardest past TSA {name} question of every type, from all 16 papers (2008–2023)', st['sub']),
+        Paragraph(f'The hardest past TSA {name} question of every type, from all 16 papers (2008–2023)' if mock == 'Mock' else
+                  f'The hardest past TSA {name} questions not in Mock 1, any type, from all 16 papers (2008–2023)', st['sub']),
         Spacer(1, 22),
         B.summary_table([('Questions', str(n)), ('Total marks', str(n)), ('Time limit', f'{mins} minutes')],
                         [52 * mm, 52 * mm, 52 * mm]),
@@ -85,7 +88,10 @@ def cover_pdf(kind, items):
         Paragraph('What is in this paper', st['h']),
         Spacer(1, 4),
         Paragraph(f'At least one question of each of the {len(types)} {name} question types that have come up '
-                  f'in past papers, chosen as the hardest of its type: ' + ', '.join(types) + '.', st['body']),
+                  f'in past papers, chosen as the hardest of its type: ' + ', '.join(types) + '.' if mock == 'Mock' else
+                  f'The {n} {name} questions judged hardest of all those not already in Mock 1, from any question type. '
+                  'Some have a debatable official answer: the mark scheme uses the official answers, and the worked '
+                  'solutions explain the debate.', st['body']),
         Spacer(1, 10),
         Paragraph('How the time limit was set', st['h']),
         Spacer(1, 4),
@@ -105,12 +111,12 @@ def cover_pdf(kind, items):
     return fitz.open('pdf', buf.getvalue())
 
 
-def build_mock(kind, items, sources):
+def build_mock(kind, items, sources, mock):
     """Place each chosen question, cut from its own paper, one after another."""
     name = B.SETS[kind]['name']
     n = len(items)
     _, mins = B.time_limit(kind, n)
-    out = cover_pdf(kind, items)
+    out = cover_pdf(kind, items, mock)
     usable = B.BOTTOM - B.TOP
     left = min(sources[it['year']].left for it in items)
     right = max(sources[it['year']].right for it in items)
@@ -160,7 +166,7 @@ def build_mock(kind, items, sources):
     total_pages = out.page_count
     for i in range(1, total_pages):
         pg = out[i]
-        pg.insert_text((left, 30), f'TSA Mock {name}', fontname='hebo', fontsize=9, color=B.GREY)
+        pg.insert_text((left, 30), f'TSA {MOCKS[mock][1]} {name}', fontname='hebo', fontsize=9, color=B.GREY)
         right_txt = f'{n} questions  •  {n} marks  •  {mins} minutes'
         w = fitz.get_text_length(right_txt, fontname='helv', fontsize=9)
         pg.insert_text((B.PAGE_W - 40 - w, 30), right_txt, fontname='helv', fontsize=9, color=B.GREY)
@@ -169,7 +175,7 @@ def build_mock(kind, items, sources):
         w = fitz.get_text_length(foot, fontname='helv', fontsize=9)
         pg.insert_text((B.PAGE_W - 40 - w, 826), foot, fontname='helv', fontsize=9, color=B.GREY)
         pg.insert_text((left, 826), COPYRIGHT, fontname='helv', fontsize=7.5, color=B.GREY)
-    out.set_metadata({'title': f'TSA Mock {name}', 'subject': f'{n} questions, {n} marks, {mins} minutes'})
+    out.set_metadata({'title': f'TSA {MOCKS[mock][1]} {name}', 'subject': f'{n} questions, {n} marks, {mins} minutes'})
     return out
 
 
@@ -178,19 +184,22 @@ def main():
     ap.add_argument('--papers', required=True, type=Path)
     ap.add_argument('--answers', required=True, type=Path)
     ap.add_argument('--out', default=HERE.parent, type=Path)
+    ap.add_argument('--mock', default='Mock', choices=list(MOCKS))
     args = ap.parse_args()
-    selection = json.loads(SELECTION.read_text())
-    years = sorted({it['year'] for kind in ('CT', 'PS') for it in selection[kind]})
+    selection = json.loads((HERE / MOCKS[args.mock][0]).read_text())
+    years = sorted({it['year'] for kind in ('CT', 'PS') for it in selection.get(kind, [])})
     sources = {y: Source(args.papers, y) for y in years}
     keys = {y: B.read_answer_key(args.answers / f'TSA {y} Section 1 Answer Key.pdf') for y in years}
     for kind in ('CT', 'PS'):
+        if kind not in selection:
+            continue
         items = selection[kind]
         slug = B.SETS[kind]['slug']
-        paper = build_mock(kind, items, sources)
-        paper.save(args.out / 'TSA_Papers' / f'TSA_Mock_{slug}.pdf', garbage=4, deflate=True)
+        paper = build_mock(kind, items, sources, args.mock)
+        paper.save(args.out / 'TSA_Papers' / f'TSA_{args.mock}_{slug}.pdf', garbage=4, deflate=True)
         answers = [keys[it['year']][it['orig']] for it in items]
-        (args.out / 'TSA_Answers' / f'TSA_Mock_{slug}_Mark_Scheme.pdf').write_bytes(
-            B.mark_scheme_pdf('Mock', kind, answers))
+        (args.out / 'TSA_Answers' / f'TSA_{args.mock}_{slug}_Mark_Scheme.pdf').write_bytes(
+            B.mark_scheme_pdf(MOCKS[args.mock][1], kind, answers))
         print(kind, len(items), 'questions,', paper.page_count, 'pages, answers', ''.join(answers))
 
 
