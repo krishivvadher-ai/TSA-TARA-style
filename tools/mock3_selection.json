@@ -1,0 +1,230 @@
+{
+ "_about": "Mock 3 (Problem Solving only): the 25 past TSA Problem Solving questions judged to keep a strong candidate thinking hard for longest, none of them in Mock 1 or Mock 2. 154 candidates were screened (estimated minutes and how much of that time is demanding thinking); the leading 39 were solved and timed by two further judges. Score = minutes x sustain / 10 averaged over the three; a question the two judges rated below 5/10 for sustained demand (mostly routine) is left out. Questions with a debatable official answer are left out. rank = 1 for the longest sustained workout; minutes = the average estimate of how long a strong candidate needs.",
+ "PS": [
+  {
+   "year": "2022",
+   "orig": 42,
+   "n": 20,
+   "type": "Logic & deduction",
+   "rank": 8,
+   "minutes": 3.0,
+   "why": "Three payments, six different coins and a fixed price all have to fit together at once. You need to see what 'all different' forces, then build or test sets of coin pairs for the candidate prices while checking every condition."
+  },
+  {
+   "year": "2011",
+   "orig": 19,
+   "n": 9,
+   "type": "3D views & cubes",
+   "rank": 3,
+   "minutes": 3.5,
+   "why": "Working only from the plan, you build each of the four side views by tracking where the nearest surface steps forward or back, including through the gaps between the letters. Then you have to compare line positions with the options in proportion, which needs care all the way through."
+  },
+  {
+   "year": "2012",
+   "orig": 37,
+   "n": 18,
+   "type": "Reading tables & data",
+   "rank": 18,
+   "minutes": 2.87,
+   "why": "First you must decide what 'could not win' really means, then test it race by race using the most each driver could still score and the least the leader could."
+  },
+  {
+   "year": "2022",
+   "orig": 50,
+   "n": 25,
+   "type": "Maps, routes & networks",
+   "rank": 21,
+   "minutes": 3.17,
+   "why": "You have to turn five signs into distances between neighbouring towns and cross-check them all; the error only shows up when several signs are compared."
+  },
+  {
+   "year": "2019",
+   "orig": 30,
+   "n": 14,
+   "type": "Logic & deduction",
+   "rank": 4,
+   "minutes": 3.33,
+   "why": "You have to think like both players: for each pair Alex might take first you must find the opponent's best reply among the pairs left, and if she goes second you must check every possible opening against her best answer. Twelve adjacent pairs, two different scoring rules and a tie-break condition keep you juggling throughout."
+  },
+  {
+   "year": "2008",
+   "orig": 37,
+   "n": 18,
+   "type": "Area, perimeter & volume",
+   "rank": 23,
+   "minutes": 2.5,
+   "why": "Finding a layout that works is fairly quick, but being sure that nothing uses fewer hurdles means thinking about how shared sides and the outside edge trade off."
+  },
+  {
+   "year": "2022",
+   "orig": 19,
+   "n": 9,
+   "type": "Logic & deduction",
+   "rank": 13,
+   "minutes": 2.83,
+   "why": "Every possible swap must be checked against both rules for everyone it affects, including the person who moves to Tuesday; the rejected swaps fail for different reasons, so none can be skipped."
+  },
+  {
+   "year": "2020",
+   "orig": 24,
+   "n": 11,
+   "type": "Time zones & timetables",
+   "rank": 7,
+   "minutes": 3.17,
+   "why": "Some activities have fixed start times that clash, and the rest must squeeze round them inside time windows and set starting slots. You have to build a complete minute-by-minute timetable for more than one choice of what to leave out before you can be sure."
+  },
+  {
+   "year": "2018",
+   "orig": 42,
+   "n": 20,
+   "type": "Logic & deduction",
+   "rank": 19,
+   "minutes": 2.27,
+   "why": "Pure reasoning: you have to work out what 'ten different digits' forces about the six numbers, then push the largest number down and the smallest up at the same time."
+  },
+  {
+   "year": "2019",
+   "orig": 25,
+   "n": 12,
+   "type": "Money & best value",
+   "rank": 14,
+   "minutes": 3.5,
+   "why": "There are twenty hotel-and-dates combinations, each with its own deal, so you need to organise the search and judge which deals are worth working out in full."
+  },
+  {
+   "year": "2018",
+   "orig": 26,
+   "n": 13,
+   "type": "3D views & cubes",
+   "rank": 22,
+   "minutes": 2.5,
+   "why": "You have to turn one person's view into limits on each row of the pile, then test each option for the other person's view against those limits."
+  },
+  {
+   "year": "2023",
+   "orig": 18,
+   "n": 8,
+   "type": "Logic & deduction",
+   "rank": 24,
+   "minutes": 2.77,
+   "why": "After scoring twenty words, you have to think about the ways the five final words could be shared out and decide which gaps between top and bottom can and cannot occur. Showing that something can never happen takes more careful thought than finding an example."
+  },
+  {
+   "year": "2017",
+   "orig": 26,
+   "n": 13,
+   "type": "Nets & folding",
+   "rank": 2,
+   "minutes": 3.33,
+   "why": "You must fold the net in your head and follow every diagonal to the two corners it reaches, keeping a running count at all eight corners; one slip in orientation spoils the whole tally."
+  },
+  {
+   "year": "2009",
+   "orig": 8,
+   "n": 4,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 10,
+   "minutes": 2.83,
+   "why": "First you have to work out exactly what the hinges allow and what the pieces really are; then every shape must be split mentally into three pieces and tested to see whether the joins fall where hinges could be. Each option is a fresh piece of visual reasoning."
+  },
+  {
+   "year": "2013",
+   "orig": 44,
+   "n": 22,
+   "type": "3D views & cubes",
+   "rank": 16,
+   "minutes": 2.5,
+   "why": "The compass is not drawn the usual way round, so you must work out which end of the church you would see from each side and check windows and doors against every clue."
+  },
+  {
+   "year": "2009",
+   "orig": 26,
+   "n": 13,
+   "type": "Maps, routes & networks",
+   "rank": 25,
+   "minutes": 2.67,
+   "why": "You must work out shortest road distances between many pairs of towns, sometimes comparing two routes, and match a whole row of the chart to a single town. Holding the map and the triangular chart in mind together takes steady concentration."
+  },
+  {
+   "year": "2022",
+   "orig": 38,
+   "n": 19,
+   "type": "Charts & graphs",
+   "rank": 17,
+   "minutes": 2.83,
+   "why": "You must read each pie slice as a whole number of vehicles for two different totals, then subtract category by category before comparing bars."
+  },
+  {
+   "year": "2010",
+   "orig": 43,
+   "n": 21,
+   "type": "Logic & deduction",
+   "rank": 11,
+   "minutes": 3.0,
+   "why": "The carry-over rule is easy to misread, so you have to decode it from the example, rebuild both finalists' totals round by round, and then think about which final scores are actually possible."
+  },
+  {
+   "year": "2014",
+   "orig": 8,
+   "n": 4,
+   "type": "3D views & cubes",
+   "rank": 1,
+   "minutes": 3.67,
+   "why": "You first have to read the true outline of the joined-up T, L and F from a 3D drawing, then work out what each of the four edges looks like from the side, remembering that turning the paperweight over mirrors every view. Matching section lengths against five very similar strips keeps the pressure on to the very end."
+  },
+  {
+   "year": "2012",
+   "orig": 14,
+   "n": 7,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 6,
+   "minutes": 3.17,
+   "why": "Each layout has to be turned to every possible orientation and checked square by square: visible symbols must land in the right place and point the right way, hidden ones must sit under counters, and empty squares must stay empty. Keeping track of how each symbol's direction changes as the board turns is what makes it so sustained."
+  },
+  {
+   "year": "2019",
+   "orig": 20,
+   "n": 10,
+   "type": "3D views & cubes",
+   "rank": 5,
+   "minutes": 3.33,
+   "why": "The see-through block hides its real shape behind overlapping lines, so you first have to work out exactly what is solid, then check each view's proportions, notch position and inner lines against it."
+  },
+  {
+   "year": "2018",
+   "orig": 38,
+   "n": 19,
+   "type": "Maps, routes & networks",
+   "rank": 9,
+   "minutes": 3.17,
+   "why": "With no numbers on the grid, you must use the list to fix the map's position and scale, then place points accurately enough to tell apart two candidates that are very close together."
+  },
+  {
+   "year": "2018",
+   "orig": 30,
+   "n": 14,
+   "type": "Algebra & unknowns",
+   "rank": 12,
+   "minutes": 2.83,
+   "why": "Three coin values, two ordering conditions and an exact total: you need a systematic search that rules cases out quickly without missing the one that works."
+  },
+  {
+   "year": "2015",
+   "orig": 43,
+   "n": 21,
+   "type": "Time zones & timetables",
+   "rank": 20,
+   "minutes": 3.17,
+   "why": "Each option needs a chain of timetable look-ups with an hour's stop on the way out and a ninety-minute wait at the far end, and every connection must be checked before you can compare total times."
+  },
+  {
+   "year": "2018",
+   "orig": 32,
+   "n": 16,
+   "type": "2D shapes, tiling & rotations",
+   "rank": 15,
+   "minutes": 2.83,
+   "why": "Each outline is a separate jigsaw: you must fit the two irregular pieces together, turning and flipping them in your head, while paying close attention to the exact sizes of the slanted edges."
+  }
+ ]
+}

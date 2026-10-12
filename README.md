@@ -15,8 +15,9 @@ time limit and mark scheme.
 
 Each year therefore has four documents: two papers and their two mark schemes.
 
-The **mock papers** sit alongside them: Mock 1 (`TSA_Mock_Critical_Thinking.pdf` and `TSA_Mock_Problem_Solving.pdf`)
-and Mock 2 (`TSA_Mock2_Problem_Solving.pdf`), with their mark schemes and worked solutions under the same names.
+The **mock papers** sit alongside them: Mock 1 (`TSA_Mock_Critical_Thinking.pdf` and `TSA_Mock_Problem_Solving.pdf`),
+Mock 2 (`TSA_Mock2_Problem_Solving.pdf`) and Mock 3 (`TSA_Mock3_Problem_Solving.pdf`), with their mark schemes and
+worked solutions under the same names.
 
 ## The papers
 
@@ -116,6 +117,27 @@ they are the ones strong candidates get wrong most often.
 
 The choice is in `tools/mock2_selection.json`. Rebuild with `python tools/build_mock.py --mock Mock2 ...` and
 `python tools/worked_solutions/build.py Mock2`.
+
+### Mock 3 (Problem Solving only)
+
+One more 25-question Problem Solving paper: the questions that keep a strong candidate **thinking hard for
+longest**. Each needs several minutes of sustained reasoning (holding several facts or cases in mind, checking
+options, visualising), not just reading or easy arithmetic. None of them is in Mock 1 or Mock 2, and questions
+with a debatable official answer are left out. Together they need about 75 minutes of work against the
+45-minute limit, so you will not finish: the paper trains stamina and choosing which questions to leave. Each
+worked solution says roughly how long the question takes.
+
+How they were chosen:
+1. 154 candidates were picked out by the length of their worked solutions, their question text and earlier
+   timing estimates.
+2. Four screeners estimated, for each one, the minutes a strong candidate needs and how much of that time is
+   demanding thinking (1-10).
+3. The 39 leaders were solved and timed again by two independent judges.
+4. Score = minutes x demand / 10 ("demanding minutes"), averaged over the screener and the two judges. The 25
+   highest go in, except that a question both judges found mostly routine (below 5/10 for demand) is left out.
+
+The choice is in `tools/mock3_selection.json`. Rebuild with `python tools/build_mock.py --mock Mock3 ...` and
+`python tools/worked_solutions/build.py Mock3`.
 
 ## Time limits
 
